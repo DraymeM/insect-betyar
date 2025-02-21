@@ -1,8 +1,11 @@
-import './App.css'
+import { Outlet } from '@tanstack/react-router'
+import NavBar from './components/common/NavBar'
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
+      <NavBar />
+      <Outlet /> {/* Renders the matched route */}
     </>
   )
 }
