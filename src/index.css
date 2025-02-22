@@ -3,14 +3,141 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #25292c;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(100vh - 80px); /* Levonjuk a navbar magasságát */
+  width: 100%;
+}
+.limit-selector {
+  margin-bottom: 15px;
+  position: relative; /* Enable positioning */
+  left: 33vw; /* Adjust to your desired position */
+  display: flex; /* Flexbox to align label and select horizontally */
+  align-items: center; /* Align vertically in the middle */
+  background-color: #2b2a33; /* Background color for the entire container */
+  border: 1px solid #41d5f5; /* Border around the container */
+  padding: 5px; /* Padding for some space inside the container */
+  border-radius: 8px; /* Optional, for rounded corners */
+}
+
+.limit-selector label {
+  font-weight: bold;
+  margin-right: 10px; /* Space between label and select */
+  color: #ccc;
+}
+
+.limit-selector select {
+  padding: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #2b2a33; /* Background for the select dropdown */
+  color: #ccc; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Optional, for rounded corners */
+}
+h1 {
+  margin-top: 10vh;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+
+}
+
+
+.card {
+  border: 1px solid #41d5f5;
+  padding: 1rem;
+  margin: 2vh;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #2b2a33;
+}
+
+.card h3 {
+  color: #fff;
+}
+.card p {
+  color: #ccc;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  max-width: 250px;
+}
+
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card .btn {
+  background-color: #00a7da; /* Same as pagination button */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Ensure the button works like a block-level button */
+}
+
+.card .btn:hover {
+  background-color: #0382a8; /* Same hover effect as pagination button */
+}
+
+.card .btn:active {
+  background-color: #005f73; /* Optional active state color */
+}
+
+.pagination {
+  margin-top: 2vh;
+  margin-bottom: 5vh;
+}
+
+.pagination button {
+  background-color: #00a7da;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.pagination button.active {
+  background-color: #0382a8;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  background-color: rgb(92, 122, 131);
+  cursor: not-allowed;
 }
 /* Style for active link and icon */
 .navbar-nav .nav-link {
@@ -22,6 +149,7 @@
   color: lightgray;
 }
 
+/* Active link with glowing effect */
 .navbar-nav .nav-link.active {
   color: #41d5f5 !important; /* Cyan blue for active link */
 }
@@ -30,11 +158,16 @@
   color: #41d5f5; /* Cyan blue for icon when active */
 }
 
+h1 {
+  color: aliceblue;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -43,6 +176,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  background-color: #293035;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -63,15 +197,17 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     color: #213547;
     background-color: #292929;
@@ -81,5 +217,13 @@ button:focus-visible {
   }
   button {
     background-color: #ffffff;
+  }
+}
+
+@media (max-width: 900px) {
+  .limit-selector {
+    margin-bottom: 15px;
+    position: relative; /* Enable absolute positioning */
+    left: 0%; /* Position it on the right */
   }
 }
