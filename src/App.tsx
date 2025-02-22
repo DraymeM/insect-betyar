@@ -1,5 +1,6 @@
 import { Outlet } from '@tanstack/react-router'
 import NavBar from './components/common/NavBar'
+import './index.css'
 
 const App: React.FC = () => {
   return (
