@@ -1,48 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'; // Import arrow icons
+import axios from 'axios';  
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Card from '../components/common/Card';
 
 const About: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(5); // Kezdő limit
+  const [limit, setLimit] = useState(5); 
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('/data.json');
-      const data = await response.json();
-      setTotalItems(data.length); // Összes elem száma
-      setItems(data.slice(0, limit)); // Első `limit` elem betöltése
+      try {
+        const response = await axios.get('/insect-betyar/data.json');
+        const data = response.data;
+        setTotalItems(data.length);
+        setItems(data.slice(0, limit)); 
+      } catch (error) {
+        console.error('Error loading the page:', error);
+      }
     };
     fetchData();
-  }, [limit]); // limit változáskor frissítjük az adatokat
+  }, [limit]);
 
-  // Oldal váltás kezelése
+  
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
 
     setCurrentPage(newPage);
-    fetch('/data.json')
-      .then((res) => res.json())
-      .then((data) => {
+    axios
+      .get('/insect-betyar/data.json') 
+      .then((res) => {
+        const data = res.data;
         const startIndex = (newPage - 1) * limit;
-        setItems(data.slice(startIndex, startIndex + limit)); // Csak az adott oldal elemei
+        setItems(data.slice(startIndex, startIndex + limit)); 
+      })
+      .catch((error) => {
+        console.error('Hiba történt az oldalak betöltésekor:', error);
       });
   };
 
-  // Elem limit változtatása
+ 
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLimit(Number(e.target.value));
-    setCurrentPage(1); // Újra az első oldalra ugrunk
+    setCurrentPage(1); 
   };
 
-  // Összes oldal kiszámítása
+ 
   const totalPages = Math.ceil(totalItems / limit);
 
   return (
     <div className="page">
-      <h1>Galéria</h1>
+      
 
       {/* Limit kiválasztása */}
       <div className="limit-selector">
@@ -62,7 +71,7 @@ const About: React.FC = () => {
             id={item.id}
             name={item.name}
             picture={item.picture}
-            description={item.description}
+            
           />
         ))}
       </div>

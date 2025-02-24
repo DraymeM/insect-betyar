@@ -1,6 +1,6 @@
 import { Link, useMatchRoute } from '@tanstack/react-router'
 import { Navbar, Nav, Container } from 'react-bootstrap'
-import { FaHome } from 'react-icons/fa' // Import the house icon
+import { FaHome } from 'react-icons/fa'
 
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute()
@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="ms-0">
           <img
-            src="/insectbetyarlogo.png" 
+            src="/insect-betyar/insectbetyarlogo.png"
             alt="Insect Betyár Logo"
             height="30"
             className="d-inline-block align-top"
@@ -19,23 +19,23 @@ const NavBar: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link 
-              as={Link} 
-              to="/" 
+            <Nav.Link
+              as={Link}
+              to="/"
               className={matchRoute({ to: '/' }) ? 'active' : ''}
             >
               <FaHome /> Főoldal
             </Nav.Link>
-            <Nav.Link 
-              as={Link} 
-              to="/about" 
+            <Nav.Link
+              as={Link}
+              to="/about"
               className={matchRoute({ to: '/about' }) ? 'active' : ''}
             >
               Galéria
             </Nav.Link>
-            <Nav.Link 
-              as={Link} 
-              to="/contact" 
+            <Nav.Link
+              as={Link}
+              to="/contact"
               className={matchRoute({ to: '/contact' }) ? 'active' : ''}
             >
               Elérhetőségek

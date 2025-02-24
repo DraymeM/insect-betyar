@@ -12,14 +12,23 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(90vh - 10vh); /* Ensure it's not blocked by the navbar */
+}
+/* Centering the page */
 .page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: calc(100vh - 80px); /* Levonjuk a navbar magasságát */
+  min-height: calc(100vh - 10vh); /* Adjust for navbar height */
   width: 100%;
+  margin-top: 10vh; /* Ensuring margin to avoid navbar overlap */
 }
 .limit-selector {
   margin-bottom: 15px;
@@ -52,6 +61,9 @@ h1 {
   margin-top: 10vh;
   margin-bottom: 2rem;
   text-align: center;
+  color: aliceblue;
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
 .card-list {
@@ -158,9 +170,7 @@ h1 {
   color: #41d5f5; /* Cyan blue for icon when active */
 }
 
-h1 {
-  color: aliceblue;
-}
+
 
 a {
   font-weight: 500;
@@ -174,17 +184,11 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   background-color: #293035;
   min-width: 320px;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
 button {
   border-radius: 8px;
@@ -210,7 +214,7 @@ button:focus-visible {
 @media (prefers-color-scheme: dark) {
   :root {
     color: #213547;
-    background-color: #292929;
+    background-color: #293035;
   }
   a:hover {
     color: #747bff;
