@@ -2,15 +2,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
+import './ItemDetails.css'; // Import custom CSS for animations
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
 const ItemDetail: React.FC = () => {
   const { id } = useParams({ strict: false });
   const [item, setItem] = useState<any>(null);
-  const [imgSrc, setImgSrc] = useState<string>(''); // To manage the image source
-  const [imgHeight, setImgHeight] = useState<number>(0); // Store image height
-  const [maxSectionHeight, setMaxSectionHeight] = useState<number>(0); // Max height for Name, Description, Price, and Back button
+  const [imgSrc, setImgSrc] = useState<string>('');
+  const [imgHeight, setImgHeight] = useState<number>(0);
+  const [maxSectionHeight, setMaxSectionHeight] = useState<number>(0);
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const ItemDetail: React.FC = () => {
         const data = await response.json();
         const foundItem = data.find((i: { id: number }) => i.id.toString() === id);
         setItem(foundItem);
-        setImgSrc(foundItem?.picture || placeholderImage); // Set image source to fetched or placeholder
+        setImgSrc(foundItem?.picture || placeholderImage);
       } catch (error) {
         console.error("Error fetching item:", error);
       }
@@ -30,14 +31,13 @@ const ItemDetail: React.FC = () => {
 
   useEffect(() => {
     if (imageRef.current) {
-      setImgHeight(imageRef.current.offsetHeight); // Set the image height after it has loaded
+      setImgHeight(imageRef.current.offsetHeight);
     }
   }, [imgSrc]);
 
-  // Once image height is set, calculate max section height
   useEffect(() => {
     if (imgHeight) {
-      setMaxSectionHeight(imgHeight); // Set all sections to be as tall as the image
+      setMaxSectionHeight(imgHeight);
     }
   }, [imgHeight]);
 
@@ -53,9 +53,9 @@ const ItemDetail: React.FC = () => {
               ref={imageRef}
               src={imgSrc}
               alt={item.name}
-              onError={() => setImgSrc(placeholderImage)} // Fallback to placeholder on error
-              className="img-fluid"
-              style={{border: '2px solid #41d5f5', position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', objectFit: 'cover' }}
+              onError={() => setImgSrc(placeholderImage)}
+              className="img-fluid animate-pop-in"
+              style={{ border: '2px solid #41d5f5', position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
         </Col>
@@ -63,24 +63,24 @@ const ItemDetail: React.FC = () => {
         {/* Details Column */}
         <Col md={8} className="d-flex flex-column justify-content-between text-center" style={{ height: `${imgHeight}px` }}>
           {/* Name Section */}
-          <div className="p-3" style={{ border: '2px solid #41d5f5', backgroundColor: '#3d395c', height: `${maxSectionHeight}px`, color: 'white' }}>
+          <div className="p-3 animate-slide-in-left" style={{ border: '2px solid #41d5f5', backgroundColor: '#3d395c', height: `${maxSectionHeight * 0.2}px`, color: 'white' }}>
             <h3 style={{ fontSize: '1.3rem', margin: '0' }}>{item.name}</h3>
           </div>
 
           {/* Description Section */}
-          <div className="p-3" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight}px`, color: 'white' }}>
+          <div className="p-3 animate-slide-in-right" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight * 0.4}px`, color: 'white' }}>
             <p>{item.description}</p>
           </div>
 
           {/* Price Section */}
-          <div className="p-3" style={{ border: '2px solid #41d5f5', height: `${maxSectionHeight}px`, backgroundColor: '#2b2a33' }}>
+          <div className="p-3 animate-slide-in-left" style={{ border: '2px solid #41d5f5', height: `${maxSectionHeight * 0.2}px`, backgroundColor: '#2b2a33' }}>
             <p style={{ fontSize: '1.3rem', color: 'white' }}>Ár: {item.price} Ft</p>
           </div>
 
           {/* Back Button Section */}
-          <div className="p-3" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight}px` }}>
+          <div className="p-3 animate-slide-in-right" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight * 0.2}px` }}>
             <div className="d-flex justify-content-center mt-3">
-              <Link to="/about" className="btn btn-secondary">
+              <Link to="/about" className="btn btn-secondary animate-fade-in">
                 <FaArrowLeft /> Vissza
               </Link>
             </div>
