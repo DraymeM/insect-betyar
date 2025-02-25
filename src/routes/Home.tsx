@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Carousel } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Card from '../components/common/Card'; // Reuse the same Card component
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
 const Home: React.FC = () => {
   const [latestItems, setLatestItems] = useState<any[]>([]);
-  const [carouselImages, setCarouselImages] = useState<string[]>([]);
+
 
   // Fetch the last 3 items from data.json
   useEffect(() => {
@@ -32,9 +32,9 @@ const Home: React.FC = () => {
 
       {/* Latest Items Section */}
       <div className="section py-5">
+          <h2 className="text-center mb-4">Latest Items</h2>
         <Container>
           {/* Heading */}
-          <h2 className="text-center mb-4">Latest Items</h2>
 
           {/* Cards */}
           <Row className="justify-content-center g-4">
