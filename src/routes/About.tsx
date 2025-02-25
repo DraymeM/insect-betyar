@@ -67,12 +67,17 @@ const About: React.FC = () => {
     navigate({ to: `/about/category/${selectedCategory}` });
   };
 
+  const handleBackToCategories = () => {
+    navigate({ to: '/about' });
+  };
+
   const totalPages = Math.ceil(totalItems / limit);
 
   return (
     <div className="page">
       {/* Show Category Cards if no category is selected */}
       {!category && (
+        <div className="section py-5">
         <div className="category-list">
           {categories.map((cat) => (
             <CategoryCard
@@ -83,12 +88,21 @@ const About: React.FC = () => {
             />
           ))}
         </div>
+        </div>
       )}
 
       {/* Show Items if a category is selected */}
       {category && (
         <>
+          {/* Back Button */}
+          <div className="back-button-container">
+            <button onClick={handleBackToCategories} className="back-button">
+              <FaArrowLeft /> Back to Categories
+            </button>
+          </div>
+
           {/* Limit Selector */}
+          
           <div className="limit-selector">
             <label htmlFor="limit">Items per page: </label>
             <select id="limit" value={limit} onChange={handleLimitChange}>
@@ -100,11 +114,13 @@ const About: React.FC = () => {
           </div>
 
           {/* Item List */}
+          
           <div className="card-list">
             {items.map((item) => (
               <Card key={item.id} id={item.id} name={item.name} picture={item.picture} />
             ))}
           </div>
+
 
           {/* Pagination */}
           <div className="pagination">
@@ -129,6 +145,7 @@ const About: React.FC = () => {
               <FaArrowRight />
             </button>
           </div>
+          
         </>
       )}
     </div>
