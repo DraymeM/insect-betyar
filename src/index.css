@@ -230,7 +230,7 @@ p, h2{
   background-color: #212224; /* Light gray background */
   border-radius: 5vh;
   padding:  0; /* Add vertical padding */
-  max-height: fit-content;
+  max-height: 80vh;
   max-width: 80vw;
   min-width: 80vw;
   margin: 10vh;
@@ -274,7 +274,37 @@ body {
   min-height: 100vh;
 }
 
+/* Add this to your global CSS file or inline styles */
+.carousel {
+  width: 100%;
+  height: 100%;
 
+  overflow: hidden;
+}
+
+.carousel-item {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Add this to your global CSS file */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Adjust the width of the control buttons */
+
+  background-color: rgba(20, 20, 20, 0.3); /* Add a background color for visibility */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Make the arrows white */
+  color:#41d5f5;
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -314,5 +344,10 @@ button:focus-visible {
     margin-bottom: 15px;
     position: relative; /* Enable absolute positioning */
     left: 0%; /* Position it on the right */
+  }
+  .section {
+
+    max-height: fit-content;
+
   }
 }
