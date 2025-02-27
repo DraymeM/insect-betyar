@@ -178,6 +178,10 @@ p, h2{
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 20px;
+  background-color: #212224; /* Light gray background */
+  border-radius: 2vh;
+  max-width: 80vw;
+  min-width: 80vw;
 }
 
 .pagination {
@@ -205,40 +209,104 @@ p, h2{
   background-color: rgb(92, 122, 131);
   cursor: not-allowed;
 }
-/* Style for active link and icon */
+/* Base styles for navbar */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 .navbar-nav .nav-link {
   color: white;
+  position: relative;
+  padding: 0.5rem 1rem;
   transition: all 0.3s ease-in-out;
 }
 
-.navbar-nav .nav-link:hover {
-  color: lightgray;
+/* Hover effect with underline animation */
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #41d5f5;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
 }
 
-/* Active link with glowing effect */
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active link with glowing effect and underline */
 .navbar-nav .nav-link.active {
-  color: #41d5f5 !important; /* Cyan blue for active link */
+  color: #41d5f5 !important;
+  font-weight: bold;
 }
 
-.navbar-nav .nav-link.active svg {
-  color: #41d5f5; /* Cyan blue for icon when active */
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+  background-color: #41d5f5;
+}
+
+/* Icon animation on hover */
+.navbar-nav .nav-link svg {
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover svg {
+  transform: scale(1.2);
+}
+
+/* Navbar toggle button animation */
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.navbar-toggler-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  transform: rotate(90deg);
+}
+
+/* Smooth collapse animation */
+.navbar-collapse {
+  transition: max-height 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.navbar-collapse.collapsing {
+  max-height: 0;
+}
+
+.navbar-collapse.show {
+  max-height: 500px; /* Adjust based on your content */
 }
 
 /* styles.css */
 /* styles.css */
 .section {
   background-color: #212224; /* Light gray background */
-  border-radius: 5vh;
+  border-radius: 2vh;
   padding:  0; /* Add vertical padding */
   max-height: 80vh;
   max-width: 80vw;
   min-width: 80vw;
-  margin: 10vh;
+  margin: 5vh;
 }
 
 .section h2 {
-  font-size: 2.5rem; /* Larger heading */
+  font-size: 2rem; /* Larger heading */
   font-weight: bold;
+  margin-bottom: 1vh;
 }
 /* styles.css */
 .biography-image-container {
@@ -246,7 +314,7 @@ p, h2{
   width: 100%;
   padding-top: 100%; /* 1:1 Aspect Ratio */
   overflow: hidden;
-  border-radius: 5vh; /* Optional: Match the rounded corners */
+  border-radius: 3vh; /* Optional: Match the rounded corners */
 }
 
 .biography-image {

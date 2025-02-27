@@ -10,5 +10,17 @@
     {
       "name": "Category C",
       "image": "/images/category-c.jpg"
+    },
+    {
+      "name": "Category D",
+      "image": "/images/category-a.jpg"
+    },
+    {
+      "name": "Category E",
+      "image": "/images/category-b.jpg"
+    },
+    {
+      "name": "Category F",
+      "image": "/images/category-c.jpg"
     }
   ]

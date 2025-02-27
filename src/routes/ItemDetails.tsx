@@ -44,7 +44,7 @@ const ItemDetail: React.FC = () => {
   if (!item) return <p>Loading...</p>;
 
   return (
-    <Container className="mt-5 d-flex justify-content-center align-items-center" style={{ minHeight: '80vh', marginTop: '10vh' }}>
+    <Container className="mt-5 d-flex justify-content-center align-items-center" style={{ minHeight: '70vh', marginTop: '10vh' }}>
       <Row className="w-100 no-gutters">
         {/* Image Column */}
         <Col md={4} className="d-flex justify-content-center mb-4 mb-md-0" style={{ height: `${imgHeight}px` }}>
@@ -80,7 +80,7 @@ const ItemDetail: React.FC = () => {
           {/* Back Button Section */}
           <div className="p-3 animate-slide-in-right" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight * 0.2}px` }}>
             <div className="d-flex justify-content-center mt-3">
-              <Link to="/about" className="btn btn-secondary animate-fade-in">
+              <Link to="/about/category/$category" className="btn btn-secondary animate-fade-in">
                 <FaArrowLeft /> Vissza
               </Link>
             </div>

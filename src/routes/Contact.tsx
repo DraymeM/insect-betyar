@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
 
   return (
     <div className="page">
-      <Section title="Contact Us">
+      <Section className="d-flex justify-content-center align-items-center">
         <Row className="mb-5">
           <ContactInfo
             email="info@example.com"

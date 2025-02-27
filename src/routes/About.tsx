@@ -77,7 +77,7 @@ const About: React.FC = () => {
     <div className="page">
       {/* Show Category Cards if no category is selected */}
       {!category && (
-        <div className="section py-5">
+
         <div className="category-list">
           {categories.map((cat) => (
             <CategoryCard
@@ -88,7 +88,7 @@ const About: React.FC = () => {
             />
           ))}
         </div>
-        </div>
+
       )}
 
       {/* Show Items if a category is selected */}

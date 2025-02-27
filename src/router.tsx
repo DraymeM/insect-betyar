@@ -12,7 +12,7 @@ const rootRoute = createRootRoute({ component: App });
 const homeRoute = createRoute({ path: '/', getParentRoute: () => rootRoute, component: Home });
 const aboutRoute = createRoute({ path: '/about', getParentRoute: () => rootRoute, component: About });
 const categoryRoute = createRoute({ path: '/about/category/$category', getParentRoute: () => rootRoute, component: About });
-const itemDetailRoute = createRoute({ path: '/about/item/$id', getParentRoute: () => rootRoute, component: ItemDetail });
+const itemDetailRoute = createRoute({ path: '/about/category/$category/item/$id', getParentRoute: () => rootRoute, component: ItemDetail });
 const contactRoute = createRoute({ path: '/contact', getParentRoute: () => rootRoute, component: Contact });
 
 // Create the router

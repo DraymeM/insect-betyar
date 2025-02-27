@@ -7,8 +7,6 @@ interface CarouselSectionProps {
 }
 
 const CarouselSection: React.FC<CarouselSectionProps> = ({ images, placeholderImage }) => {
-  console.log('CarouselSection images:', images); // Debugging: Log the images array
-  console.log('CarouselSection placeholderImage:', placeholderImage); // Debugging: Log the placeholder image
 
   return (
     <div style={{ width: '100%', maxWidth: '900px', margin: '0 auto' }}> {/* Adjust width and center the carousel */}

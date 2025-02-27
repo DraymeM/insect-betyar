@@ -2,6 +2,7 @@ import { Link, useMatchRoute } from '@tanstack/react-router'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { FaHome } from 'react-icons/fa'
 
+
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute()
 
