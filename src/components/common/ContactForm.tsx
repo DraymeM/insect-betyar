@@ -52,7 +52,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
         </Alert>
       )}
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formName">
+        <Form.Group className="mb-2" controlId="formName">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"

@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture }) => {
         onError={() => setImgSrc(placeholderImage)} // Ha a kép betöltése sikertelen, beállítja a placeholder képet
       />
       
-      <Link to={`/about/item/${id}`} className="btn">Részletek</Link>
+      <Link to={`/about/category/$category/item/${id}`} className="btn">Részletek</Link>
     </div>
   );
 };
