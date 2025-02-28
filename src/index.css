@@ -27,7 +27,7 @@
   justify-content: center;
   text-align: center;
   overflow-x: hidden;
-  min-height: calc(100vh - 10vh); /* Adjust for navbar height */
+  
   width: 100%;
   margin-top: 10vh; /* Ensuring margin to avoid navbar overlap */
 }
@@ -297,7 +297,7 @@ p, h2{
   background-color: #212224; /* Light gray background */
   border-radius: 2vh;
   padding:  0; /* Add vertical padding */
-  max-height: 80vh;
+  height: fit-content;
   max-width: 80vw;
   min-width: 80vw;
   margin: 5vh;
