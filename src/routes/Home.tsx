@@ -1,9 +1,11 @@
+//src/routes/Home.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Row, Col,} from 'react-bootstrap';
 import Card from '../components/common/Card';
 import Section from '../components/common/Section';
 import CarouselSection from '../components/common/CarouselSection';
+import { fetchLatestItems } from '../api/repo';
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
@@ -17,45 +19,22 @@ const Home: React.FC = () => {
 
   // Fetch the last 3 items from data.json
   useEffect(() => {
-    const fetchLatestItems = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('/insect-betyar/data.json');
-        const data = response.data;
-        const lastThreeItems = data.slice(-3); // Get the last 3 items
+        const lastThreeItems = await fetchLatestItems();
         setLatestItems(lastThreeItems);
       } catch (error) {
         console.error('Error fetching latest items:', error);
       }
     };
-    fetchLatestItems();
+
+    fetchData();
   }, []);
 
-  // Example carousel images (replace with your own logic to fetch images)
-
-  console.log('Home component carouselImages:', carouselImages); // Debugging: Log the carousel images
-
   return (
+    
     <div className="page">
-      {/* Latest Items Section */}
-      <Section title="Latest Items">
-        <Row className="justify-content-center g-4">
-          {latestItems.map((item) => (
-            <Col key={item.id} xs={12} md={6} lg={4} className="mb-4">
-              <Card
-                id={item.id}
-                name={item.name}
-                picture={item.picture}
-              />
-            </Col>
-          ))}
-        </Row>
-      </Section>
-
-      {/* Carousel Section */}
-      <Section className="d-flex justify-content-center align-items-center">
-        <CarouselSection images={carouselImages} placeholderImage={placeholderImage} />
-      </Section>
-
+      
       {/* Biography Section */}
       <Section className="d-flex justify-content-center align-items-center">
         <Row className="align-items-center">
@@ -88,6 +67,26 @@ const Home: React.FC = () => {
           </Col>
         </Row>
       </Section>
+      {/* Latest Items Section */}
+      <Section title="Latest Items">
+        <Row className="justify-content-center g-4">
+          {latestItems.map((item) => (
+            <Col key={item.id} xs={12} md={6} lg={4} className="mb-4">
+              <Card
+                id={item.id}
+                name={item.name}
+                picture={item.picture}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Section>
+
+      {/* Carousel Section */}
+      <Section className="d-flex justify-content-center align-items-center">
+        <CarouselSection images={carouselImages} placeholderImage={placeholderImage} />
+      </Section>
+
     </div>
   );
 };

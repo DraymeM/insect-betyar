@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import CategoryCard from '../components/common/CategoryCard';
 import { useParams, useNavigate } from '@tanstack/react-router';
+import { fetchCategories, fetchItems } from '../api/repo'; // Import the new functions
 
 interface Category {
   name: string;
@@ -22,16 +22,15 @@ const About: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch categories from categories.json
-        const categoriesResponse = await axios.get('/insect-betyar/categories.json');
-        setCategories(categoriesResponse.data);
+        // Fetch categories
+        const categoriesData = await fetchCategories();
+        setCategories(categoriesData);
 
-        // Fetch items from data.json
-        const itemsResponse = await axios.get('/insect-betyar/data.json');
-        const data = itemsResponse.data;
+        // Fetch items
+        const itemsData = await fetchItems();
 
         // Filter items by category if a category is selected
-        const filteredItems = category ? data.filter((item: any) => item.category === category) : [];
+        const filteredItems = category ? itemsData.filter((item: any) => item.category === category) : [];
         setTotalItems(filteredItems.length);
         setItems(filteredItems.slice(0, limit));
       } catch (error) {
@@ -45,10 +44,8 @@ const About: React.FC = () => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
 
     setCurrentPage(newPage);
-    axios
-      .get('/insect-betyar/data.json')
-      .then((res) => {
-        const data = res.data;
+    fetchItems()
+      .then((data) => {
         const filteredItems = category ? data.filter((item: any) => item.category === category) : [];
         const startIndex = (newPage - 1) * limit;
         setItems(filteredItems.slice(startIndex, startIndex + limit));
@@ -77,7 +74,6 @@ const About: React.FC = () => {
     <div className="page">
       {/* Show Category Cards if no category is selected */}
       {!category && (
-
         <div className="category-list">
           {categories.map((cat) => (
             <CategoryCard
@@ -88,7 +84,6 @@ const About: React.FC = () => {
             />
           ))}
         </div>
-
       )}
 
       {/* Show Items if a category is selected */}
@@ -102,7 +97,6 @@ const About: React.FC = () => {
           </div>
 
           {/* Limit Selector */}
-          
           <div className="limit-selector">
             <label htmlFor="limit">Items per page: </label>
             <select id="limit" value={limit} onChange={handleLimitChange}>
@@ -114,13 +108,11 @@ const About: React.FC = () => {
           </div>
 
           {/* Item List */}
-          
           <div className="card-list">
             {items.map((item) => (
               <Card key={item.id} id={item.id} name={item.name} picture={item.picture} />
             ))}
           </div>
-
 
           {/* Pagination */}
           <div className="pagination">
@@ -145,7 +137,6 @@ const About: React.FC = () => {
               <FaArrowRight />
             </button>
           </div>
-          
         </>
       )}
     </div>

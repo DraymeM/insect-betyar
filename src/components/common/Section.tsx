@@ -9,7 +9,7 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({ title, children, className }) => {
   return (
-    <div className={`section py-5 ${className || ''}`}>
+    <div className={`section mb-5 ${className || ''}`}>
         {title && <h2 className="text-center mb-4">{title}</h2>}
       <Container>
         {/* Section Title */}
