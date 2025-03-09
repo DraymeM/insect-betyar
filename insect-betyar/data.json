@@ -2,10 +2,10 @@
   {
     "id": 1,
     "name": "Item 1",
-    "picture": "/images/item1.jpg",
-    "description": "This is a description for Item 1",
+    "picture": "/images/insectbetyarlogo.png",
+    "description": "This is a description for Item  ",
     "price": "$10",
-    "category": "Category A"
+    "category": "Category B"
   },
   {
     "id": 2,
@@ -22,13 +22,5 @@
     "description": "This is a description for Item 3",
     "price": "$30",
     "category": "Category A"
-  },
-  {
-    "id": 4,
-    "name": "Item 4",
-    "picture": "/images/item4.jpg",
-    "description": "This is a description for Item 4",
-    "price": "$30",
-    "category": "Category B"
   }
 ]

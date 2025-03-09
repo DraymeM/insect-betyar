@@ -22,13 +22,5 @@
     "description": "This is a description for Item 3",
     "price": "$30",
     "category": "Category A"
-  },
-  {
-    "id": 4,
-    "name": "Item 4",
-    "picture": "/images/item4.jpg",
-    "description": "This is a description for Item 4",
-    "price": "$30",
-    "category": "Category B"
   }
 ]

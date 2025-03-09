@@ -1,9 +1,11 @@
+// src/routes/About.tsx
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Card from '../components/common/Card';
 import CategoryCard from '../components/common/CategoryCard';
 import { useParams, useNavigate } from '@tanstack/react-router';
-import { fetchCategories, fetchItems } from '../api/repo'; // Import the new functions
+import { fetchCategories, fetchItems } from '../api/repo';
+import { useDebouncedCallback } from 'use-debounce'; // Import useDebouncedCallback
 
 interface Category {
   name: string;
@@ -19,28 +21,12 @@ const About: React.FC = () => {
   const { category } = useParams({ strict: false });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch categories
-        const categoriesData = await fetchCategories();
-        setCategories(categoriesData);
+  // Debounced handlers
+  const debouncedNavigate = useDebouncedCallback((to: string) => {
+    navigate({ to });
+  }, 300); // 300ms debounce delay
 
-        // Fetch items
-        const itemsData = await fetchItems();
-
-        // Filter items by category if a category is selected
-        const filteredItems = category ? itemsData.filter((item: any) => item.category === category) : [];
-        setTotalItems(filteredItems.length);
-        setItems(filteredItems.slice(0, limit));
-      } catch (error) {
-        console.error('Error loading the page:', error);
-      }
-    };
-    fetchData();
-  }, [limit, category]);
-
-  const handlePageChange = (newPage: number) => {
+  const debouncedPageChange = useDebouncedCallback((newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
 
     setCurrentPage(newPage);
@@ -53,19 +39,40 @@ const About: React.FC = () => {
       .catch((error) => {
         console.error('Error loading items:', error);
       });
-  };
+  }, 300);
 
-  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLimit(Number(e.target.value));
+  const debouncedLimitChange = useDebouncedCallback((value: number) => {
+    setLimit(value);
     setCurrentPage(1);
-  };
+  }, 300);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categoriesData = await fetchCategories();
+        setCategories(categoriesData);
+
+        const itemsData = await fetchItems();
+        const filteredItems = category ? itemsData.filter((item: any) => item.category === category) : [];
+        setTotalItems(filteredItems.length);
+        setItems(filteredItems.slice(0, limit));
+      } catch (error) {
+        console.error('Error loading the page:', error);
+      }
+    };
+    fetchData();
+  }, [limit, category]);
 
   const handleCategorySelect = (selectedCategory: string) => {
-    navigate({ to: `/about/category/${selectedCategory}` });
+    debouncedNavigate(`/about/category/${selectedCategory}`);
   };
 
   const handleBackToCategories = () => {
-    navigate({ to: '/about' });
+    debouncedNavigate('/about');
+  };
+
+  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    debouncedLimitChange(Number(e.target.value));
   };
 
   const totalPages = Math.ceil(totalItems / limit);
@@ -92,7 +99,7 @@ const About: React.FC = () => {
           {/* Back Button */}
           <div className="back-button-container">
             <button onClick={handleBackToCategories} className="back-button">
-              <FaArrowLeft /> Back to Categories
+              <FaArrowLeft /> Vissza a kategóriákhoz
             </button>
           </div>
 
@@ -116,14 +123,14 @@ const About: React.FC = () => {
 
           {/* Pagination */}
           <div className="pagination">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <button onClick={() => debouncedPageChange(currentPage - 1)} disabled={currentPage === 1}>
               <FaArrowLeft />
             </button>
 
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
               <button
                 key={page}
-                onClick={() => handlePageChange(page)}
+                onClick={() => debouncedPageChange(page)}
                 className={page === currentPage ? 'active' : ''}
               >
                 {page}
@@ -131,7 +138,7 @@ const About: React.FC = () => {
             ))}
 
             <button
-              onClick={() => handlePageChange(currentPage + 1)}
+              onClick={() => debouncedPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
               <FaArrowRight />

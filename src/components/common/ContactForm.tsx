@@ -1,6 +1,7 @@
+// src/components/common/ContactForm.tsx
 import React, { useState } from 'react';
 import { Col, Form, Button, Alert } from 'react-bootstrap';
-//import emailjs from 'emailjs-com';
+import { motion } from 'framer-motion'; // Import Framer Motion
 
 interface ContactFormProps {
   onSubmit: (formData: { name: string; email: string; message: string }) => Promise<void>;
@@ -38,61 +39,110 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     }
   };
 
+  // Animation Variants
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  const fieldVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5, ease: "easeOut", delay: i * 0.2 },
+    }),
+  };
+
+  const alertVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05, transition: { duration: 0.3 } },
+    tap: { scale: 0.95, transition: { duration: 0.2 } },
+  };
+
   return (
     <Col md={6}>
-      <h2>Send Us a Message</h2>
-      {isSuccess && (
-        <Alert variant="success" className="mb-4">
-          Your message has been sent successfully!
-        </Alert>
-      )}
-      {error && (
-        <Alert variant="danger" className="mb-4">
-          {error}
-        </Alert>
-      )}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-2" controlId="formName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formMessage">
-          <Form.Label>Message</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            name="message"
-            placeholder="Enter your message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Sending...' : 'Submit'}
-        </Button>
-      </Form>
+      <motion.div
+        variants={formVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <h2>Küld el nekünk az üzeneted</h2>
+        {isSuccess && (
+          <motion.div
+            variants={alertVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <Alert variant="success" className="mb-4">
+              Sikeresen elküldted az üzeneted!
+            </Alert>
+          </motion.div>
+        )}
+        {error && (
+          <motion.div
+            variants={alertVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <Alert variant="danger" className="mb-4">
+              {error}
+            </Alert>
+          </motion.div>
+        )}
+        <Form onSubmit={handleSubmit}>
+          {[
+            { id: 'formName', label: 'Name', name: 'name', placeholder: 'Írd be a neved', type: 'text' },
+            { id: 'formEmail', label: 'Email address', name: 'email', placeholder: 'Írd be az email címed', type: 'email' },
+            { id: 'formMessage', label: 'Message', name: 'message', placeholder: 'Írd be az üzeneted', type: 'textarea' },
+          ].map((field, index) => (
+            <motion.div
+              key={field.id}
+              variants={fieldVariants}
+              initial="hidden"
+              animate="visible"
+              custom={index}
+            >
+              <Form.Group className="mb-2" controlId={field.id}>
+                <Form.Label>{field.label}</Form.Label>
+                {field.type === 'textarea' ? (
+                  <Form.Control
+                    as="textarea"
+                    rows={5}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={formData[field.name as keyof typeof formData]}
+                    onChange={handleChange}
+                    required
+                  />
+                ) : (
+                  <Form.Control
+                    type={field.type}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={formData[field.name as keyof typeof formData]}
+                    onChange={handleChange}
+                    required
+                  />
+                )}
+              </Form.Group>
+            </motion.div>
+          ))}
+          <motion.div
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            <Button className="btn" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Küldés'}
+            </Button>
+          </motion.div>
+        </Form>
+      </motion.div>
     </Col>
   );
 };

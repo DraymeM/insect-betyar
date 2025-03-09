@@ -1,10 +1,18 @@
-import { Link, useMatchRoute } from '@tanstack/react-router'
-import { Navbar, Nav, Container } from 'react-bootstrap'
-import { FaHome } from 'react-icons/fa'
-
+// src/components/NavBar.tsx
+import React from 'react';
+import { Link, useMatchRoute, useNavigate } from '@tanstack/react-router';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { FaHome, FaBug } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
+import { useDebouncedCallback } from 'use-debounce';
 
 const NavBar: React.FC = () => {
-  const matchRoute = useMatchRoute()
+  const matchRoute = useMatchRoute();
+  const navigate = useNavigate();
+
+  const debouncedNavigate = useDebouncedCallback((to: string) => {
+    navigate({ to });
+  }, 300);
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
@@ -21,31 +29,34 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link
-              as={Link}
-              to="/"
+              as="div"
               className={matchRoute({ to: '/' }) ? 'active' : ''}
+              onClick={() => debouncedNavigate('/')}
+              style={{ cursor: 'pointer' }} // Inline fix
             >
               <FaHome /> Főoldal
             </Nav.Link>
             <Nav.Link
-              as={Link}
-              to="/about"
+              as="div"
               className={matchRoute({ to: '/about' }) ? 'active' : ''}
+              onClick={() => debouncedNavigate('/about')}
+              style={{ cursor: 'pointer' }} // Inline fix
             >
-              Galéria
+              <FaBug /> Termékeink
             </Nav.Link>
             <Nav.Link
-              as={Link}
-              to="/contact"
+              as="div"
               className={matchRoute({ to: '/contact' }) ? 'active' : ''}
+              onClick={() => debouncedNavigate('/contact')}
+              style={{ cursor: 'pointer' }} // Inline fix
             >
-              Elérhetőségek
+              <MdEmail /> Elérhetőségek
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
