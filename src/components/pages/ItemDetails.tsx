@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
-import './ItemDetails.css'; // Import custom CSS for animations
+import './ItemDetails.css';
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 

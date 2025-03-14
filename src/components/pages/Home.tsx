@@ -1,11 +1,10 @@
-// src/routes/Home.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import Card from '../components/common/Card';
-import Section from '../components/common/Section';
-import CarouselSection from '../components/common/CarouselSection';
-import { fetchLatestItems } from '../api/repo';
+import Card from '../common/Card';
+import Section from '../common/Section';
+import CarouselSection from '../common/CarouselSection';
+import { fetchLatestItems } from '../../api/repo';
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
@@ -48,19 +47,18 @@ const Home: React.FC = () => {
   const itemsRef = useRef<HTMLDivElement | null>(null);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
+  const HEADER_OFFSET = 60; // Adjust this based on your fixed header height
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const lastThreeItems = await fetchLatestItems();
         setLatestItems(lastThreeItems);
-        // Adjust scroll position to account for any offset
-        const offset = +60; // Adjust this value as needed
-        const handleScroll = () => {
-          if (bioRef.current) bioRef.current.style.scrollMarginTop ;
-          if (itemsRef.current) itemsRef.current.style.scrollMarginTop = `${offset}px`;
-          if (carouselRef.current) carouselRef.current.style.scrollMarginTop;
-        };
-        handleScroll();
+
+        // Apply scrollMarginTop to each section for better scroll behavior
+        if (bioRef.current) bioRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
+        if (itemsRef.current) itemsRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
+        if (carouselRef.current) carouselRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
       } catch (error) {
         console.error('Error fetching latest items:', error);
       }
@@ -70,10 +68,14 @@ const Home: React.FC = () => {
   }, []);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
-      if (ref.current) { // Ensure ref.current is not null
-        (ref.current as HTMLDivElement).scrollIntoView({ behavior: 'smooth' });
-      }
-    };
+    if (ref.current) {
+      const sectionTop = ref.current.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: sectionTop - HEADER_OFFSET, // Adjust for fixed header
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <div className="page">
@@ -113,12 +115,30 @@ const Home: React.FC = () => {
         <Section className="d-flex justify-content-center align-items-center">
           <Row className="align-items-center">
             <Col md={5} className="mb-4 mb-md-0">
-              <motion.div variants={bioVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="biography-image-container">
-                <img src="/images/biography.jpg" alt="Biography" className="biography-image" onError={(e) => { e.currentTarget.src = placeholderImage; }} />
+              <motion.div
+                variants={bioVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="biography-image-container"
+              >
+                <img
+                  src="/images/biography.jpg"
+                  alt="Biography"
+                  className="biography-image"
+                  onError={(e) => {
+                    e.currentTarget.src = placeholderImage;
+                  }}
+                />
               </motion.div>
             </Col>
             <Col md={6}>
-              <motion.div variants={bioVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <motion.div
+                variants={bioVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
                 <h2>About Me</h2>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae elit libero, a pharetra augue. Donec id elit non mi porta gravida at eget metus.
@@ -144,7 +164,14 @@ const Home: React.FC = () => {
           <Row className="justify-content-center g-4">
             {latestItems.map((item, index) => (
               <Col key={item.id} xs={12} md={6} lg={4} className="mb-4">
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" whileHover="hover" viewport={{ once: true }} transition={{ delay: index * 0.2 }}>
+                <motion.div
+                  variants={cardVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  whileHover="hover"
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                >
                   <Card id={item.id} name={item.name} picture={item.picture} />
                 </motion.div>
               </Col>
@@ -165,9 +192,10 @@ const Home: React.FC = () => {
           <CarouselSection images={carouselImages} placeholderImage={placeholderImage} />
         </Section>
       </motion.div>
-            {/* Footer */}
-            <footer className="text-center p-4 bg-dark text-white">
-        <p>&copy; 2025 Insect Betyar. All rights reserved.</p>
+
+      {/* Footer */}
+      <footer className="text-center p-4 bg-dark text-white">
+        <p>© 2025 Insect Betyar. All rights reserved.</p>
       </footer>
     </div>
   );

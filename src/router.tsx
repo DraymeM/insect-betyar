@@ -1,9 +1,9 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 import App from './App';
-import Home from './routes/Home.tsx';
-import About from './routes/About.tsx';
-import Contact from './routes/Contact.tsx';
-import ItemDetail from './routes/ItemDetails.tsx';
+import Home from './components/pages/Home.tsx';
+import About from './components/pages/About.tsx';
+import Contact from './components/pages/Contact.tsx';
+import ItemDetail from './components/pages/ItemDetails.tsx';
 
 // Define root route
 const rootRoute = createRootRoute({ component: App });

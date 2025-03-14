@@ -1,10 +1,10 @@
 // src/routes/About.tsx
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import Card from '../components/common/Card';
-import CategoryCard from '../components/common/CategoryCard';
+import Card from '../common/Card';
+import CategoryCard from '../common/CategoryCard';
 import { useParams, useNavigate } from '@tanstack/react-router';
-import { fetchCategories, fetchItems } from '../api/repo';
+import { fetchCategories, fetchItems } from '../../api/repo';
 import { useDebouncedCallback } from 'use-debounce'; // Import useDebouncedCallback
 
 interface Category {
