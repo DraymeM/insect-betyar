@@ -1,5 +1,9 @@
 [
   {
+    "name": "Category A",
+    "image": "/images/category-a.jpg"
+  },
+  {
     "name": "Category B",
     "image": "/images/category-b.jpg"
   },
@@ -16,7 +20,7 @@
     "image": "/images/category-b.jpg"
   },
   {
-    "name": "Category FD",
-    "image": "/images/insectbetyarlogo.png"
+    "name": "Category F",
+    "image": "/images/category-c.jpg"
   }
 ]

@@ -1,445 +1,425 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #25292c;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.section-nav {
-  position: fixed;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 1000;
-}
-
-.nav-dot {
-  width: 12px;
-  height: 12px;
-  background-color: #41d5f5;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.nav-dot:hover {
-  background-color: #fff;
-}
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(90vh - 10vh); /* Ensure it's not blocked by the navbar */
-}
-/* Centering the page */
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow-x: hidden;
-  max-height: fit-content;
-  min-height: fit-content;
-  width: 100%;
-  margin-top: 10vh; /* Ensuring margin to avoid navbar overlap */
-}
-.limit-selector {
-  margin-bottom: 15px;
-  position: relative; /* Enable positioning */
-  left: 33vw; /* Adjust to your desired position */
-  display: flex; /* Flexbox to align label and select horizontally */
-  align-items: center; /* Align vertically in the middle */
-  background-color: #2b2a33; /* Background color for the entire container */
-  border: 1px solid #41d5f5; /* Border around the container */
-  padding: 5px; /* Padding for some space inside the container */
-  border-radius: 8px; /* Optional, for rounded corners */
-}
-
-.limit-selector label {
-  font-weight: bold;
-  margin-right: 10px; /* Space between label and select */
-  color: #ccc;
-}
-
-.limit-selector select {
-  padding: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #2b2a33; /* Background for the select dropdown */
-  color: #ccc; /* Text color */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Optional, for rounded corners */
-}
-h1 {
-  margin-top: 10vh;
-  margin-bottom: 2rem;
-  text-align: center;
-  color: aliceblue;
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-.card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  width: 100%;
-  background-color: #212224; /* Light gray background */
-  border-radius: 5vh;
-  padding:  0; /* Add vertical padding */
-  max-height: fit-content;
-  max-width: 80vw;
-  min-width: 80vw;
-
-}
-
-
-.card {
-  border: 1px solid #41d5f5;
-  padding: 1rem;
-  margin: 2vh;
-  border-radius: 8px;
-  text-align: center;
-  align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #2b2a33;
-}
-
-.card h3 {
-  color: #fff;
-}
-.card p {
-  color: #ccc;
-}
-
-.card-image {
-  width: 100%;
-  height: auto;
-  max-width: 250px;
-}
-.back-button-container {
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.back-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 16px;
-  background-color: #41d5f5;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.back-button:hover {
-  background-color: #3d395c;
-}
-
-.back-button svg {
-  margin-right: 8px;
-}
-
-.card .btn {
-  background-color: #00a7da; /* Same as pagination button */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s;
-  text-decoration: none; /* Remove underline */
-  display: inline-block; /* Ensure the button works like a block-level button */
-}
-p, h2{
-  color: #fff;
-}
-
-.card .btn:hover {
-  background-color: #3d395c; /* Same hover effect as pagination button */
-}
-
-.card .btn:active {
-  background-color: #005f73; /* Optional active state color */
-}
-/* Category Card */
-.category-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.category-image {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* Category List */
-.category-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 20px;
-  background-color: #212224; /* Light gray background */
-  border-radius: 2vh;
-  max-width: 80vw;
-  min-width: 80vw;
-}
-
-.pagination {
-  margin-top: 2vh;
-  margin-bottom: 5vh;
-}
-
-.pagination button {
-  background-color: #00a7da;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  margin: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s;
-}
-
-.pagination button.active {
-  background-color: #0382a8;
-  font-weight: bold;
-}
-
-.pagination button:disabled {
-  background-color: rgb(92, 122, 131);
-  cursor: not-allowed;
-}
-/* Base styles for navbar */
-.navbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link {
-  color: white;
-  position: relative;
-  padding: 0.5rem 1rem;
-  transition: all 0.3s ease-in-out;
-}
-
-/* Hover effect with underline animation */
-.navbar-nav .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: #41d5f5;
-  transition: all 0.3s ease-in-out;
-  transform: translateX(-50%);
-}
-
-.navbar-nav .nav-link:hover::after {
-  width: 100%;
-}
-
-/* Active link with glowing effect and underline */
-.navbar-nav .nav-link.active {
-  color: #41d5f5 !important;
-  font-weight: bold;
-}
-
-.navbar-nav .nav-link.active::after {
-  width: 100%;
-  background-color: #41d5f5;
-}
-
-/* Icon animation on hover */
-.navbar-nav .nav-link svg {
-  transition: transform 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link:hover svg {
-  transform: scale(1.2);
-}
-
-/* Navbar toggle button animation */
-.navbar-toggler {
-  border: none;
-  outline: none;
-}
-
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-.navbar-toggler-icon {
-  transition: transform 0.3s ease-in-out;
-}
-
-.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-  transform: rotate(90deg);
-}
-
-/* Smooth collapse animation */
-.navbar-collapse {
-  transition: max-height 0.5s ease-in-out;
-  overflow: hidden;
-}
-
-.navbar-collapse.collapsing {
-  max-height: 0;
-}
-
-.navbar-collapse.show {
-  max-height: 500px; /* Adjust based on your content */
-}
-
-/* styles.css */
-/* styles.css */
-.section {
-  background-color: #212224; /* Light gray background */
-  border-radius: 2vh;
-  padding:  0; /* Add vertical padding */
-  height: fit-content;
-  max-width: 80vw;
-  min-width: 80vw;
-  margin: 1vh;
-}
-
-.section h2 {
-  font-size: 2rem; /* Larger heading */
-  font-weight: bold;
-  margin-bottom: 1vh;
-  margin-top: 1vh;
-}
-/* styles.css */
-.biography-image-container {
-  position: relative;
-  width: 100%;
-  padding-top: 100%; /* 1:1 Aspect Ratio */
-  overflow: hidden;
-  border-radius: 3vh; /* Optional: Match the rounded corners */
-}
-
-.biography-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the image covers the container without distortion */
-}
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  background-color: #293035;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-/* Add this to your global CSS file or inline styles */
-.carousel {
-  width: 100%;
-  height: 100%;
-
-  overflow: hidden;
-}
-
-.carousel-item {
-  width: 100%;
-  height: 100%;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-/* Add this to your global CSS file */
-.carousel-control-prev,
-.carousel-control-next {
-  width: 5%; /* Adjust the width of the control buttons */
-
-  background-color: rgba(20, 20, 20, 0.3); /* Add a background color for visibility */
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  filter: invert(1); /* Make the arrows white */
-  color:#41d5f5;
-}
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #213547;
-    background-color: #293035;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing:antialiased;
+  background-color:#25292c;
+  color:#ffffffde;
+  color-scheme:dark;
+  font-family:Inter,system-ui,Avenir,Helvetica,Arial,sans-serif;
+  font-synthesis:none;
+  font-weight:400;
+  line-height:1.5;
+  text-rendering:optimizeLegibility
   }
-  a:hover {
-    color: #747bff;
+  
+  .section-nav {
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  position:fixed;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1000
   }
-  button {
-    background-color: #ffffff;
+  
+  .nav-dot {
+  background-color:#41d5f5;
+  border-radius:50%;
+  cursor:pointer;
+  height:12px;
+  transition:background-color .3s;
+  width:12px
   }
-}
-
-@media (max-width: 900px) {
+  
+  .nav-dot:hover {
+  background-color:#fff
+  }
+  
+  .container {
+  align-items:center;
+  display:flex;
+  justify-content:center;
+  min-height:calc(90vh - 10vh)
+  }
+  
+  .page {
+  align-items:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  margin-top:10vh;
+  max-height:fit-content;
+  min-height:fit-content;
+  overflow-x:hidden;
+  text-align:center;
+  width:100%
+  }
+  
   .limit-selector {
-    margin-bottom: 15px;
-    position: relative; /* Enable absolute positioning */
-    left: 0%; /* Position it on the right */
+  align-items:center;
+  background-color:#2b2a33;
+  border:1px solid #41d5f5;
+  border-radius:8px;
+  display:flex;
+  left:33vw;
+  margin-bottom:15px;
+  padding:5px;
+  position:relative
   }
+  
+  .limit-selector label {
+  color:#ccc;
+  font-weight:700;
+  margin-right:10px
+  }
+  
+  .limit-selector select {
+  background-color:#2b2a33;
+  border:none;
+  border-radius:5px;
+  color:#ccc;
+  cursor:pointer;
+  font-size:16px;
+  padding:5px
+  }
+  
+  h1 {
+  color:#f0f8ff;
+  font-size:3.2em;
+  line-height:1.1;
+  margin-bottom:2rem;
+  margin-top:10vh;
+  text-align:center
+  }
+  
+  .card-list {
+  background-color:#212224;
+  border-radius:5vh;
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.5rem;
+  justify-content:center;
+  max-height:fit-content;
+  max-width:80vw;
+  min-width:80vw;
+  padding:0;
+  width:100%
+  }
+  
+  .card {
+  align-items:center;
+  background-color:#2b2a33;
+  border:1px solid #41d5f5;
+  border-radius:8px;
+  box-shadow:0 0 10px #0000001a;
+  margin:2vh;
+  padding:1rem;
+  text-align:center
+  }
+  
+  .card p {
+  color:#ccc
+  }
+  
+  .card-image {
+  height:auto;
+  max-width:250px;
+  width:100%
+  }
+  
+  .back-button-container {
+  margin-bottom:20px;
+  text-align:left
+  }
+  
+  .back-button {
+  align-items:center;
+  background-color:#41d5f5;
+  border:none;
+  border-radius:4px;
+  color:#fff;
+  cursor:pointer;
+  display:inline-flex;
+  padding:8px 16px;
+  transition:background-color .2s ease
+  }
+  
+  .back-button svg {
+  margin-right:8px
+  }
+  
+  .card .btn {
+  background-color:#00a7da;
+  border:none;
+  border-radius:5px;
+  color:#fff;
+  cursor:pointer;
+  display:inline-block;
+  margin:5px;
+  padding:8px 12px;
+  text-decoration:none;
+  transition:background .3s
+  }
+  
+  .card .btn:active {
+  background-color:#005f73
+  }
+  
+  .category-card {
+  border:1px solid #ddd;
+  border-radius:8px;
+  box-shadow:0 4px 8px #0000001a;
+  margin:10px;
+  overflow:hidden;
+  padding:10px;
+  text-align:center
+  }
+  
+  .category-image {
+  border-radius:8px;
+  height:150px;
+  object-fit:cover;
+  width:100%
+  }
+  
+  .category-list {
+  background-color:#212224;
+  border-radius:2vh;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:20px;
+  max-width:80vw;
+  min-width:80vw
+  }
+  
+  .pagination {
+  margin-bottom:5vh;
+  margin-top:2vh
+  }
+  
+  .pagination button {
+  background-color:#00a7da;
+  border:none;
+  border-radius:5px;
+  color:#fff;
+  cursor:pointer;
+  margin:5px;
+  padding:8px 12px;
+  transition:background .3s
+  }
+  
+  .pagination button.active {
+  background-color:#0382a8;
+  font-weight:700
+  }
+  
+  .pagination button:disabled {
+  background-color:#5c7a83;
+  cursor:not-allowed
+  }
+  
+  .navbar {
+  box-shadow:0 2px 4px #0000001a;
+  transition:box-shadow .3s ease-in-out
+  }
+  
+  .navbar-nav .nav-link {
+  color:#fff;
+  padding:.5rem 1rem;
+  position:relative;
+  transition:all .3s ease-in-out
+  }
+  
+  .navbar-nav .nav-link::after {
+  background-color:#41d5f5;
+  bottom:0;
+  content:'';
+  height:2px;
+  left:50%;
+  position:absolute;
+  transform:translateX(-50%);
+  transition:all .3s ease-in-out;
+  width:0
+  }
+  
+  .navbar-nav .nav-link:hover::after {
+  width:100%
+  }
+  
+  .navbar-nav .nav-link.active {
+  color:#41d5f5!important;
+  font-weight:700
+  }
+  
+  .navbar-nav .nav-link.active::after {
+  background-color:#41d5f5;
+  width:100%
+  }
+  
+  .navbar-nav .nav-link:hover svg {
+  transform:scale(1.2)
+  }
+  
+  .navbar-toggler {
+  border:none;
+  outline:none
+  }
+  
+  .navbar-toggler:focus {
+  box-shadow:none
+  }
+  
+  .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  transform:rotate(90deg)
+  }
+  
+  .navbar-collapse {
+  overflow:hidden;
+  transition:max-height .5s ease-in-out
+  }
+  
+  .navbar-collapse.collapsing {
+  max-height:0
+  }
+  
+  .navbar-collapse.show {
+  max-height:500px
+  }
+  
   .section {
-
-    max-height: fit-content;
-
+  background-color:#212224;
+  border-radius:2vh;
+  height:fit-content;
+  margin:1vh;
+  max-width:80vw;
+  min-width:80vw;
+  padding:0
   }
-}
+  
+  .section h2 {
+  font-size:2rem;
+  font-weight:700;
+  margin-bottom:1vh;
+  margin-top:1vh
+  }
+  
+  .biography-image-container {
+  border-radius:3vh;
+  overflow:hidden;
+  padding-top:100%;
+  position:relative;
+  width:100%
+  }
+  
+  .biography-image {
+  height:100%;
+  left:0;
+  object-fit:cover;
+  position:absolute;
+  top:0;
+  width:100%
+  }
+  
+  a {
+  color:#646cff;
+  font-weight:500;
+  text-decoration:inherit
+  }
+  
+  a:hover {
+  color:#535bf2
+  }
+  
+  body {
+  background-color:#293035;
+  margin:0;
+  min-height:100vh;
+  min-width:320px
+  }
+  
+  .carousel {
+  height:100%;
+  overflow:hidden;
+  width:100%
+  }
+  
+  .carousel-item {
+  height:100%;
+  width:100%
+  }
+  
+  .carousel-item img {
+  height:100%;
+  object-fit:cover;
+  width:100%
+  }
+  
+  .carousel-control-prev,.carousel-control-next {
+  background-color:#1414144d;
+  width:5%
+  }
+  
+  .carousel-control-prev-icon,.carousel-control-next-icon {
+  color:#41d5f5;
+  filter:invert(1)
+  }
+  
+  button {
+  background-color:#1a1a1a;
+  border:1px solid transparent;
+  border-radius:8px;
+  cursor:pointer;
+  font-family:inherit;
+  font-size:1em;
+  font-weight:500;
+  padding:.6em 1.2em;
+  transition:border-color .25s
+  }
+  
+  button:hover {
+  border-color:#646cff
+  }
+  
+  button:focus,button:focus-visible {
+  outline:4px auto -webkit-focus-ring-color
+  }
+  
+  .card h3,p,h2 {
+  color:#fff
+  }
+  
+  .back-button:hover,.card .btn:hover {
+  background-color:#3d395c
+  }
+  
+  .navbar-nav .nav-link svg,.navbar-toggler-icon {
+  transition:transform .3s ease-in-out
+  }
+  
+  @media (prefers-color-scheme: dark) {
+  :root {
+  background-color:#293035;
+  color:#213547
+  }
+  
+  a:hover {
+  color:#747bff
+  }
+  
+  button {
+  background-color:#fff
+  }
+  }
+  
+  @media (max-width: 900px) {
+  .limit-selector {
+  left:0;
+  margin-bottom:15px;
+  position:relative
+  }
+  
+  .section {
+  max-height:fit-content
+  }
+  }

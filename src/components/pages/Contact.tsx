@@ -1,7 +1,7 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
-import Section from '../components/common/Section';
-import ContactForm from '../components/common/ContactForm';
+import Section from '../common/Section';
+import ContactForm from '../common/ContactForm';
 
 const Contact: React.FC = () => {
   const handleSubmit = async (formData: { name: string; email: string; message: string }) => {
