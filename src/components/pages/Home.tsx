@@ -192,11 +192,6 @@ const Home: React.FC = () => {
           <CarouselSection images={carouselImages} placeholderImage={placeholderImage} />
         </Section>
       </motion.div>
-
-      {/* Footer */}
-      <footer className="text-center p-4 bg-dark text-white">
-        <p>© 2025 Insect Betyar. All rights reserved.</p>
-      </footer>
     </div>
   );
 };
