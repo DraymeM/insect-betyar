@@ -137,7 +137,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             whileHover="hover"
             whileTap="tap"
           >
-            <Button className="btn" type="submit" disabled={isSubmitting}>
+            <Button className="subm-btn" type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Sending...' : 'Küldés'}
             </Button>
           </motion.div>
