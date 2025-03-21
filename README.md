@@ -19,7 +19,7 @@
   </tr>
 </table>
 
-This template provides a minimal setup to get React working in Vite with HMR (Hot Module Replacement), TypeScript for type safety, TanStack (React Query) for data fetching, and Bootstrap for styling. It also includes ESLint for code linting and formatting.
+This template provides a minimal setup to get React working in Vite with HMR (Hot Module Replacement), TypeScript for type safety, TanStack (React Query) for data fetching, TanStack Router for advanced routing, and Bootstrap for styling. It also includes ESLint for code linting and formatting.
 
 ## Features
 
