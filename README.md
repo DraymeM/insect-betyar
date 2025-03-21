@@ -1,17 +1,20 @@
 # React + TypeScript + Vite + TanStack + Bootstrap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This template provides a minimal setup to get React working in Vite with HMR (Hot Module Replacement), TypeScript for type safety, TanStack (React Query) for data fetching, and Bootstrap for styling. It also includes ESLint for code linting and formatting.
 
-Currently, two official plugins are available:
+##Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    React: A JavaScript library for building user interfaces.
 
-## Expanding the ESLint configuration
+    TypeScript: A typed superset of JavaScript for better developer experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    Vite: A fast build tool and development server.
 
-- Configure the top-level `parserOptions` property like this:
+    TanStack (React Query): A powerful data-fetching library for React.
+
+    Bootstrap: A popular CSS framework for responsive and mobile-first designs.
+
+    ESLint: For code linting and maintaining code quality.
 
 ```js
 export default tseslint.config({
@@ -47,4 +50,47 @@ export default tseslint.config({
     ...react.configs['jsx-runtime'].rules,
   },
 })
+```
+
+##TanStack (React Query) Example
+```js
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+const fetchUsers = async () => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  return response.json();
+};
+
+const UsersList: React.FC = () => {
+  const { data, isLoading, error } = useQuery(['users'], fetchUsers);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching data</div>;
+
+  return (
+    <ul>
+      {data?.map((user: any) => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default UsersList;
+```
+
+##Bootstrap Integration
+```js
+import React from 'react';
+
+const AlertButton: React.FC = () => {
+  return (
+    <button className="btn btn-primary">
+      Click Me!
+    </button>
+  );
+};
+
+export default AlertButton;
 ```
