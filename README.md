@@ -3,28 +3,18 @@
   <tr>
     <td align="center">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="100" height="100" />
-      <br />
-      React
     </td>
     <td align="center">
       <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="TypeScript Logo" width="100" height="100" />
-      <br />
-      TypeScript
     </td>
     <td align="center">
       <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" width="100" height="100" />
-      <br />
-      Vite
     </td>
     <td align="center">
       <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="100" height="100" />
-      <br />
-      TanStack
     </td>
     <td align="center">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="100" height="100" />
-      <br />
-      Bootstrap
     </td>
   </tr>
 </table>
