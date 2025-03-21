@@ -2,27 +2,27 @@
 <table>
   <tr>
     <td align="center">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="50" height="50" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="70" height="70" />
       <br />
       React
     </td>
     <td align="center">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="TypeScript Logo" width="50" height="50" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="TypeScript Logo" width="70" height="70" />
       <br />
       TypeScript
     </td>
     <td align="center">
-      <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" width="50" height="50" />
+      <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" width="70" height="70" />
       <br />
       Vite
     </td>
     <td align="center">
-      <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="50" height="50" />
+      <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="70" height="70" />
       <br />
       TanStack
     </td>
     <td align="center">
-      <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="50" height="50" />
+      <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="70" height="70" />
       <br />
       Bootstrap
     </td>
