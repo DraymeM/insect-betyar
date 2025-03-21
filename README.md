@@ -1,5 +1,5 @@
-# React + TypeScript + Vite + TanStack + Bootstrap
-<table>
+
+# <table>
   <tr>
     <td align="center">
       <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React Logo" width="100" height="100" />
