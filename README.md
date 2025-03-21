@@ -2,7 +2,7 @@
 
 This template provides a minimal setup to get React working in Vite with HMR (Hot Module Replacement), TypeScript for type safety, TanStack (React Query) for data fetching, and Bootstrap for styling. It also includes ESLint for code linting and formatting.
 
-##Features
+## Features
 
     React: A JavaScript library for building user interfaces.
 
@@ -52,7 +52,7 @@ export default tseslint.config({
 })
 ```
 
-##TanStack (React Query) Example
+## TanStack (React Query) Example
 ```js
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -80,7 +80,7 @@ const UsersList: React.FC = () => {
 export default UsersList;
 ```
 
-##Bootstrap Integration
+## Bootstrap Integration
 ```js
 import React from 'react';
 
