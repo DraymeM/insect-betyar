@@ -5,7 +5,8 @@ import Card from '../common/Card';
 import CategoryCard from '../common/CategoryCard';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { fetchCategories, fetchItems } from '../../api/repo';
-import { useDebouncedCallback } from 'use-debounce'; // Import useDebouncedCallback
+import { useDebouncedCallback } from 'use-debounce';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Add Bootstrap CSS import
 
 interface Category {
   name: string;
@@ -21,10 +22,9 @@ const About: React.FC = () => {
   const { category } = useParams({ strict: false });
   const navigate = useNavigate();
 
-  // Debounced handlers
   const debouncedNavigate = useDebouncedCallback((to: string) => {
     navigate({ to });
-  }, 300); // 300ms debounce delay
+  }, 300);
 
   const debouncedPageChange = useDebouncedCallback((newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
@@ -79,7 +79,6 @@ const About: React.FC = () => {
 
   return (
     <div className="page">
-      {/* Show Category Cards if no category is selected */}
       {!category && (
         <div className="category-list">
           {categories.map((cat) => (
@@ -93,17 +92,14 @@ const About: React.FC = () => {
         </div>
       )}
 
-      {/* Show Items if a category is selected */}
       {category && (
         <>
-          {/* Back Button */}
           <div className="back-button-container">
             <button onClick={handleBackToCategories} className="back-button">
               <FaArrowLeft /> Vissza a kategóriákhoz
             </button>
           </div>
 
-          {/* Limit Selector */}
           <div className="limit-selector">
             <label htmlFor="limit">Items per page: </label>
             <select id="limit" value={limit} onChange={handleLimitChange}>
@@ -114,36 +110,47 @@ const About: React.FC = () => {
             </select>
           </div>
 
-          {/* Item List */}
           <div className="card-list">
             {items.map((item) => (
               <Card key={item.id} id={item.id} name={item.name} picture={item.picture} />
             ))}
           </div>
 
-          {/* Pagination */}
-          <div className="pagination">
-            <button onClick={() => debouncedPageChange(currentPage - 1)} disabled={currentPage === 1}>
-              <FaArrowLeft />
-            </button>
+          {/* Bootstrap Pagination */}
+          <nav aria-label="Page navigation">
+            <ul className="pagination justify-content-center">
+              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <button 
+                  className="page-link" 
+                  onClick={() => debouncedPageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  <FaArrowLeft />
+                </button>
+              </li>
 
-            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => debouncedPageChange(page)}
-                className={page === currentPage ? 'active' : ''}
-              >
-                {page}
-              </button>
-            ))}
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => debouncedPageChange(page)}
+                  >
+                    {page}
+                  </button>
+                </li>
+              ))}
 
-            <button
-              onClick={() => debouncedPageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <FaArrowRight />
-            </button>
-          </div>
+              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <button
+                  className="page-link"
+                  onClick={() => debouncedPageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  <FaArrowRight />
+                </button>
+              </li>
+            </ul>
+          </nav>
         </>
       )}
     </div>

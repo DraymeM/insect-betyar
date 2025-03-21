@@ -11,6 +11,12 @@
   text-rendering: optimizeLegibility
 }
 
+body {
+  background-color: #293035;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 320px;
+}
 .section-nav {
   display: flex;
   flex-direction: column;
@@ -39,7 +45,9 @@
   align-items: center;
   display: flex;
   justify-content: center;
-  min-height: calc(90vh - 10vh)
+  min-height: fit-content;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 .page,h1 {
@@ -108,10 +116,6 @@ h1 {
   width: 100%
 }
 
-.card,h1 {
-  text-align: center
-}
-
 .card {
   align-items: center;
   background-color: #2b2a33;
@@ -122,11 +126,8 @@ h1 {
   padding: 1rem
 }
 
-.card p {
-  color: #ccc
-}
 
-.card-image {
+.card-img-top {
   height: auto;
   max-width: 250px;
   width: 100%
@@ -299,14 +300,7 @@ h1 {
   margin: 1vh;
   max-width: 80vw;
   min-width: 80vw;
-  padding: 0
-}
-
-.section h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1vh;
-  margin-top: 1vh
+  padding: 0;
 }
 
 .biography-image-container {
@@ -326,26 +320,6 @@ h1 {
   width: 100%
 }
 
-body {
-  background-color: #293035;
-  margin: 0;
-  min-height: 100vh;
-  min-width: 320px;
-}
-
-.carousel {
-  overflow: hidden
-}
-
-.carousel,.carousel-item,.carousel-item img {
-  height: 100%;
-  width: 100%;
-}
-
-.carousel-item img {
-  object-fit: cover
-}
-
 .carousel-control-next,.carousel-control-prev {
   background-color: #1414144d;
   color: #ccc;
@@ -355,27 +329,6 @@ body {
 .card h3,.carousel-control-next-icon,.carousel-control-prev-icon,h2,p {
   color: #fff
 }
-
-@media (max-width:768px) {
-  .carousel-item {
-      width: 200%;
-      max-height: 100vh;
-      overflow: hidden;
-      object-position: center
-  }
-}
-
-button {
-  background-color: #1a1a1a;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 1em;
-  padding: .6em 1.2em;
-  transition: border-color .25s
-}
-
 
 button:focus,button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color
@@ -403,17 +356,8 @@ button:focus,button:focus-visible {
       margin-bottom: 15px;
       position: relative;
   }
-
-  .section {
-      max-height: fit-content;
+  .container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
-}
-
-@media (min-width: 1024px) {
-  .carousel {
-    width: 100%; /* Full width of .section (80vw) */
-    height: auto; /* Scales with content */
-    max-width: 100%; /* Overrides inline maxWidth */
-  }
-
 }

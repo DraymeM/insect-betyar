@@ -1,7 +1,9 @@
+// src/routes/ItemDetail.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Badge, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './ItemDetails.css';
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
@@ -41,7 +43,13 @@ const ItemDetail: React.FC = () => {
     }
   }, [imgHeight]);
 
-  if (!item) return <p>Loading...</p>;
+  if (!item) return <Alert variant="info" className="text-center mt-5">Loading...</Alert>;
+
+  const renderTooltip = (text: string) => (
+    <Tooltip id={`tooltip-${text.toLowerCase().replace(' ', '-')}`} className="bg-dark text-light">
+      {text}
+    </Tooltip>
+  );
 
   return (
     <Container className="mt-5 d-flex justify-content-center align-items-center" style={{ minHeight: '70vh', marginTop: '10vh' }}>
@@ -54,8 +62,16 @@ const ItemDetail: React.FC = () => {
               src={imgSrc}
               alt={item.name}
               onError={() => setImgSrc(placeholderImage)}
-              className="img-fluid animate-pop-in"
-              style={{ border: '2px solid #41d5f5', position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', objectFit: 'cover' }}
+              className="img-fluid animate-pop-in shadow-lg"
+              style={{
+                border: '2px solid #41d5f5',
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
             />
           </div>
         </Col>
@@ -63,27 +79,43 @@ const ItemDetail: React.FC = () => {
         {/* Details Column */}
         <Col md={8} className="d-flex flex-column justify-content-between text-center" style={{ height: `${imgHeight}px` }}>
           {/* Name Section */}
-          <div className="p-3 animate-slide-in-left" style={{ border: '2px solid #41d5f5', backgroundColor: '#3d395c', height: `${maxSectionHeight * 0.2}px`, color: 'white' }}>
-            <h3 style={{ fontSize: '1.3rem', margin: '0' }}>{item.name}</h3>
+          <div
+            className="p-3 animate-slide-in-left bg-dark text-info border border-2 border-info"
+            style={{ height: `${maxSectionHeight * 0.2}px` }}
+          >
+            <h3 className="mb-0 fw-bold">{item.name}</h3>
           </div>
 
-          {/* Description Section */}
-          <div className="p-3 animate-slide-in-right" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight * 0.4}px`, color: 'white' }}>
-            <p>{item.description}</p>
+          {/* Description Section (Scrollable, Full Width) */}
+          <div
+            className="p-3 animate-slide-in-right bg-dark text-light border border-2 border-info overflow-auto w-100"
+            style={{ height: `${maxSectionHeight * 0.4}px` }}
+          >
+            <p className="mb-0">{item.description}</p>
           </div>
 
           {/* Price Section */}
-          <div className="p-3 animate-slide-in-left" style={{ border: '2px solid #41d5f5', height: `${maxSectionHeight * 0.2}px`, backgroundColor: '#2b2a33' }}>
-            <p style={{ fontSize: '1.3rem', color: 'white' }}>Ár: {item.price} Ft</p>
+          <div
+            className="p-3 animate-slide-in-left bg-dark border border-2 border-info"
+            style={{ height: `${maxSectionHeight * 0.2}px` }}
+          >
+            <Badge bg="info" className="fs-5 p-2">
+              {item.price} Ft
+            </Badge>
           </div>
 
           {/* Back Button Section */}
-          <div className="p-3 animate-slide-in-right" style={{ border: '2px solid #41d5f5', backgroundColor: '#2b2a33', height: `${maxSectionHeight * 0.2}px` }}>
-            <div className="d-flex justify-content-center mt-3">
-              <Link to="/about/category/$category" className="btn btn-secondary animate-fade-in">
-                <FaArrowLeft /> Vissza
+          <div
+            className="p-3 animate-slide-in-right bg-dark border border-2 border-info d-flex align-items-center justify-content-center"
+            style={{ height: `${maxSectionHeight * 0.2}px` }}
+          >
+            <OverlayTrigger placement="top" overlay={renderTooltip('Vissza a kategoriához')}>
+              <Link to="/about/category/$category" className="text-decoration-none">
+                <Button variant="outline-light" className="animate-fade-in px-4 py-2">
+                  <FaArrowLeft className="me-2" /> Vissza
+                </Button>
               </Link>
-            </div>
+            </OverlayTrigger>
           </div>
         </Col>
       </Row>
