@@ -174,6 +174,7 @@ const Home: React.FC = () => {
                 >
                   <Card id={item.id} name={item.name} picture={item.picture} />
                 </motion.div>
+
               </Col>
             ))}
           </Row>

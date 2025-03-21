@@ -1,7 +1,8 @@
-// src/components/common/CategoryCard.tsx (debounce on button only)
+// src/components/common/CategoryCard.tsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useDebouncedCallback } from 'use-debounce';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface CategoryCardProps {
   category: string;
@@ -15,7 +16,6 @@ const placeholderImage = "https://archive.org/download/placeholder-image/placeho
 const CategoryCard: React.FC<CategoryCardProps> = ({ category, image, onClick, index = 0 }) => {
   const [imgSrc, setImgSrc] = useState(image || placeholderImage);
 
-  // Debounced onClick handler for the button
   const debouncedOnClick = useDebouncedCallback(() => {
     onClick();
   }, 300);
@@ -50,20 +50,23 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, image, onClick, i
       <motion.img
         src={imgSrc}
         alt={category}
-        className="card-image"
+        className="card-img-top"
         onError={() => setImgSrc(placeholderImage)}
         variants={imageVariants}
         whileHover="hover"
       />
-      <motion.button
-        className="btn"
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
-        onClick={debouncedOnClick} // Debounce only the button
-      >
-        {category}
-      </motion.button>
+      <div className="card-body">
+        <h5 className="card-title" style={{ color: 'white' }}>{category}</h5>
+        <motion.button
+          className="btn btn-primary"
+          variants={buttonVariants}
+          whileHover="hover"
+          whileTap="tap"
+          onClick={debouncedOnClick}
+        >
+          {category}
+        </motion.button>
+      </div>
     </motion.div>
   );
 };
