@@ -1,5 +1,11 @@
 # React + TypeScript + Vite + TanStack + Bootstrap
 
+![React Logo](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)
+![TypeScript Logo](https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg)
+![Vite Logo](https://vitejs.dev/logo.svg)
+![TanStack Logo](https://tanstack.com/_next/static/media/logo.7d1f0727.svg)
+![Bootstrap Logo](https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png)
+
 This template provides a minimal setup to get React working in Vite with HMR (Hot Module Replacement), TypeScript for type safety, TanStack (React Query) for data fetching, and Bootstrap for styling. It also includes ESLint for code linting and formatting.
 
 ## Features
