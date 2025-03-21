@@ -17,7 +17,7 @@
       Vite
     </td>
     <td align="center">
-      <img src="https://tanstack.com/_next/static/media/logo.7d1f0727.svg](https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="50" height="50" />
+      <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="50" height="50" />
       <br />
       TanStack
     </td>
