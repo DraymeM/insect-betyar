@@ -22,5 +22,141 @@
     "description": "This is a description for Item 3",
     "price": "$30",
     "category": "Category A"
+  },
+  {
+    "id": 4,
+    "name": "Item 4",
+    "picture": "/images/item4.jpg",
+    "description": "This is a description for Item 4",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 5,
+    "name": "Item 5",
+    "picture": "/images/item5.jpg",
+    "description": "This is a description for Item 5",
+    "price": "$20",
+    "category": "Category B"
+  },
+  {
+    "id": 6,
+    "name": "Item 6",
+    "picture": "/images/item6.jpg",
+    "description": "This is a description for Item 6",
+    "price": "$30",
+    "category": "Category A"
+  },
+  {
+    "id": 7,
+    "name": "Item 7",
+    "picture": "/images/item7.jpg",
+    "description": "This is a description for Item 7",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 8,
+    "name": "Item 8",
+    "picture": "/images/item8.jpg",
+    "description": "This is a description for Item 8",
+    "price": "$20",
+    "category": "Category B"
+  },
+  {
+    "id": 9,
+    "name": "Item 9",
+    "picture": "/images/item9.jpg",
+    "description": "This is a description for Item 9",
+    "price": "$30",
+    "category": "Category A"
+  },
+  {
+    "id": 10,
+    "name": "Item 10",
+    "picture": "/images/item10.jpg",
+    "description": "This is a description for Item 10",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 11,
+    "name": "Item 11",
+    "picture": "/images/item11.jpg",
+    "description": "This is a description for Item 11",
+    "price": "$20",
+    "category": "Category B"
+  },
+  {
+    "id": 12,
+    "name": "Item 12",
+    "picture": "/images/item12.jpg",
+    "description": "This is a description for Item 12",
+    "price": "$30",
+    "category": "Category A"
+  },
+  {
+    "id": 13,
+    "name": "Item 13",
+    "picture": "/images/item13.jpg",
+    "description": "This is a description for Item 13",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 14,
+    "name": "Item 14",
+    "picture": "/images/item14.jpg",
+    "description": "This is a description for Item 14",
+    "price": "$20",
+    "category": "Category B"
+  },
+  {
+    "id": 15,
+    "name": "Item 15",
+    "picture": "/images/item15.jpg",
+    "description": "This is a description for Item 15",
+    "price": "$30",
+    "category": "Category A"
+  },
+  {
+    "id": 16,
+    "name": "Item 16",
+    "picture": "/images/item16.jpg",
+    "description": "This is a description for Item 16",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 17,
+    "name": "Item 17",
+    "picture": "/images/item17.jpg",
+    "description": "This is a description for Item 17",
+    "price": "$20",
+    "category": "Category B"
+  },
+  {
+    "id": 18,
+    "name": "Item 18",
+    "picture": "/images/item18.jpg",
+    "description": "This is a description for Item 18",
+    "price": "$30",
+    "category": "Category A"
+  },
+  {
+    "id": 19,
+    "name": "Item 19",
+    "picture": "/images/item19.jpg",
+    "description": "This is a description for Item 19",
+    "price": "$10",
+    "category": "Category A"
+  },
+  {
+    "id": 20,
+    "name": "Item 20",
+    "picture": "/images/item20.jpg",
+    "description": "This is a description for Item 20",
+    "price": "$20",
+    "category": "Category B"
   }
 ]
