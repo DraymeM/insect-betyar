@@ -16,6 +16,9 @@
     <td align="center">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="100" height="100" />
     </td>
+        <td align="center">
+      <img src="https://cdn.worldvectorlogo.com/logos/framer-motion.svg" alt="Bootstrap Logo" width="100" height="100" />
+    </td>
   </tr>
 </table>
 
