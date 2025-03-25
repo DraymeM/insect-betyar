@@ -94,6 +94,7 @@ const About: React.FC = () => {
 
       {category && (
         <>
+        <div className="controls-container">
           <div className="back-button-container">
             <button onClick={handleBackToCategories} className="back-button">
               <FaArrowLeft /> Vissza a kategóriákhoz
@@ -109,7 +110,7 @@ const About: React.FC = () => {
               <option value="25">25</option>
             </select>
           </div>
-
+          </div>
           <div className="card-list">
             {items.map((item) => (
               <Card key={item.id} id={item.id} name={item.name} picture={item.picture} />
