@@ -6,6 +6,7 @@ import Section from '../common/Section';
 import CarouselSection from '../common/CarouselSection';
 import { fetchLatestItems } from '../../api/repo';
 
+
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
 const carouselImages = [
@@ -172,7 +173,7 @@ const Home: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.2 }}
                 >
-                  <Card id={item.id} name={item.name} picture={item.picture} />
+                  <Card key={item.id} id={item.id} name={item.name} picture={item.picture} category={item.category}/>
                 </motion.div>
 
               </Col>

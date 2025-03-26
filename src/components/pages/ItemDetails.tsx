@@ -1,4 +1,3 @@
-// src/routes/ItemDetail.tsx
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
 import { Container, Row, Col, Badge, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap';
@@ -9,7 +8,7 @@ import './ItemDetails.css';
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
 const ItemDetail: React.FC = () => {
-  const { id } = useParams({ strict: false });
+  const { id, category } = useParams({ strict: false });
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>('');
   const [imgHeight, setImgHeight] = useState<number>(0);
@@ -17,6 +16,7 @@ const ItemDetail: React.FC = () => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    console.log("Item Detail Params:", { id, category }); // Check if the params are correct
     const fetchItem = async () => {
       try {
         const response = await fetch('/insect-betyar/data.json');
@@ -54,7 +54,6 @@ const ItemDetail: React.FC = () => {
   return (
     <Container className="mt-5 d-flex justify-content-center align-items-center" style={{ minHeight: '70vh', marginTop: '10vh' }}>
       <Row className="w-100 no-gutters">
-        {/* Image Column */}
         <Col md={4} className="d-flex justify-content-center mb-4 mb-md-0" style={{ height: `${imgHeight}px` }}>
           <div style={{ width: '100%', paddingTop: '100%', position: 'relative' }}>
             <img
@@ -64,7 +63,6 @@ const ItemDetail: React.FC = () => {
               onError={() => setImgSrc(placeholderImage)}
               className="img-fluid animate-pop-in shadow-lg"
               style={{
-                border: '2px solid #41d5f5',
                 position: 'absolute',
                 top: '0',
                 left: '0',
@@ -76,9 +74,7 @@ const ItemDetail: React.FC = () => {
           </div>
         </Col>
 
-        {/* Details Column */}
         <Col md={8} className="d-flex flex-column justify-content-between text-center" style={{ height: `${imgHeight}px` }}>
-          {/* Name Section */}
           <div
             className="p-3 animate-slide-in-left bg-dark text-info border border-2 border-info"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
@@ -86,7 +82,6 @@ const ItemDetail: React.FC = () => {
             <h3 className="mb-0 fw-bold">{item.name}</h3>
           </div>
 
-          {/* Description Section (Scrollable, Full Width) */}
           <div
             className="p-3 animate-slide-in-right bg-dark text-light border border-2 border-info overflow-auto w-100"
             style={{ height: `${maxSectionHeight * 0.4}px` }}
@@ -94,7 +89,6 @@ const ItemDetail: React.FC = () => {
             <p className="mb-0">{item.description}</p>
           </div>
 
-          {/* Price Section */}
           <div
             className="p-3 animate-slide-in-left bg-dark border border-2 border-info"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
@@ -104,13 +98,12 @@ const ItemDetail: React.FC = () => {
             </Badge>
           </div>
 
-          {/* Back Button Section */}
           <div
             className="p-3 animate-slide-in-right bg-dark border border-2 border-info d-flex align-items-center justify-content-center"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
           >
             <OverlayTrigger placement="top" overlay={renderTooltip('Vissza a kategoriához')}>
-              <Link to="/about/category/$category" className="text-decoration-none">
+              <Link to={`/about/category/${category}`} className="text-decoration-none">
                 <Button variant="outline-light" className="animate-fade-in px-4 py-2">
                   <FaArrowLeft className="me-2" /> Vissza
                 </Button>
