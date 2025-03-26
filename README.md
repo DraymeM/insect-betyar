@@ -19,6 +19,10 @@
         <td align="center">
       <img src="https://cdn.worldvectorlogo.com/logos/framer-motion.svg" alt="Bootstrap Logo" width="100" height="100" />
     </td>
+    </td>
+        <td align="center">
+      <img src="https://miro.medium.com/v2/resize:fit:1080/1*9l9kbbiuFHWVqcjUJZcdYw.png" alt="Bootstrap Logo" width="100" height="100" />
+    </td>
   </tr>
 </table>
 
