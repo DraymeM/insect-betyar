@@ -1,25 +1,20 @@
-// src/components/common/Card.tsx
 import React, { useState } from 'react';
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router'; // Use Link from TanStack Router
 import { motion } from 'framer-motion';
-import { useDebouncedCallback } from 'use-debounce';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface CardProps {
   id: number;
   name: string;
   picture: string;
+  category?: string; // Assuming you need to pass category as well
+  
 }
 
 const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
-const Card: React.FC<CardProps> = ({ id, name, picture }) => {
+const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
   const [imgSrc, setImgSrc] = useState(picture);
-  const navigate = useNavigate();
-
-  const debouncedClick = useDebouncedCallback(() => {
-    navigate({ to: `/about/category/$category/item/${id}` });
-  }, 300);
 
   const cardVariants = {
     hidden: { opacity: 0, scale: 0.9 },
@@ -43,7 +38,6 @@ const Card: React.FC<CardProps> = ({ id, name, picture }) => {
       initial="hidden"
       animate="visible"
       whileHover="hover"
-      onClick={debouncedClick}
     >
       <motion.img
         src={imgSrc}
@@ -56,10 +50,10 @@ const Card: React.FC<CardProps> = ({ id, name, picture }) => {
       <div className="card-body">
         <h5 className="card-title" style={{ color: 'white' }}>{name}</h5>
         <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap">
+          {/* Updated Link with category and item id */}
           <Link 
-            to={`/about/category/$category/item/${id}`} 
+            to={`/about/category/${category}/item/${id}`} 
             className="btn btn-primary"
-            onClick={(e) => e.stopPropagation()}
           >
             Részletek
           </Link>

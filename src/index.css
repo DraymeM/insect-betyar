@@ -76,7 +76,7 @@ body {
   flex-direction: column;
   justify-content: center;
   max-height: fit-content;
-  min-height: fit-content;
+  
   overflow-x: hidden;
   text-align: center;
   width: 100%

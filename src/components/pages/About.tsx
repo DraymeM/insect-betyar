@@ -1,4 +1,3 @@
-// src/routes/About.tsx
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Card from '../common/Card';
@@ -6,7 +5,8 @@ import CategoryCard from '../common/CategoryCard';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { fetchCategories, fetchItems } from '../../api/repo';
 import { useDebouncedCallback } from 'use-debounce';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Add Bootstrap CSS import
+import { Outlet } from '@tanstack/react-router';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Category {
   name: string;
@@ -19,7 +19,7 @@ const About: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [limit, setLimit] = useState(5);
-  const { category } = useParams({ strict: false });
+  const { category, id } = useParams({ strict: false });
   const navigate = useNavigate();
 
   const debouncedNavigate = useDebouncedCallback((to: string) => {
@@ -52,10 +52,12 @@ const About: React.FC = () => {
         const categoriesData = await fetchCategories();
         setCategories(categoriesData);
 
-        const itemsData = await fetchItems();
-        const filteredItems = category ? itemsData.filter((item: any) => item.category === category) : [];
-        setTotalItems(filteredItems.length);
-        setItems(filteredItems.slice(0, limit));
+        if (category) {
+          const itemsData = await fetchItems();
+          const filteredItems = itemsData.filter((item: any) => item.category === category);
+          setTotalItems(filteredItems.length);
+          setItems(filteredItems.slice(0, limit));
+        }
       } catch (error) {
         console.error('Error loading the page:', error);
       }
@@ -77,6 +79,11 @@ const About: React.FC = () => {
 
   const totalPages = Math.ceil(totalItems / limit);
 
+  // **If an item is being viewed (`id` exists), only show the detail view**
+  if (id) {
+    return <Outlet />;
+  }
+
   return (
     <div className="page">
       {!category && (
@@ -94,35 +101,35 @@ const About: React.FC = () => {
 
       {category && (
         <>
-        <div className="controls-container">
-          <div className="back-button-container">
-            <button onClick={handleBackToCategories} className="back-button">
-              <FaArrowLeft /> Vissza a kategóriákhoz
-            </button>
+          <div className="controls-container">
+            <div className="back-button-container">
+              <button onClick={handleBackToCategories} className="back-button">
+                <FaArrowLeft /> Vissza a kategóriákhoz
+              </button>
+            </div>
+
+            <div className="limit-selector">
+              <label htmlFor="limit">Items per page: </label>
+              <select id="limit" value={limit} onChange={handleLimitChange}>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+            </div>
           </div>
 
-          <div className="limit-selector">
-            <label htmlFor="limit">Items per page: </label>
-            <select id="limit" value={limit} onChange={handleLimitChange}>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-            </select>
-          </div>
-          </div>
           <div className="card-list">
             {items.map((item) => (
-              <Card key={item.id} id={item.id} name={item.name} picture={item.picture} />
+              <Card key={item.id} id={item.id} name={item.name} picture={item.picture} category={category} />
             ))}
           </div>
 
-          {/* Bootstrap Pagination */}
           <nav aria-label="Page navigation">
             <ul className="pagination justify-content-center">
               <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button 
-                  className="page-link" 
+                <button
+                  className="page-link"
                   onClick={() => debouncedPageChange(currentPage - 1)}
                   disabled={currentPage === 1}
                 >
@@ -132,10 +139,7 @@ const About: React.FC = () => {
 
               {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
                 <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
-                  <button
-                    className="page-link"
-                    onClick={() => debouncedPageChange(page)}
-                  >
+                  <button className="page-link" onClick={() => debouncedPageChange(page)}>
                     {page}
                   </button>
                 </li>

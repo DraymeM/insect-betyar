@@ -1,18 +1,11 @@
-// src/components/NavBar.tsx
 import React from 'react';
-import { Link, useMatchRoute, useNavigate } from '@tanstack/react-router';
+import { Link, useMatchRoute } from '@tanstack/react-router';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FaHome, FaBug } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
-import { useDebouncedCallback } from 'use-debounce';
 
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute();
-  const navigate = useNavigate();
-
-  const debouncedNavigate = useDebouncedCallback((to: string) => {
-    navigate({ to });
-  }, 300);
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
@@ -29,26 +22,23 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link
-              as="div"
+              as={Link}
+              to="/" // Replace with TanStack Link
               className={matchRoute({ to: '/' }) ? 'active' : ''}
-              onClick={() => debouncedNavigate('/')}
-              style={{ cursor: 'pointer' }} // Inline fix
             >
               <FaHome /> Főoldal
             </Nav.Link>
             <Nav.Link
-              as="div"
+              as={Link}
+              to="/about" // Replace with TanStack Link
               className={matchRoute({ to: '/about' }) ? 'active' : ''}
-              onClick={() => debouncedNavigate('/about')}
-              style={{ cursor: 'pointer' }} // Inline fix
             >
               <FaBug /> Termékeink
             </Nav.Link>
             <Nav.Link
-              as="div"
+              as={Link}
+              to="/contact" // Replace with TanStack Link
               className={matchRoute({ to: '/contact' }) ? 'active' : ''}
-              onClick={() => debouncedNavigate('/contact')}
-              style={{ cursor: 'pointer' }} // Inline fix
             >
               <MdEmail /> Elérhetőségek
             </Nav.Link>
