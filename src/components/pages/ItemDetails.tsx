@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from '@tanstack/react-router';
-import { Container, Row, Col, Badge, Button, Alert, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Container, Row, Col, Badge, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ItemDetails.css';
@@ -43,7 +43,16 @@ const ItemDetail: React.FC = () => {
     }
   }, [imgHeight]);
 
-  if (!item) return <Alert variant="info" className="text-center mt-5">Loading...</Alert>;
+  if (!item)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: '100vh' }} // Full screen height
+      >
+        <div className="spinner-border text-info" role="status">
+        </div>
+      </div>
+    );
 
   const renderTooltip = (text: string) => (
     <Tooltip id={`tooltip-${text.toLowerCase().replace(' ', '-')}`} className="bg-dark text-light">

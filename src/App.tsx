@@ -1,13 +1,13 @@
-import { Outlet } from '@tanstack/react-router'
-import NavBar from './components/common/NavBar'
+import { Outlet } from "@tanstack/react-router";
+import NavBar from "./components/common/NavBar";
 
 const App: React.FC = () => {
   return (
     <>
       <NavBar />
-      <Outlet /> 
+      <Outlet />
     </>
-  )
-}
+  );
+};
 
 export default App;

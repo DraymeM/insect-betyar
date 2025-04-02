@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link, useMatchRoute } from '@tanstack/react-router';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { FaHome, FaBug } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import React from "react";
+import { Link, useMatchRoute } from "@tanstack/react-router";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { FaHome, FaBug } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute();
@@ -24,21 +24,21 @@ const NavBar: React.FC = () => {
             <Nav.Link
               as={Link}
               to="/" // Replace with TanStack Link
-              className={matchRoute({ to: '/' }) ? 'active' : ''}
+              className={matchRoute({ to: "/" }) ? "active" : ""}
             >
               <FaHome /> Főoldal
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/about" // Replace with TanStack Link
-              className={matchRoute({ to: '/about' }) ? 'active' : ''}
+              className={matchRoute({ to: "/about" }) ? "active" : ""}
             >
               <FaBug /> Termékeink
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/contact" // Replace with TanStack Link
-              className={matchRoute({ to: '/contact' }) ? 'active' : ''}
+              className={matchRoute({ to: "/contact" }) ? "active" : ""}
             >
               <MdEmail /> Elérhetőségek
             </Nav.Link>

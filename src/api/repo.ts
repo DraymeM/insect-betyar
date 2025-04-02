@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: '/insect-betyar', // Adjust the base URL as needed
+  baseURL: '/insect-betyar',
 });
 
 export const fetchCategories = async () => {
