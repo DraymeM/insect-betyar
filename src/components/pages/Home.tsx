@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState} from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import Card from '../common/Card';
@@ -37,29 +37,14 @@ const carouselVariants = {
   visible: { opacity: 1, scale: 1, transition: { duration: 1, ease: "easeOut" } },
 };
 
-const navDotVariants = {
-  hover: { scale: 1.2, transition: { duration: 0.3 } },
-};
-
 const Home: React.FC = () => {
   const [latestItems, setLatestItems] = useState<any[]>([]);
-
-  const bioRef = useRef<HTMLDivElement | null>(null);
-  const itemsRef = useRef<HTMLDivElement | null>(null);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
-
-  const HEADER_OFFSET = 60; // Adjust this based on your fixed header height
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const lastThreeItems = await fetchLatestItems();
         setLatestItems(lastThreeItems);
-
-        // Apply scrollMarginTop to each section for better scroll behavior
-        if (bioRef.current) bioRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
-        if (itemsRef.current) itemsRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
-        if (carouselRef.current) carouselRef.current.style.scrollMarginTop = `${HEADER_OFFSET}px`;
       } catch (error) {
         console.error('Error fetching latest items:', error);
       }
@@ -68,46 +53,10 @@ const Home: React.FC = () => {
     fetchData();
   }, []);
 
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
-    if (ref.current) {
-      const sectionTop = ref.current.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({
-        top: sectionTop - HEADER_OFFSET, // Adjust for fixed header
-        behavior: 'smooth',
-      });
-    }
-  };
-
   return (
     <div className="page">
-      {/* Navigation Dots */}
-      <div className="section-nav">
-        <motion.div
-          className="nav-dot"
-          onClick={() => scrollToSection(bioRef)}
-          whileHover="hover"
-          variants={navDotVariants}
-          title="Biography"
-        />
-        <motion.div
-          className="nav-dot"
-          onClick={() => scrollToSection(itemsRef)}
-          whileHover="hover"
-          variants={navDotVariants}
-          title="Latest Items"
-        />
-        <motion.div
-          className="nav-dot"
-          onClick={() => scrollToSection(carouselRef)}
-          whileHover="hover"
-          variants={navDotVariants}
-          title="Carousel"
-        />
-      </div>
-
       {/* Biography Section */}
       <motion.div
-        ref={bioRef}
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -155,7 +104,6 @@ const Home: React.FC = () => {
 
       {/* Latest Items Section */}
       <motion.div
-        ref={itemsRef}
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -184,7 +132,6 @@ const Home: React.FC = () => {
 
       {/* Carousel Section */}
       <motion.div
-        ref={carouselRef}
         variants={carouselVariants}
         initial="hidden"
         whileInView="visible"

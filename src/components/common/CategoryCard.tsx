@@ -1,8 +1,8 @@
 // src/components/common/CategoryCard.tsx
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useDebouncedCallback } from 'use-debounce';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useDebouncedCallback } from "use-debounce";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface CategoryCardProps {
   category: string;
@@ -11,9 +11,15 @@ interface CategoryCardProps {
   index?: number;
 }
 
-const placeholderImage = "https://archive.org/download/placeholder-image/placeholder-image.jpg";
+const placeholderImage =
+  "https://archive.org/download/placeholder-image/placeholder-image.jpg";
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category, image, onClick, index = 0 }) => {
+const CategoryCard: React.FC<CategoryCardProps> = ({
+  category,
+  image,
+  onClick,
+  index = 0,
+}) => {
   const [imgSrc, setImgSrc] = useState(image || placeholderImage);
 
   const debouncedOnClick = useDebouncedCallback(() => {
@@ -27,15 +33,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, image, onClick, i
       scale: 1,
       transition: { duration: 0.5, ease: "easeOut", delay: index * 0.2 },
     },
-    hover: { scale: 1.05, transition: { duration: 0.3 } },
-  };
-
-  const imageVariants = {
-    hover: { scale: 1.1, transition: { duration: 0.3 } },
   };
 
   const buttonVariants = {
-    hover: { scale: 1.1, transition: { duration: 0.3 } },
     tap: { scale: 0.95, transition: { duration: 0.2 } },
   };
 
@@ -52,11 +52,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ category, image, onClick, i
         alt={category}
         className="card-img-top"
         onError={() => setImgSrc(placeholderImage)}
-        variants={imageVariants}
         whileHover="hover"
       />
       <div className="card-body">
-        <h5 className="card-title" style={{ color: 'white' }}>{category}</h5>
+        <h5 className="card-title" style={{ color: "white" }}>
+          {category}
+        </h5>
         <motion.button
           className="btn btn-primary"
           variants={buttonVariants}

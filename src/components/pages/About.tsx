@@ -1,3 +1,4 @@
+// About.tsx
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Card from '../common/Card';
@@ -7,6 +8,7 @@ import { fetchCategories, fetchItems } from '../../api/repo';
 import { useDebouncedCallback } from 'use-debounce';
 import { Outlet } from '@tanstack/react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LimitSelector from '../common/LimitSelector'; // Import the new LimitSelector component
 
 interface Category {
   name: string;
@@ -73,10 +75,6 @@ const About: React.FC = () => {
     debouncedNavigate('/about');
   };
 
-  const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    debouncedLimitChange(Number(e.target.value));
-  };
-
   const totalPages = Math.ceil(totalItems / limit);
 
   // **If an item is being viewed (`id` exists), only show the detail view**
@@ -87,7 +85,7 @@ const About: React.FC = () => {
   return (
     <div className="page">
       {!category && (
-        <div className="category-list">
+        <div className="card-list">
           {categories.map((cat) => (
             <CategoryCard
               key={cat.name}
@@ -108,15 +106,8 @@ const About: React.FC = () => {
               </button>
             </div>
 
-            <div className="limit-selector">
-              <label htmlFor="limit">Items per page: </label>
-              <select id="limit" value={limit} onChange={handleLimitChange}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-              </select>
-            </div>
+            {/* Use the new LimitSelector component */}
+            <LimitSelector value={limit} onLimitChange={debouncedLimitChange} />
           </div>
 
           <div className="card-list">

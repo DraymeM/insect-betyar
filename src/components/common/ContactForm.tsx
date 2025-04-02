@@ -1,39 +1,54 @@
-import React, { useState } from 'react';
-import { Col, Form, Button, Alert, ProgressBar } from 'react-bootstrap';
-import { motion } from 'framer-motion';
-import { z } from 'zod';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { Col, Form, Button, Alert, ProgressBar } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { z } from "zod";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface ContactFormProps {
-  onSubmit: (formData: { name: string; email: string; message: string }) => Promise<void>;
+  onSubmit: (formData: {
+    name: string;
+    email: string;
+    message: string;
+  }) => Promise<void>;
 }
 
 // Define Zod schema
 const contactSchema = z.object({
-  name: z.string().min(3, 'A név legalább 3 karakter hosszú kell legyen'),
-  email: z.string().email('Érvényes email címet adj meg'),
-  message: z.string().min(10, 'Az üzenet legalább 10 karakter hosszú kell legyen'),
+  name: z.string().min(3, "A név legalább 3 karakter hosszú kell legyen"),
+  email: z.string().email("Érvényes email címet adj meg"),
+  message: z
+    .string()
+    .min(10, "Az üzenet legalább 10 karakter hosszú kell legyen"),
 });
 
 const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
-  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
     // Validate on change
-    const validationResult = contactSchema.safeParse({ ...formData, [name]: value });
+    const validationResult = contactSchema.safeParse({
+      ...formData,
+      [name]: value,
+    });
     if (!validationResult.success) {
       const fieldError = validationResult.error.format();
       setErrors({
@@ -49,7 +64,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
+    setError("");
     setIsSuccess(false);
     setProgress(0);
 
@@ -75,11 +90,11 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
       await onSubmit(formData);
       setProgress(100);
       setIsSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", message: "" });
       setErrors({});
     } catch (err) {
       setProgress(0);
-      setError('Nem sikerült elküldeni az üzeneted. Kérlek próbáld újra!');
+      setError("Nem sikerült elküldeni az üzeneted. Kérlek próbáld újra!");
     } finally {
       clearInterval(interval);
       setIsSubmitting(false);
@@ -89,20 +104,44 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
   return (
     <Col md={8} lg={6} className="mx-auto">
       <motion.div className="p-4">
-        <h2 className="text-center mb-4 text-light">Küld el nekünk az üzeneted</h2>
+        <h2 className="text-center mb-4 text-light">
+          Küld el nekünk az üzeneted
+        </h2>
 
-        {isSuccess && <Alert variant="success">✅ Sikeresen elküldted az üzeneted!</Alert>}
+        {isSuccess && (
+          <Alert variant="success">✅ Sikeresen elküldted az üzeneted!</Alert>
+        )}
         {error && <Alert variant="danger">❌ {error}</Alert>}
 
         <Form onSubmit={handleSubmit}>
           {[
-            { id: 'formName', label: 'Name', name: 'name', type: 'text', placeholder: 'Írd be a neved' },
-            { id: 'formEmail', label: 'Email address', name: 'email', type: 'email', placeholder: 'Írd be az email címed' },
-            { id: 'formMessage', label: 'Message', name: 'message', type: 'textarea', placeholder: 'Írd be az üzeneted' },
+            {
+              id: "formName",
+              label: "Név",
+              name: "name",
+              type: "text",
+              placeholder: "Írd be a neved",
+            },
+            {
+              id: "formEmail",
+              label: "Email cím",
+              name: "email",
+              type: "email",
+              placeholder: "Írd be az email címed",
+            },
+            {
+              id: "formMessage",
+              label: "Üzenet",
+              name: "message",
+              type: "textarea",
+              placeholder: "Írd be az üzeneted",
+            },
           ].map((field) => (
             <Form.Group key={field.id} className="mb-3">
-              <Form.Label className="fw-bold text-light">{field.label}</Form.Label>
-              {field.type === 'textarea' ? (
+              <Form.Label className="fw-bold text-light">
+                {field.label}
+              </Form.Label>
+              {field.type === "textarea" ? (
                 <Form.Control
                   as="textarea"
                   rows={5}
@@ -110,7 +149,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                   placeholder={field.placeholder}
                   value={formData[field.name as keyof typeof formData]}
                   onChange={handleChange}
-                  className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? 'is-invalid' : ''}`}
+                  className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? "is-invalid" : ""}`}
                 />
               ) : (
                 <Form.Control
@@ -119,17 +158,32 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
                   placeholder={field.placeholder}
                   value={formData[field.name as keyof typeof formData]}
                   onChange={handleChange}
-                  className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? 'is-invalid' : ''}`}
+                  className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? "is-invalid" : ""}`}
                 />
               )}
-              {errors[field.name as keyof typeof errors] && <div className="text-danger mt-1">{errors[field.name as keyof typeof errors]}</div>}
+              {errors[field.name as keyof typeof errors] && (
+                <div className="text-danger mt-1">
+                  {errors[field.name as keyof typeof errors]}
+                </div>
+              )}
             </Form.Group>
           ))}
 
-          {isSubmitting && <ProgressBar animated now={progress} label={`${progress}%`} className="mb-3" />}
+          {isSubmitting && (
+            <ProgressBar
+              animated
+              now={progress}
+              label={`${progress}%`}
+              className="mb-3"
+            />
+          )}
 
-          <Button type="submit" disabled={isSubmitting} className="subm-btn px-5 py-2 fw-bold shadow-sm">
-            {isSubmitting ? 'Sending...' : 'Küldés'}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="subm-btn px-5 py-2 fw-bold shadow-sm"
+          >
+            {isSubmitting ? "Sending..." : "Küldés"}
           </Button>
         </Form>
       </motion.div>

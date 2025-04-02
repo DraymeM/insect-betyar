@@ -10,158 +10,158 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as ContactImport } from './routes/contact'
-import { Route as IndexImport } from './routes/index'
-import { Route as AboutIndexImport } from './routes/about/index'
-import { Route as AboutCategoryCategoryImport } from './routes/about/category/$category'
-import { Route as AboutCategoryCategoryItemIdImport } from './routes/about/category/$category/item/$id'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as ContactImport } from "./routes/contact";
+import { Route as IndexImport } from "./routes/index";
+import { Route as AboutIndexImport } from "./routes/about/index";
+import { Route as AboutCategoryCategoryImport } from "./routes/about/category/$category";
+import { Route as AboutCategoryCategoryItemIdImport } from "./routes/about/category/$category/item/$id";
 
 // Create/Update Routes
 
 const ContactRoute = ContactImport.update({
-  id: '/contact',
-  path: '/contact',
+  id: "/contact",
+  path: "/contact",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutIndexRoute = AboutIndexImport.update({
-  id: '/about/',
-  path: '/about/',
+  id: "/about/",
+  path: "/about/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutCategoryCategoryRoute = AboutCategoryCategoryImport.update({
-  id: '/about/category/$category',
-  path: '/about/category/$category',
+  id: "/about/category/$category",
+  path: "/about/category/$category",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutCategoryCategoryItemIdRoute =
   AboutCategoryCategoryItemIdImport.update({
-    id: '/item/$id',
-    path: '/item/$id',
+    id: "/item/$id",
+    path: "/item/$id",
     getParentRoute: () => AboutCategoryCategoryRoute,
-  } as any)
+  } as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactImport
-      parentRoute: typeof rootRoute
-    }
-    '/about/': {
-      id: '/about/'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about/category/$category': {
-      id: '/about/category/$category'
-      path: '/about/category/$category'
-      fullPath: '/about/category/$category'
-      preLoaderRoute: typeof AboutCategoryCategoryImport
-      parentRoute: typeof rootRoute
-    }
-    '/about/category/$category/item/$id': {
-      id: '/about/category/$category/item/$id'
-      path: '/item/$id'
-      fullPath: '/about/category/$category/item/$id'
-      preLoaderRoute: typeof AboutCategoryCategoryItemIdImport
-      parentRoute: typeof AboutCategoryCategoryImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/contact": {
+      id: "/contact";
+      path: "/contact";
+      fullPath: "/contact";
+      preLoaderRoute: typeof ContactImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about/": {
+      id: "/about/";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutIndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about/category/$category": {
+      id: "/about/category/$category";
+      path: "/about/category/$category";
+      fullPath: "/about/category/$category";
+      preLoaderRoute: typeof AboutCategoryCategoryImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about/category/$category/item/$id": {
+      id: "/about/category/$category/item/$id";
+      path: "/item/$id";
+      fullPath: "/about/category/$category/item/$id";
+      preLoaderRoute: typeof AboutCategoryCategoryItemIdImport;
+      parentRoute: typeof AboutCategoryCategoryImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface AboutCategoryCategoryRouteChildren {
-  AboutCategoryCategoryItemIdRoute: typeof AboutCategoryCategoryItemIdRoute
+  AboutCategoryCategoryItemIdRoute: typeof AboutCategoryCategoryItemIdRoute;
 }
 
 const AboutCategoryCategoryRouteChildren: AboutCategoryCategoryRouteChildren = {
   AboutCategoryCategoryItemIdRoute: AboutCategoryCategoryItemIdRoute,
-}
+};
 
 const AboutCategoryCategoryRouteWithChildren =
   AboutCategoryCategoryRoute._addFileChildren(
-    AboutCategoryCategoryRouteChildren,
-  )
+    AboutCategoryCategoryRouteChildren
+  );
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/about': typeof AboutIndexRoute
-  '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
-  '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
+  "/": typeof IndexRoute;
+  "/contact": typeof ContactRoute;
+  "/about": typeof AboutIndexRoute;
+  "/about/category/$category": typeof AboutCategoryCategoryRouteWithChildren;
+  "/about/category/$category/item/$id": typeof AboutCategoryCategoryItemIdRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/about': typeof AboutIndexRoute
-  '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
-  '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
+  "/": typeof IndexRoute;
+  "/contact": typeof ContactRoute;
+  "/about": typeof AboutIndexRoute;
+  "/about/category/$category": typeof AboutCategoryCategoryRouteWithChildren;
+  "/about/category/$category/item/$id": typeof AboutCategoryCategoryItemIdRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/contact': typeof ContactRoute
-  '/about/': typeof AboutIndexRoute
-  '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
-  '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/contact": typeof ContactRoute;
+  "/about/": typeof AboutIndexRoute;
+  "/about/category/$category": typeof AboutCategoryCategoryRouteWithChildren;
+  "/about/category/$category/item/$id": typeof AboutCategoryCategoryItemIdRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/contact'
-    | '/about'
-    | '/about/category/$category'
-    | '/about/category/$category/item/$id'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/contact"
+    | "/about"
+    | "/about/category/$category"
+    | "/about/category/$category/item/$id";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/contact'
-    | '/about'
-    | '/about/category/$category'
-    | '/about/category/$category/item/$id'
+    | "/"
+    | "/contact"
+    | "/about"
+    | "/about/category/$category"
+    | "/about/category/$category/item/$id";
   id:
-    | '__root__'
-    | '/'
-    | '/contact'
-    | '/about/'
-    | '/about/category/$category'
-    | '/about/category/$category/item/$id'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/contact"
+    | "/about/"
+    | "/about/category/$category"
+    | "/about/category/$category/item/$id";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ContactRoute: typeof ContactRoute
-  AboutIndexRoute: typeof AboutIndexRoute
-  AboutCategoryCategoryRoute: typeof AboutCategoryCategoryRouteWithChildren
+  IndexRoute: typeof IndexRoute;
+  ContactRoute: typeof ContactRoute;
+  AboutIndexRoute: typeof AboutIndexRoute;
+  AboutCategoryCategoryRoute: typeof AboutCategoryCategoryRouteWithChildren;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -169,11 +169,11 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   AboutIndexRoute: AboutIndexRoute,
   AboutCategoryCategoryRoute: AboutCategoryCategoryRouteWithChildren,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
