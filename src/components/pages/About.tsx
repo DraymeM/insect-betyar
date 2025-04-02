@@ -1,14 +1,18 @@
-// About.tsx
-import React, { useEffect, useState } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import Card from '../common/Card';
-import CategoryCard from '../common/CategoryCard';
-import { useParams, useNavigate } from '@tanstack/react-router';
-import { fetchCategories, fetchItems } from '../../api/repo';
-import { useDebouncedCallback } from 'use-debounce';
-import { Outlet } from '@tanstack/react-router';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LimitSelector from '../common/LimitSelector'; // Import the new LimitSelector component
+import React, { useEffect, useState, Suspense } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { useParams, useNavigate, useLocation } from "@tanstack/react-router";
+import { fetchCategories, fetchItems } from "../../api/repo";
+import { useDebouncedCallback } from "use-debounce";
+import { Outlet } from "@tanstack/react-router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Spinner from "../common/Spinner";
+import SearchBar from "../common/SearchBar";
+import { Toast, ToastContainer } from "react-bootstrap";
+import { IoIosWarning } from "react-icons/io";
+const Card = React.lazy(() => import("../common/Card"));
+const CategoryCard = React.lazy(() => import("../common/CategoryCard"));
+const LimitSelector = React.lazy(() => import("../common/LimitSelector"));
+const Pagination = React.lazy(() => import("../common/Pagination"));
 
 interface Category {
   name: string;
@@ -16,37 +20,40 @@ interface Category {
 }
 
 const About: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { category, id } = useParams({ strict: false });
+
+  const params = new URLSearchParams(location.search);
+  const currentPage = parseInt(params.get("page") || "1", 10);
+  const limit = parseInt(params.get("limit") || "5", 10);
+  const searchQuery = params.get("search") || "";
+
   const [items, setItems] = useState<any[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [limit, setLimit] = useState(5);
-  const { category, id } = useParams({ strict: false });
-  const navigate = useNavigate();
-
-  const debouncedNavigate = useDebouncedCallback((to: string) => {
-    navigate({ to });
-  }, 300);
+  const [showToast, setShowToast] = useState(false); // Toast visibility
 
   const debouncedPageChange = useDebouncedCallback((newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
-
-    setCurrentPage(newPage);
-    fetchItems()
-      .then((data) => {
-        const filteredItems = category ? data.filter((item: any) => item.category === category) : [];
-        const startIndex = (newPage - 1) * limit;
-        setItems(filteredItems.slice(startIndex, startIndex + limit));
-      })
-      .catch((error) => {
-        console.error('Error loading items:', error);
-      });
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("page", newPage.toString());
+    navigate({ to: `${location.pathname}?${updatedParams.toString()}` });
   }, 300);
 
   const debouncedLimitChange = useDebouncedCallback((value: number) => {
-    setLimit(value);
-    setCurrentPage(1);
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("page", "1");
+    updatedParams.set("limit", value.toString());
+    navigate({ to: `${location.pathname}?${updatedParams.toString()}` });
   }, 300);
+
+  const handleSearch = (query: string) => {
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("search", query);
+    updatedParams.set("page", "1");
+    navigate({ to: `${location.pathname}?${updatedParams.toString()}` });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,102 +61,152 @@ const About: React.FC = () => {
         const categoriesData = await fetchCategories();
         setCategories(categoriesData);
 
-        if (category) {
-          const itemsData = await fetchItems();
-          const filteredItems = itemsData.filter((item: any) => item.category === category);
-          setTotalItems(filteredItems.length);
-          setItems(filteredItems.slice(0, limit));
-        }
+        const itemsData = await fetchItems();
+        const filteredItems = category
+          ? itemsData.filter((item: any) => item.category === category)
+          : itemsData;
+
+        const lowercasedQuery = searchQuery.toLowerCase();
+        const filteredBySearch = searchQuery
+          ? filteredItems.filter((item: any) =>
+              item.name.toLowerCase().includes(lowercasedQuery)
+            )
+          : filteredItems;
+
+        setTotalItems(filteredBySearch.length);
+        setItems(
+          filteredBySearch.slice((currentPage - 1) * limit, currentPage * limit)
+        );
+
+        // Show toast if no items found
+        setShowToast(filteredBySearch.length === 0);
       } catch (error) {
-        console.error('Error loading the page:', error);
+        console.error("Error loading the page:", error);
       }
     };
+
     fetchData();
-  }, [limit, category]);
+  }, [limit, category, searchQuery, currentPage]);
 
   const handleCategorySelect = (selectedCategory: string) => {
-    debouncedNavigate(`/about/category/${selectedCategory}`);
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.set("page", "1");
+    if (!updatedParams.has("limit")) {
+      updatedParams.set("limit", "10");
+    }
+    updatedParams.delete("category");
+
+    navigate({
+      to: `/about/category/${selectedCategory}?${updatedParams.toString()}`,
+    });
   };
 
   const handleBackToCategories = () => {
-    debouncedNavigate('/about');
+    const updatedParams = new URLSearchParams(location.search);
+    updatedParams.delete("category");
+    updatedParams.delete("search");
+    updatedParams.delete("page");
+    updatedParams.delete("limit");
+    navigate({ to: `/about?${updatedParams.toString()}` });
   };
 
   const totalPages = Math.ceil(totalItems / limit);
 
-  // **If an item is being viewed (`id` exists), only show the detail view**
   if (id) {
     return <Outlet />;
   }
 
   return (
-    <div className="page">
-      {!category && (
-        <div className="card-list">
-          {categories.map((cat) => (
-            <CategoryCard
-              key={cat.name}
-              category={cat.name}
-              image={cat.image}
-              onClick={() => handleCategorySelect(cat.name)}
-            />
-          ))}
-        </div>
-      )}
-
-      {category && (
-        <>
-          <div className="controls-container">
-            <div className="back-button-container">
-              <button onClick={handleBackToCategories} className="back-button">
-                <FaArrowLeft /> Vissza a kategóriákhoz
-              </button>
-            </div>
-
-            {/* Use the new LimitSelector component */}
-            <LimitSelector value={limit} onLimitChange={debouncedLimitChange} />
-          </div>
-
+    <Suspense fallback={<Spinner />}>
+      <div className="page">
+        {!category && (
           <div className="card-list">
-            {items.map((item) => (
-              <Card key={item.id} id={item.id} name={item.name} picture={item.picture} category={category} />
+            {categories.map((cat) => (
+              <CategoryCard
+                key={cat.name}
+                category={cat.name}
+                image={cat.image}
+                onClick={() => handleCategorySelect(cat.name)}
+              />
             ))}
           </div>
+        )}
 
-          <nav aria-label="Page navigation">
-            <ul className="pagination justify-content-center">
-              <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <button
-                  className="page-link"
-                  onClick={() => debouncedPageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  <FaArrowLeft />
-                </button>
-              </li>
-
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
-                  <button className="page-link" onClick={() => debouncedPageChange(page)}>
-                    {page}
+        {category && (
+          <>
+            <Suspense fallback={<Spinner />}>
+              <div className="controls-container">
+                <div className="back-button-container">
+                  <button
+                    onClick={handleBackToCategories}
+                    className="back-button"
+                  >
+                    <FaArrowLeft /> Vissza
                   </button>
-                </li>
-              ))}
+                </div>
+                <SearchBar onSearch={handleSearch} />
+                <LimitSelector
+                  value={limit}
+                  onLimitChange={debouncedLimitChange}
+                />
+              </div>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={debouncedPageChange}
+              />
 
-              <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                <button
-                  className="page-link"
-                  onClick={() => debouncedPageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                >
-                  <FaArrowRight />
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </>
-      )}
-    </div>
+              {items.length > 0 ? (
+                <div className="card-list">
+                  {items.map((item) => (
+                    <Card
+                      key={item.id}
+                      id={item.id}
+                      name={item.name}
+                      picture={item.picture}
+                      category={category}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center mt-4">
+                  <p className="text-info fs-4">
+                    Nincsen ilyen termék a keresési feltételek alapján!
+                  </p>
+                </div>
+              )}
+
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={debouncedPageChange}
+              />
+            </Suspense>
+          </>
+        )}
+      </div>
+
+      <ToastContainer position="bottom-end" className="p-3">
+        <Toast
+          bg="info"
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          animation
+          className={`fade ${showToast ? "show slide-in" : "slide-out"}`}
+        >
+          <Toast.Header closeButton>
+            <strong className="me-auto">
+              <IoIosWarning size={25} />
+            </strong>
+          </Toast.Header>
+          <Toast.Body className="text-white">
+            Nincsen ilyen termék a keresési feltételek alapján!
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
+    </Suspense>
   );
 };
 
