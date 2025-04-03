@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
 
   return (
     <motion.div
-      className="card text-center shadow-sm"
+      className="card text-center shadow border-info p-3"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -39,15 +39,15 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
       <motion.img
         src={imgSrc}
         alt={name}
-        className="card-img-top category-image"
+        className="card-img-top rounded"
         onError={() => setImgSrc(placeholderImage)}
       />
       <div className="card-body">
-        <h5 className="card-title text-light">{name}</h5>
+        <h5 className="card-title text-white">{name}</h5>
         <motion.div variants={buttonVariants} whileTap="tap">
           <Link
             to={`/about/category/${category}/item/${id}`}
-            className="btn btn-primary"
+            className="btn btn-info"
           >
             Részletek
           </Link>
