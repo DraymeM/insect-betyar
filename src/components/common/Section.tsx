@@ -1,24 +1,35 @@
-import React, { ReactNode } from "react";
-import { Container } from "react-bootstrap";
+import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
-interface SectionProps {
-  title?: string;
+interface SectionWrapperProps {
   children: ReactNode;
   className?: string;
 }
 
-const Section: React.FC<SectionProps> = ({ title, children, className }) => {
-  return (
-    <div className={`section mb-5 ${className || ""}`}>
-      {title && <h2 className="text-center mb-4">{title}</h2>}
-      <Container>
-        {/* Section Title */}
-
-        {/* Section Content */}
-        {children}
-      </Container>
-    </div>
-  );
+const sectionVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
 };
 
-export default Section;
+export const SectionWrapper = ({
+  children,
+  className = "",
+}: SectionWrapperProps) => (
+  <motion.div
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: false, margin: "-100px 0px -100px 0px" }}
+    variants={sectionVariants}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+export default SectionWrapper;
