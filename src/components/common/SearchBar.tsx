@@ -21,20 +21,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   return (
     <div className="d-flex justify-content-center">
-      <InputGroup
-        className="mb-6 bg-dark"
-        style={{ width: "100%", maxWidth: "400px" }}
-      >
+      <InputGroup className="mb-6" style={{ width: "100%", maxWidth: "400px" }}>
         <FormControl
           placeholder="Keresés..."
           aria-label="Search"
           value={query}
           onChange={handleChange}
-          style={{
-            backgroundColor: "#333",
-            color: "#fff",
-            borderColor: "#41d5f5",
-          }}
+          className={`bg-dark text-light border-secondary shadow-sm placeholder-text-light`}
         />
         <Button
           variant="outline-secondary"

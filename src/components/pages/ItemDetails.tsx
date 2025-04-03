@@ -115,21 +115,21 @@ const ItemDetail: React.FC = () => {
           style={{ height: `${imgHeight}px` }}
         >
           <div
-            className="p-3 animate-slide-in-left bg-dark text-info border border-2 border-info"
+            className="p-3 animate-slide-in-left bg-dark text-info border"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
           >
             <h3 className="mb-0 fw-bold">{item.name}</h3>
           </div>
 
           <div
-            className="p-3 animate-slide-in-right bg-dark text-light border border-2 border-info overflow-auto w-100"
+            className="p-3 animate-slide-in-right bg-dark text-light overflow-auto w-100"
             style={{ height: `${maxSectionHeight * 0.4}px` }}
           >
             <p className="mb-0">{item.description}</p>
           </div>
 
           <div
-            className="p-3 animate-slide-in-left bg-dark text-info border border-2 border-info"
+            className="p-3 animate-slide-in-left bg-dark text-info"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
           >
             <Badge bg="info" className="fs-5 p-2">
@@ -138,7 +138,7 @@ const ItemDetail: React.FC = () => {
           </div>
 
           <div
-            className="p-3 animate-slide-in-right bg-dark border border-2 border-info d-flex align-items-center justify-content-center"
+            className="p-3 animate-slide-in-right bg-dark d-flex align-items-center justify-content-center"
             style={{ height: `${maxSectionHeight * 0.2}px` }}
           >
             <OverlayTrigger

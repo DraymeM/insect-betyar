@@ -55,9 +55,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         whileHover="hover"
       />
       <div className="card-body">
-        <h5 className="card-title" style={{ color: "white" }}>
-          {category}
-        </h5>
         <motion.button
           className="btn btn-primary"
           variants={buttonVariants}

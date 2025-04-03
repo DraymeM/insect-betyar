@@ -1,50 +1,19 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { Row, Col } from "react-bootstrap";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { Carousel, Row, Col, Container } from "react-bootstrap";
 import Card from "../common/Card";
-import Section from "../common/Section";
-import CarouselSection from "../common/CarouselSection";
 import { fetchLatestItems } from "../../api/repo";
 import Spinner from "../common/Spinner";
+import { motion } from "framer-motion";
 
 const placeholderImage =
   "https://archive.org/download/placeholder-image/placeholder-image.jpg";
+const biographyImage = "/images/biography.jpg";
 
 const carouselImages = [
-  "https://wallpaperaccess.com/full/109666.jpg",
-  "https://www.pixelstalk.net/wp-content/uploads/2016/07/1920x1080-HD-Backgrounds.png",
-  "https://i.pinimg.com/736x/50/c3/f2/50c3f2c9979af31532c11986715a2b09.jpg",
+  "https://www.termalfurdo.hu/upload/images/Galeria/cikk/ujpesti_lepkemuzeum/ujpesti_lepkemuzeum_termalfurdo_4.jpg",
+  "https://csodalatosbalaton.hu/wp-content/uploads/2022/06/keszthely-muzeum-zoo-egzotikus-hullo-izelzlabu-csiga-kiallitas-csodalatosbalaton.jpg",
+  "https://likebalaton.hu/wp-content/uploads/2022/06/5237230hullolepkemuzeumkeszthelymeszarosannarozsalikebalaton11.jpg",
 ];
-
-// Animation Variants
-const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-  hover: { scale: 1.05, transition: { duration: 0.3 } },
-};
-
-const bioVariants = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
-};
-
-const carouselVariants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-};
 
 const Home: React.FC = () => {
   const [latestItems, setLatestItems] = useState<any[]>([]);
@@ -58,111 +27,183 @@ const Home: React.FC = () => {
         console.error("Error fetching latest items:", error);
       }
     };
-
     fetchData();
   }, []);
 
+  // Consistent animation variants for all sections
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.4,
+        duration: 0.8,
+      },
+    },
+    hover: {
+      scale: 1.03,
+      transition: { type: "spring", stiffness: 400, damping: 10 },
+    },
+  };
+
   return (
-    <div className="page">
-      <Suspense fallback={<Spinner />}>
-        {/* Biography Section */}
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+    <div className="mt-md-5 mb-md-5">
+      {/* Carousel with Opacity Animation */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px 0px -100px 0px" }}
+        variants={sectionVariants}
+      >
+        <Carousel
+          controls={true}
+          indicators={true}
+          className="w-100 mb-4"
+          style={{ maxHeight: "60vh" }}
         >
-          <Section className="d-flex justify-content-center align-items-center">
-            <Row className="align-items-center">
-              <Col md={5} className="mb-4 mb-md-0">
+          {carouselImages.map((image, index) => (
+            <Carousel.Item key={index}>
+              <img
+                className="d-block w-100"
+                src={image}
+                alt={`Slide ${index + 1}`}
+                style={{ height: "60vh", objectFit: "cover" }}
+                onError={(e) => {
+                  e.currentTarget.src = placeholderImage;
+                }}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </motion.div>
+
+      {/* Latest Items Container with Consistent Animation */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px 0px -100px 0px" }}
+        variants={sectionVariants}
+      >
+        <Container className="py-5 d-flex flex-column align-items-center bg-dark text-light rounded shadow-sm mb-5 mt-5">
+          <motion.h2
+            className="mb-4 text-uppercase fw-bold text-shadow"
+            variants={sectionVariants}
+          >
+            Újdonságok
+          </motion.h2>
+
+          {latestItems.length === 0 ? (
+            <Spinner />
+          ) : (
+            <motion.div
+              className="d-flex flex-wrap justify-content-center gap-4"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, margin: "-50px" }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    when: "beforeChildren",
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
+            >
+              {latestItems.map((item) => (
                 <motion.div
-                  variants={bioVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="biography-image-container"
+                  key={item.id}
+                  className="position-relative"
+                  variants={cardVariants}
+                  whileHover="hover"
                 >
-                  <img
-                    src="/images/biography.jpg"
-                    alt="Biography"
-                    className="biography-image"
-                    onError={(e) => {
-                      e.currentTarget.src = placeholderImage;
+                  <span
+                    className="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-6"
+                    style={{
+                      zIndex: 10,
+                      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
                     }}
+                  >
+                    Új
+                  </span>
+                  <Card
+                    id={item.id}
+                    name={item.name}
+                    picture={item.picture}
+                    category={item.category}
                   />
                 </motion.div>
-              </Col>
-              <Col md={6}>
-                <motion.div
-                  variants={bioVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  <h2>About Me</h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Nulla vitae elit libero, a pharetra augue. Donec id elit non
-                    mi porta gravida at eget metus.
-                  </p>
-                  <p>
-                    Cras mattis consectetur purus sit amet fermentum. Donec sed
-                    odio dui. Aenean lacinia bibendum nulla sed consectetur.
-                  </p>
-                </motion.div>
-              </Col>
-            </Row>
-          </Section>
-        </motion.div>
-
-        {/* Latest Items Section */}
-        <motion.div
-          variants={sectionVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <Section title="Legújabb termékeink">
-            <Row className="justify-content-center g-4">
-              {latestItems.map((item, index) => (
-                <Col key={item.id} xs={12} md={6} lg={4} className="mb-4">
-                  <motion.div
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    whileHover="hover"
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 }}
-                  >
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      name={item.name}
-                      picture={item.picture}
-                      category={item.category}
-                    />
-                  </motion.div>
-                </Col>
               ))}
-            </Row>
-          </Section>
-        </motion.div>
+            </motion.div>
+          )}
+        </Container>
+      </motion.div>
 
-        {/* Carousel Section */}
-        <motion.div
-          variants={carouselVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <Section className="d-flex justify-content-center align-items-center">
-            <CarouselSection
-              images={carouselImages}
-              placeholderImage={placeholderImage}
-            />
-          </Section>
-        </motion.div>
-      </Suspense>
+      {/* Biography Section */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px 0px -100px 0px" }}
+        variants={sectionVariants}
+      >
+        <Container className="py-4 d-flex bg-dark text-light rounded shadow-sm mt-5">
+          <Row className="align-items-center">
+            <Col md={5} className="mb-4 mb-md-0">
+              <motion.div
+                variants={sectionVariants}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="text-center"
+              >
+                <img
+                  src={biographyImage}
+                  alt="Biography"
+                  className="img-fluid rounded shadow"
+                  style={{ maxHeight: "400px", width: "auto" }}
+                  onError={(e) => {
+                    e.currentTarget.src = placeholderImage;
+                  }}
+                />
+              </motion.div>
+            </Col>
+            <Col md={6} className="mb-4 mb-md-0">
+              <motion.div variants={sectionVariants}>
+                <h2 className="mb-4">About Me</h2>
+                <motion.p variants={sectionVariants}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </motion.p>
+                <motion.p variants={sectionVariants}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur.
+                </motion.p>
+                <motion.p variants={sectionVariants}>
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                  qui officia deserunt mollit anim id est laborum.
+                </motion.p>
+              </motion.div>
+            </Col>
+          </Row>
+        </Container>
+      </motion.div>
     </div>
   );
 };
