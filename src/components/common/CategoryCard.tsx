@@ -1,4 +1,3 @@
-// src/components/common/CategoryCard.tsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
@@ -27,43 +26,70 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
   }, 300);
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.5, ease: "easeOut", delay: index * 0.2 },
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+        delay: index * 0.1,
+      },
     },
-  };
-
-  const buttonVariants = {
-    tap: { scale: 0.95, transition: { duration: 0.2 } },
+    hover: {
+      scale: 1.03,
+      boxShadow: "0 8px 16px rgba(2, 186, 232, 0.3)",
+    },
+    tap: { scale: 0.98 },
   };
 
   return (
     <motion.div
-      className="card"
+      className="card bg-dark mt-1 mb-1 border border-2 border-info rounded-4 overflow-hidden h-100"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
       whileHover="hover"
+      whileTap="tap"
+      onClick={debouncedOnClick}
+      style={{ cursor: "pointer" }}
     >
-      <motion.img
-        src={imgSrc}
-        alt={category}
-        className="card-img-top"
-        onError={() => setImgSrc(placeholderImage)}
-        whileHover="hover"
-      />
-      <div className="card-body">
-        <motion.button
-          className="btn btn-primary"
-          variants={buttonVariants}
-          whileHover="hover"
-          whileTap="tap"
-          onClick={debouncedOnClick}
+      {/* Larger Framed Image Container with 1:1 Aspect Ratio */}
+      <div className="p-3 pb-0">
+        <div
+          className="border border-2 border-info rounded-3 overflow-hidden bg-black"
+          style={{
+            position: "relative",
+            paddingBottom: "100%" /* 1:1 Aspect Ratio */,
+            minHeight: "12rem" /* Minimum size to make it larger */,
+            minWidth: "12rem",
+          }}
         >
-          {category}
-        </motion.button>
+          <motion.img
+            src={imgSrc}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "12rem",
+              height: "12rem",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+            onError={() => setImgSrc(placeholderImage)}
+          />
+        </div>
+      </div>
+
+      {/* Card Body */}
+      <div className="card-body d-flex flex-column justify-content-center p-3 pt-0">
+        <h5 className="text-center text-light mb-0 mt-2">{category}</h5>
+        <div className="text-center mt-2">
+          <motion.span
+            className="text-info small"
+            whileHover={{ scale: 1.05 }}
+          ></motion.span>
+        </div>
       </div>
     </motion.div>
   );
