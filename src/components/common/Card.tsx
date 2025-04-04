@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
     },
     hover: {
       scale: 1.03,
-      boxShadow: "0 8px 20px rgba(2, 186, 232, 0.3)",
+      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
     },
     tap: {
       scale: 0.98,
@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
 
   return (
     <motion.div
-      className="card bg-dark mt-1 mb-1 border border-2 border-info rounded-4 overflow-hidden h-100"
+      className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden h-100"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -49,26 +49,25 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
         to={`/about/category/${category}/item/${id}`}
         className="text-decoration-none text-white"
       >
-        {/* Larger Framed Image Container with 1:1 Aspect Ratio */}
         <div className="p-3 pb-0">
           <div
-            className="border border-2 border-info rounded-3 overflow-hidden bg-black"
+            className="border rounded-3 overflow-hidden bg-black"
             style={{
               position: "relative",
-              paddingBottom: "100%" /* 1:1 Aspect Ratio */,
-              minHeight: "12rem" /* Minimum size to make it larger */,
-              minWidth: "12rem",
+              paddingBottom: "100%",
+              width: "100%",
+              maxWidth: "12rem",
+              minWidth: "10rem",
             }}
           >
             <motion.img
               src={imgSrc}
               alt={name}
+              className="w-100 h-100"
               style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
-                width: "12rem",
-                height: "12rem",
                 objectFit: "cover",
                 objectPosition: "center",
               }}
@@ -76,12 +75,13 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
             />
           </div>
         </div>
+
         {/* Card Body */}
         <div className="card-body d-flex flex-column justify-content-center p-3 pt-0">
-          <h5 className="text-center text-info mb-0 mt-2">{name}</h5>
+          <h5 className="text-center text-light mb-0 mt-2">{name}</h5>
           <div className="text-center mt-2">
             <motion.span
-              className="text-info small"
+              className="text-muted small"
               whileHover={{ scale: 1.05 }}
             ></motion.span>
           </div>

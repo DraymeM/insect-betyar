@@ -94,7 +94,7 @@ export const TestimonialsSection = ({
                     <img
                       src={testimonial.imageUrl}
                       alt={testimonial.name}
-                      className="rounded-circle border border-3 border-info"
+                      className="rounded-circle border border-3 border-secondary"
                       style={{
                         width: "100px",
                         height: "100px",

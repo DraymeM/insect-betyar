@@ -136,17 +136,20 @@ const About: React.FC = () => {
           <>
             <Suspense fallback={<Spinner />}>
               <div className="controls-container">
-                <div className="back-button-container">
+                <div className="d-flex justify-content-start">
                   <button
                     onClick={handleBackToCategories}
-                    className="back-button"
+                    className="btn btn-info text-white d-inline-flex align-items-center"
                   >
-                    <FaArrowLeft /> Vissza
+                    <FaArrowLeft className="me-2" />
+                    Vissza
                   </button>
                 </div>
                 <SearchBar onSearch={handleSearch} />
                 <LimitSelector
                   value={limit}
+                  options={["5", "10", "15", "25"]}
+                  limitLabel="Limit: "
                   onLimitChange={debouncedLimitChange}
                 />
               </div>

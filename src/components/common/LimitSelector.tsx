@@ -1,57 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface LimitSelectorProps {
   value: number;
+  options: (string | number)[];
   onLimitChange: (value: number) => void;
+  limitLabel?: string | null; // Optional prop, can be null or a string
 }
 
-const LimitSelector: React.FC<LimitSelectorProps> = ({ value, onLimitChange }) => {
+const LimitSelector: React.FC<LimitSelectorProps> = ({
+  value,
+  options,
+  onLimitChange,
+  limitLabel = "",
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const handleLimitChange = (newValue: number) => {
-    onLimitChange(newValue);
+
+  const handleLimitChange = (newValue: string | number) => {
+    const parsedValue =
+      typeof newValue === "string" ? parseInt(newValue, 10) : newValue;
+    onLimitChange(parsedValue);
     setIsDropdownOpen(false);
   };
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
   return (
     <div className="btn-group">
-      <button type="button" className="btn" style={{ backgroundColor: '#2b2a33', color: 'white', border:'1px solid #41d5f5' }}>
-       Limit: <span style={{  color: '#41d5f5'}}>{value}</span>
+      <button type="button" className="btn bg-dark text-white border-secondary">
+        {limitLabel && <span>{limitLabel} </span>}
+        <span className="fw-bold">{value}</span>
       </button>
-
       <button
         type="button"
-        className="btn dropdown-toggle dropdown-toggle-split"
-        style={{ backgroundColor: '#41d5f5', color: 'white' }}
+        className="btn bg-info text-white dropdown-toggle dropdown-toggle-split"
         onClick={toggleDropdown}
       >
         <span className="visually-hidden">Toggle Dropdown</span>
       </button>
+
       {isDropdownOpen && (
-        <ul className="dropdown-menu show"
+        <ul
+          className="dropdown-menu show bg-dark border border-secondary"
+          style={{
+            top: "100%",
+            left: 0,
+            minWidth: "7rem",
+            backgroundColor: "transparent",
+            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.5)",
+          }}
         >
-          <li>
-            <a className="dropdown-item" onClick={() => handleLimitChange(5)}>
-              5
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" onClick={() => handleLimitChange(10)}>
-              10
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" onClick={() => handleLimitChange(20)}>
-              20
-            </a>
-          </li>
-          <li>
-            <a className="dropdown-item" onClick={() => handleLimitChange(25)}>
-              25
-            </a>
-          </li>
+          {options.map((option, index) => (
+            <li key={index}>
+              <button
+                type="button"
+                className="dropdown-item text-white text-center"
+                onClick={() => handleLimitChange(option)}
+              >
+                {option}
+              </button>
+            </li>
+          ))}
         </ul>
       )}
     </div>
