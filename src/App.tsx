@@ -1,5 +1,6 @@
 import { Outlet } from "@tanstack/react-router";
-import NavBar from "./components/common/NavBar";
+import React from "react";
+const NavBar = React.lazy(() => import("./components/common/NavBar"));
 
 const App: React.FC = () => {
   return (

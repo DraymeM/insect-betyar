@@ -23,13 +23,13 @@ const ContactRoute = ContactImport.update({
   id: '/contact',
   path: '/contact',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/contact.lazy').then((d) => d.Route))
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 const AboutIndexRoute = AboutIndexImport.update({
   id: '/about/',
@@ -41,14 +41,20 @@ const AboutCategoryCategoryRoute = AboutCategoryCategoryImport.update({
   id: '/about/category/$category',
   path: '/about/category/$category',
   getParentRoute: () => rootRoute,
-} as any)
+} as any).lazy(() =>
+  import('./routes/about/category/$category.lazy').then((d) => d.Route),
+)
 
 const AboutCategoryCategoryItemIdRoute =
   AboutCategoryCategoryItemIdImport.update({
     id: '/item/$id',
     path: '/item/$id',
     getParentRoute: () => AboutCategoryCategoryRoute,
-  } as any)
+  } as any).lazy(() =>
+    import('./routes/about/category/$category/item/$id.lazy').then(
+      (d) => d.Route,
+    ),
+  )
 
 // Populate the FileRoutesByPath interface
 

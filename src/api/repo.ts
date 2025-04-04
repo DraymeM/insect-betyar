@@ -13,5 +13,5 @@ export const fetchItems = async () => {
 export const fetchLatestItems = async () => {
   const response = await apiClient.get("/data.json");
   const items = response.data;
-  return items.slice(-3);
+  return items.slice(-5);
 };

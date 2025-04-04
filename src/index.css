@@ -60,34 +60,12 @@
   font-weight: 400;
   line-height: 1;
   text-rendering: optimizeLegibility;
-  min-height: 100vh;
 }
 
 body {
   background-color: var(--bg-secondary) !important;
   margin: 0;
   min-width: var(--min-width-body);
-}
-
-.dropdown-toggle-split {
-  background-color: var(--bg-btn-accent) !important;
-  color: var(--text-white);
-}
-
-.dropdown-menu {
-  background-color: var(--bg-dropdown) !important;
-  top: var(--dropdown-top);
-  max-width: min-content;
-}
-
-.dropdown-item {
-  color: var(--text-white) !important;
-  text-align: center;
-}
-
-.dropdown-item:hover {
-  background-color: var(--bg-dropdown-hover) !important;
-  color: var(--bg-btn-accent) !important;
 }
 
 .controls-container {
@@ -120,89 +98,4 @@ body {
   min-width: 80vw;
   padding: 0;
   width: 100%;
-}
-
-.back-button {
-  align-items: center;
-  background-color: var(--bg-btn-accent);
-  border: 0;
-  border-radius: var(--border-radius-sm);
-  color: var(--text-white);
-  cursor: pointer;
-  display: inline-flex;
-  padding: var(--spacing-btn-x) var(--spacing-btn-back-x);
-  transition: background-color 0.2s ease;
-}
-
-.navbar {
-  box-shadow: var(--navbar-shadow);
-  transition: box-shadow 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link {
-  color: var(--text-white);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  position: relative;
-  transition: all 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-link::after {
-  background-color: var(--bg-btn-accent);
-  bottom: 0;
-  content: "";
-  height: 2px;
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  transition: all 0.3s ease-in-out;
-  width: 0;
-}
-
-.navbar-nav .nav-link:hover::after {
-  width: 100%;
-}
-
-.navbar-nav .nav-link.active {
-  color: var(--bg-btn-accent) !important;
-  font-weight: 700;
-}
-
-.navbar-nav .nav-link.active::after {
-  background-color: var(--bg-btn-accent);
-  width: 100%;
-}
-
-.navbar-nav .nav-link:hover svg {
-  transform: scale(1.2);
-}
-
-.navbar-toggler {
-  border: 0;
-  outline: 0;
-}
-
-.navbar-toggler:focus {
-  box-shadow: none;
-}
-
-.navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
-  transform: rotate(90deg);
-}
-
-.navbar-collapse {
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
-}
-
-.navbar-collapse.collapsing {
-  max-height: 0;
-}
-
-.navbar-collapse.show {
-  max-height: 500px;
-}
-
-.navbar-nav .nav-link svg,
-.navbar-toggler-icon {
-  transition: transform 0.3s ease-in-out;
 }
