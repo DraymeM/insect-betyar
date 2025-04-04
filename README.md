@@ -11,7 +11,7 @@
       <img src="https://vitejs.dev/logo.svg" alt="Vite Logo" width="100" height="100" />
     </td>
     <td align="center">
-      <img src="https://tanstack.com/_build/assets/logo-color-600w-Er4SOkq1.png" alt="TanStack Logo" width="100" height="100" />
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsW0yyUeRbC1Qnv8TPkU5Im5d3vlRa-qm2Zw&s" alt="TanStack Logo" width="100" height="100" />
     </td>
     <td align="center">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="100" height="100" />
