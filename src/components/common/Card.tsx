@@ -11,7 +11,7 @@ interface CardProps {
 }
 
 const placeholderImage =
-  "https://archive.org/download/placeholder-image/placeholder-image.jpg";
+  "https://www.museumselection.co.uk/images/products/large/28889.jpg";
 
 const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
   const [imgSrc, setImgSrc] = useState(picture);
@@ -37,7 +37,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
 
   return (
     <motion.div
-      className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden h-100"
+      className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden h-100 position-relative"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, category }) => {
       >
         <div className="p-3 pb-0">
           <div
-            className="border rounded-3 overflow-hidden bg-black"
+            className="rounded-3 overflow-hidden bg-black"
             style={{
               position: "relative",
               paddingBottom: "100%",

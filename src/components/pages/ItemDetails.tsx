@@ -1,28 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link, useLocation } from "@tanstack/react-router";
-import {
-  Container,
-  Row,
-  Col,
-  Badge,
-  Button,
-  Tooltip,
-  OverlayTrigger,
-} from "react-bootstrap";
+import { Container, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./ItemDetails.css";
 
 const placeholderImage =
-  "https://archive.org/download/placeholder-image/placeholder-image.jpg";
+  "https://www.museumselection.co.uk/images/products/large/28889.jpg";
 
 const ItemDetail: React.FC = () => {
   const { id, category } = useParams({ strict: false });
   const location = useLocation();
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>("");
-  const [imgHeight, setImgHeight] = useState<number>(0);
-  const [maxSectionHeight, setMaxSectionHeight] = useState<number>(0);
   const imageRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
@@ -42,28 +31,6 @@ const ItemDetail: React.FC = () => {
     fetchItem();
   }, [id]);
 
-  useEffect(() => {
-    if (imageRef.current) {
-      setImgHeight(imageRef.current.offsetHeight);
-    }
-  }, [imgSrc]);
-
-  useEffect(() => {
-    if (imgHeight) {
-      setMaxSectionHeight(imgHeight);
-    }
-  }, [imgHeight]);
-
-  if (!item)
-    return (
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "100vh" }} // Full screen height
-      >
-        <div className="spinner-border text-info" role="status"></div>
-      </div>
-    );
-
   const renderTooltip = (text: string) => (
     <Tooltip
       id={`tooltip-${text.toLowerCase().replace(" ", "-")}`}
@@ -77,90 +44,141 @@ const ItemDetail: React.FC = () => {
   const page = searchParams.get("page") || "1";
   const limit = searchParams.get("limit") || "10";
 
+  if (!item)
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <div className="spinner-border text-info" role="status"></div>
+      </div>
+    );
+
   return (
-    <Container
-      className="mt-5 d-flex justify-content-center align-items-center"
-      style={{ minHeight: "70vh", marginTop: "10vh" }}
-    >
-      <Row className="w-100 no-gutters">
-        <Col
-          md={4}
-          className="d-flex justify-content-center mb-4 mb-md-0"
-          style={{ height: `${imgHeight}px` }}
+    <>
+      <Container className="mt-10 py-5">
+        {/* Image and Details Section */}
+
+        <Container
+          className="d-flex flex-column flex-lg-row wrap-md justify-content-center align-items-center mt-5 mb-5"
+          style={{ maxWidth: "62rem" }}
         >
-          <div
-            style={{ width: "100%", paddingTop: "100%", position: "relative" }}
+          {/* Image Section */}
+          <motion.div
+            style={{
+              width: "100%",
+              maxWidth: "30rem", // Set the max width to match the description section
+              paddingTop: "30rem", // 1:1 Aspect Ratio
+              position: "relative",
+              marginBottom: "1rem",
+              display: "flex-wrap",
+              margin: "1rem",
+              flexShrink: 0,
+            }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
           >
             <img
               ref={imageRef}
               src={imgSrc}
               alt={item.name}
               onError={() => setImgSrc(placeholderImage)}
-              className="img-fluid animate-pop-in shadow-lg"
+              className="img-fluid shadow-lg rounded"
               style={{
                 position: "absolute",
-                top: "0",
-                left: "0",
+                top: 0,
+                left: 0,
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
               }}
             />
-          </div>
-        </Col>
+          </motion.div>
 
-        <Col
-          md={8}
-          className="d-flex flex-column justify-content-between text-center"
-          style={{ height: `${imgHeight}px` }}
-        >
-          <div
-            className="p-3 animate-slide-in-left bg-dark text-info border"
-            style={{ height: `${maxSectionHeight * 0.2}px` }}
+          {/* Content Section */}
+          <motion.div
+            className="bg-dark text-light p-4 rounded-4 text-center"
+            style={{
+              width: "100%",
+              maxWidth: "30rem", // Match the max width of the description section
+              height: "30rem", // Match image height
+              flexShrink: 0,
+              display: "flex wrap",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <h3 className="mb-0 fw-bold">{item.name}</h3>
-          </div>
-
-          <div
-            className="p-3 animate-slide-in-right bg-dark text-light overflow-auto w-100"
-            style={{ height: `${maxSectionHeight * 0.4}px` }}
-          >
-            <p className="mb-0">{item.description}</p>
-          </div>
-
-          <div
-            className="p-3 animate-slide-in-left bg-dark text-info"
-            style={{ height: `${maxSectionHeight * 0.2}px` }}
-          >
-            <Badge bg="info" className="fs-5 p-2">
-              {item.price} Ft
-            </Badge>
-          </div>
-
-          <div
-            className="p-3 animate-slide-in-right bg-dark d-flex align-items-center justify-content-center"
-            style={{ height: `${maxSectionHeight * 0.2}px` }}
-          >
-            <OverlayTrigger
-              placement="top"
-              overlay={renderTooltip("Vissza a kategoriához")}
+            {/* Item Name */}
+            <motion.h3
+              className="fw-bold text-light border border-secondary rounded w-100 py-2 mb-3"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <Link
-                to={`/about/category/${category}?page=${page}&limit=${limit}`}
-                className="text-decoration-none"
+              {item.name}
+            </motion.h3>
+
+            {/* Price */}
+            <motion.h4
+              className="text-info mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="fs-5 p-2">{item.price} Ft</span>
+            </motion.h4>
+
+            {/* Back Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <OverlayTrigger
+                placement="top"
+                overlay={renderTooltip("Vissza a kategoriához")}
               >
-                <Button
-                  variant="outline-light"
-                  className="animate-fade-in px-4 py-2"
+                <Link
+                  to={`/about/category/${category}?page=${page}&limit=${limit}`}
+                  className="text-decoration-none"
                 >
-                  <FaArrowLeft className="me-2" /> Vissza
-                </Button>
-              </Link>
-            </OverlayTrigger>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+                  <Button variant="outline-light" className="px-4 py-2 mt-20">
+                    <FaArrowLeft className="me-2" /> Vissza
+                  </Button>
+                </Link>
+              </OverlayTrigger>
+            </motion.div>
+          </motion.div>
+        </Container>
+        {/* Description Section */}
+        <Container style={{ marginTop: 0, maxWidth: "62rem" }}>
+          {" "}
+          {/* Ensure maxWidth here matches */}
+          <motion.div
+            className="bg-dark text-light p-4 rounded-4 shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-left border border-secondary rounded px-1 mb-4">
+              Leírás
+            </h1>
+            <motion.p
+              className="px-3 text-justify border border-secondary py-5 rounded"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              {item.description}
+            </motion.p>
+          </motion.div>
+        </Container>
+      </Container>
+    </>
   );
 };
 

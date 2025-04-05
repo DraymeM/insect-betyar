@@ -10,9 +10,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [query, setQuery] = useState<string>("");
 
   const handleSearch = () => {
-    if (query.trim() !== "") {
-      onSearch(query);
-    }
+    // Always call onSearch with the current query value, even if it's empty
+    onSearch(query.trim());
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

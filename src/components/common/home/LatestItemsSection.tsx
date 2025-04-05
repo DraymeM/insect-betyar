@@ -48,9 +48,9 @@ export const LatestItemsSection = ({
   isLoading,
 }: LatestItemsSectionProps) => (
   <SectionWrapper>
-    <Container className="py-5 d-flex flex-column align-items-center bg-dark text-light rounded shadow-sm mb-5 mt-5">
+    <Container className="pb-5 d-flex flex-column align-items-center bg-dark text-light rounded shadow-sm mb-5 mt-5 py-2">
       <motion.h2
-        className="mb-4 text-uppercase fw-bold text-shadow"
+        className="mb-4 text-uppercase bg-danger px-5 mb-5 w-100 text-center rounded fw-bold text-shadow p-2"
         variants={sectionVariants}
       >
         Újdonságok
