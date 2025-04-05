@@ -1,7 +1,11 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { useParams, useNavigate, useLocation } from "@tanstack/react-router";
-import { fetchCategories, fetchItems } from "../../api/repo";
+import {
+  fetchCategories,
+  fetchItems,
+  fetchItemsBySearch,
+} from "../../api/repo";
 import { useDebouncedCallback } from "use-debounce";
 import { Outlet } from "@tanstack/react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -50,51 +54,17 @@ const About: React.FC = () => {
 
   const handleSearch = (query: string) => {
     const updatedParams = new URLSearchParams(location.search);
-    updatedParams.set("search", query);
-    updatedParams.set("page", "1");
+    updatedParams.set("search", query || ""); // Set to empty if query is empty
+    updatedParams.set("page", "1"); // Reset to the first page whenever search is updated
     navigate({ to: `${location.pathname}?${updatedParams.toString()}` });
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categoriesData = await fetchCategories();
-        setCategories(categoriesData);
-
-        const itemsData = await fetchItems();
-        const filteredItems = category
-          ? itemsData.filter((item: any) => item.category === category)
-          : itemsData;
-
-        const lowercasedQuery = searchQuery.toLowerCase();
-        const filteredBySearch = searchQuery
-          ? filteredItems.filter((item: any) =>
-              item.name.toLowerCase().includes(lowercasedQuery)
-            )
-          : filteredItems;
-
-        setTotalItems(filteredBySearch.length);
-        setItems(
-          filteredBySearch.slice((currentPage - 1) * limit, currentPage * limit)
-        );
-
-        // Show toast if no items found
-        setShowToast(filteredBySearch.length === 0);
-      } catch (error) {
-        console.error("Error loading the page:", error);
-      }
-    };
-
-    fetchData();
-  }, [limit, category, searchQuery, currentPage]);
 
   const handleCategorySelect = (selectedCategory: string) => {
     const updatedParams = new URLSearchParams(location.search);
     updatedParams.set("page", "1");
-    if (!updatedParams.has("limit")) {
-      updatedParams.set("limit", "10");
-    }
-    updatedParams.delete("category");
+    updatedParams.set("limit", "10");
+    updatedParams.delete("category"); // Clear previous category if any
+    updatedParams.delete("search"); // Clear the search query when selecting a new category
 
     navigate({
       to: `/about/category/${selectedCategory}?${updatedParams.toString()}`,
@@ -109,6 +79,40 @@ const About: React.FC = () => {
     updatedParams.delete("limit");
     navigate({ to: `/about?${updatedParams.toString()}` });
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const categoriesData = await fetchCategories();
+        setCategories(categoriesData);
+
+        let itemsData = [];
+        if (searchQuery) {
+          // If there's a search query, use the search function
+          itemsData = await fetchItemsBySearch(searchQuery);
+        } else {
+          // If there's no search query, fetch all items
+          itemsData = await fetchItems();
+        }
+
+        const filteredItems = category
+          ? itemsData.filter((item: any) => item.category === category)
+          : itemsData;
+
+        setTotalItems(filteredItems.length);
+        setItems(
+          filteredItems.slice((currentPage - 1) * limit, currentPage * limit)
+        );
+
+        // Show toast if no items found
+        setShowToast(filteredItems.length === 0);
+      } catch (error) {
+        console.error("Error loading the page:", error);
+      }
+    };
+
+    fetchData();
+  }, [limit, category, searchQuery, currentPage]);
 
   const totalPages = Math.ceil(totalItems / limit);
 
@@ -134,57 +138,56 @@ const About: React.FC = () => {
 
         {category && (
           <>
-            <Suspense fallback={<Spinner />}>
-              <div className="controls-container">
-                <div className="d-flex justify-content-start">
-                  <button
-                    onClick={handleBackToCategories}
-                    className="btn btn-info text-white d-inline-flex align-items-center"
-                  >
-                    <FaArrowLeft className="me-2" />
-                    Vissza
-                  </button>
-                </div>
-                <SearchBar onSearch={handleSearch} />
-                <LimitSelector
-                  value={limit}
-                  options={["5", "10", "15", "25"]}
-                  limitLabel="Limit: "
-                  onLimitChange={debouncedLimitChange}
-                />
+            <div className="controls-container">
+              <div className="d-flex justify-content-start">
+                <button
+                  onClick={handleBackToCategories}
+                  className="btn btn-info text-white d-inline-flex align-items-center"
+                >
+                  <FaArrowLeft className="me-2" />
+                  Vissza
+                </button>
               </div>
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={debouncedPageChange}
+              <SearchBar onSearch={handleSearch} />
+              <LimitSelector
+                value={limit}
+                options={["5", "10", "15", "25"]}
+                limitLabel="Limit: "
+                onLimitChange={debouncedLimitChange}
               />
+            </div>
 
-              {items.length > 0 ? (
-                <div className="card-list">
-                  {items.map((item) => (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      name={item.name}
-                      picture={item.picture}
-                      category={category}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center mt-4">
-                  <p className="text-info fs-4">
-                    Nincsen ilyen termék a keresési feltételek alapján!
-                  </p>
-                </div>
-              )}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={debouncedPageChange}
+            />
 
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={debouncedPageChange}
-              />
-            </Suspense>
+            {items.length > 0 ? (
+              <div className="card-list">
+                {items.map((item) => (
+                  <Card
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    picture={item.picture}
+                    category={category}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center mt-4">
+                <p className="text-info fs-4">
+                  Nincsen ilyen termék a keresési feltételek alapján!
+                </p>
+              </div>
+            )}
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={debouncedPageChange}
+            />
           </>
         )}
       </div>

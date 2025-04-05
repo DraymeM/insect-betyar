@@ -75,7 +75,7 @@ export const TestimonialsSection = ({
 }: TestimonialsSectionProps) => {
   return (
     <SectionWrapper className={`${className}`}>
-      <Container className="py-5">
+      <Container className="pb-5">
         <motion.h2
           className="text-center mb-5 text-uppercase fw-bold text-white"
           variants={sectionVariants}
