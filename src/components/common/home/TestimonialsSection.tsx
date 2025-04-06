@@ -77,7 +77,7 @@ export const TestimonialsSection = ({
     <SectionWrapper className={`${className}`}>
       <Container className="pb-5">
         <motion.h2
-          className="text-center mb-5 text-uppercase fw-bold text-white"
+          className="text-center mb-5 text-uppercase fw-bold text-light"
           variants={sectionVariants}
         ></motion.h2>
 
@@ -85,7 +85,7 @@ export const TestimonialsSection = ({
           {testimonials.map((testimonial) => (
             <Col key={testimonial.id} md={4}>
               <motion.div
-                className="p-4 bg-dark text-white rounded-3 h-100 d-flex flex-column "
+                className="p-4 bg-dark text-light rounded-3 h-100 d-flex flex-column "
                 variants={cardVariants}
                 whileHover="hover"
               >

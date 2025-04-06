@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useMatchRoute } from "@tanstack/react-router";
 import { Navbar, Nav, Container } from "react-bootstrap";
-import { FaHome, FaBug } from "react-icons/fa";
+import { FaHome, FaBug, FaShoppingCart } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
 const NavBar: React.FC = () => {
@@ -26,6 +26,21 @@ const NavBar: React.FC = () => {
     backgroundColor: "#41d5f5",
     transition: "width 0.3s ease-in-out",
     width: "0",
+  };
+
+  const cartLinkStyle: React.CSSProperties = {
+    ...navLinkStyle,
+    background: "linear-gradient(to right, #2f336e, rgb(58, 212, 255))", // Gradient
+    borderRadius: "30px",
+    color: "white",
+    fontWeight: "bold",
+  };
+
+  const activeLinkStyle: React.CSSProperties = {
+    ...navLinkStyle,
+    color: "#41d5f5", // Info color for text
+    fontWeight: "bold",
+    background: "linear-gradient(to right, #2f336e, rgb(58, 212, 255))", // Active gradient
   };
 
   return (
@@ -67,7 +82,7 @@ const NavBar: React.FC = () => {
               { to: "/contact", icon: <MdEmail />, label: "Elérhetőségek" },
             ].map(({ to, icon, label }) => {
               const isActive = matchRoute({ to, fuzzy: true });
-              const color = isActive ? "#41d5f5" : "white";
+              const color = isActive ? "#41d5f5" : "var(--text-color)";
 
               return (
                 <Nav.Link
@@ -92,6 +107,27 @@ const NavBar: React.FC = () => {
                 </Nav.Link>
               );
             })}
+
+            <Nav.Link
+              as={Link}
+              to="/cart"
+              className="px-3 d-flex align-items-center mt-1  md-mt-0 gap-1 position-relative"
+              style={{
+                ...navLinkStyle,
+                color: "white",
+                fontWeight: "bold",
+                background: matchRoute({ to: "/cart", fuzzy: true })
+                  ? "linear-gradient(to right, #2f336e, rgb(58, 212, 255) 300%)"
+                  : "linear-gradient(to right, #2f336e, rgb(58, 212, 255))",
+                borderRadius: matchRoute({ to: "/cart", fuzzy: true })
+                  ? "10px"
+                  : "30px",
+                transition: "all 0.4s ease-in-out",
+              }}
+            >
+              <FaShoppingCart />
+              <span>Kosár</span>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

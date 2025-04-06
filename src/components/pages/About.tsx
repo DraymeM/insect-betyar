@@ -11,7 +11,7 @@ import { Outlet } from "@tanstack/react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Spinner from "../common/Spinner";
 import SearchBar from "../common/SearchBar";
-import { Toast, ToastContainer } from "react-bootstrap";
+import { Toast, ToastContainer, Button } from "react-bootstrap";
 import { IoIosWarning } from "react-icons/io";
 const Card = React.lazy(() => import("../common/Card"));
 const CategoryCard = React.lazy(() => import("../common/CategoryCard"));
@@ -122,9 +122,12 @@ const About: React.FC = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <div className="page">
+      <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">
         {!category && (
-          <div className="card-list">
+          <div
+            className="d-flex flex-wrap justify-content-center mt-5 w-100 px-0"
+            style={{ gap: "1.5rem", minWidth: "80vw", maxWidth: "100vw" }}
+          >
             {categories.map((cat) => (
               <CategoryCard
                 key={cat.name}
@@ -138,15 +141,15 @@ const About: React.FC = () => {
 
         {category && (
           <>
-            <div className="controls-container">
+            <div className="d-flex mt-5 justify-content-center align-items-center gap-3 flex-wrap">
               <div className="d-flex justify-content-start">
-                <button
+                <Button
                   onClick={handleBackToCategories}
                   className="btn btn-info text-white d-inline-flex align-items-center"
                 >
                   <FaArrowLeft className="me-2" />
                   Vissza
-                </button>
+                </Button>
               </div>
               <SearchBar onSearch={handleSearch} />
               <LimitSelector
@@ -164,13 +167,17 @@ const About: React.FC = () => {
             />
 
             {items.length > 0 ? (
-              <div className="card-list">
+              <div
+                className="d-flex flex-wrap justify-content-center w-100 px-0"
+                style={{ gap: "1.5rem", minWidth: "80vw", maxWidth: "100vw" }}
+              >
                 {items.map((item) => (
                   <Card
                     key={item.id}
                     id={item.id}
                     name={item.name}
                     picture={item.picture}
+                    price={item.price}
                     category={category}
                   />
                 ))}

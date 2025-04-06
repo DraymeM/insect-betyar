@@ -1,23 +1,34 @@
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { SectionWrapper } from "../Section";
 
 type LayoutMode = "default" | "mirrored";
 
 interface BiographySectionProps {
   mode?: LayoutMode;
-  imageUrl: string; // Required prop
-  title: string; // Required prop
-  paragraphs: string[]; // Required prop
+  imageUrl: string;
+  title: string;
+  paragraphs: string[];
   className?: string;
   imageAlt?: string;
   imageClassName?: string;
   textClassName?: string;
+  category?: string;
+  page?: string;
+  limit?: string;
+  goBackLink?: string;
 }
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      duration: 0.8,
+    },
+  },
 };
 
 const placeholderImage =
@@ -34,45 +45,65 @@ export const BiographySection = ({
   textClassName = "",
 }: BiographySectionProps) => {
   const imageCol = (
-    <Col md={5} className={`mb-4 mb-md-0 px-0 ${imageClassName}`}>
+    <Col lg={4} md={12}>
       <motion.div
-        variants={sectionVariants}
-        whileHover={{ scale: 1.02 }}
-        transition={{ type: "spring", stiffness: 300 }}
-        className="text-center"
+        className="rounded shadow overflow-hidden"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        <img
-          src={imageUrl}
-          alt={imageAlt}
-          className={`img-fluid rounded shadow w-100 ml-1 ${imageClassName}`}
-          style={{ maxHeight: "400px", objectFit: "cover" }}
-          onError={(e) => {
-            e.currentTarget.src = placeholderImage;
-          }}
-        />
+        <div
+          className="d-flex align-items-center justify-content-center bg-white"
+          style={{ height: "25rem", overflow: "hidden" }}
+        >
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            className={`img-fluid rounded shadow w-100 ${imageClassName}`}
+            style={{
+              objectFit: "cover", // Makes the image cover the container, cropping and zooming as needed
+              objectPosition: "center", // Centers the image
+              maxHeight: "100%",
+              height: "100%", // Ensures the image covers the full height
+            }}
+            onError={(e) => {
+              e.currentTarget.src = placeholderImage;
+            }}
+          />
+        </div>
       </motion.div>
     </Col>
   );
 
   const textCol = (
-    <Col md={7} className={`mb-4 mb-md-0 ps-md-4 ${textClassName}`}>
-      <motion.div variants={sectionVariants}>
-        <h2 className="mb-4">{title}</h2>
-        {paragraphs.map((text, index) => (
-          <motion.p key={index} variants={sectionVariants}>
-            {text}
-          </motion.p>
-        ))}
+    <Col lg={8} md={12}>
+      <motion.div
+        className={`bg-dark text-light p-4 rounded shadow h-100 d-flex flex-column ${textClassName}`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <h3 className="border-bottom border-secondary pb-2 mb-4">{title}</h3>
+        <div className="flex-grow-1">
+          {paragraphs.map((text, index) => (
+            <motion.p key={index} variants={sectionVariants}>
+              {text}
+            </motion.p>
+          ))}
+        </div>
       </motion.div>
     </Col>
   );
 
   return (
-    <SectionWrapper className={className}>
-      <Container
-        className={`py-4 d-flex bg-dark text-light rounded shadow-sm mt-5 ${className}`}
+    <Container className={`py-2 ${className}`}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-50px" }}
+        variants={sectionVariants}
       >
-        <Row className="align-items-center g-0">
+        <Row className="g-4 mt-5">
           {mode === "default" ? (
             <>
               {imageCol}
@@ -85,8 +116,8 @@ export const BiographySection = ({
             </>
           )}
         </Row>
-      </Container>
-    </SectionWrapper>
+      </motion.div>
+    </Container>
   );
 };
 

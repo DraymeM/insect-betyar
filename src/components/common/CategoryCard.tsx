@@ -37,7 +37,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       },
     },
     hover: {
-      scale: 1.03,
       boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)",
     },
     tap: { scale: 0.98 },
@@ -57,7 +56,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       {/* Larger Framed Image Container with 1:1 Aspect Ratio */}
       <div className="p-3 pb-0">
         <div
-          className="border rounded-3 overflow-hidden bg-black"
+          className="border rounded-3 overflow-hidden bg-dark"
           style={{
             position: "relative",
             paddingBottom: "100%",

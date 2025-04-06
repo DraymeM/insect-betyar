@@ -9,6 +9,7 @@ interface LatestItemsSectionProps {
     id: string;
     name: string;
     picture: string;
+    price: string;
     category: string;
   }>;
   isLoading: boolean;
@@ -21,25 +22,21 @@ const sectionVariants = {
     y: 0,
     transition: {
       type: "spring",
-      duration: 0.8,
+      duration: 0.2,
     },
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
+const badgeVariants = {
+  hidden: { opacity: 0, y: -1 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       type: "spring",
-      bounce: 0.4,
+      bounce: 0.9,
       duration: 0.8,
     },
-  },
-  hover: {
-    scale: 1.03,
-    transition: { type: "spring", stiffness: 400, damping: 10 },
   },
 };
 
@@ -48,9 +45,9 @@ export const LatestItemsSection = ({
   isLoading,
 }: LatestItemsSectionProps) => (
   <SectionWrapper>
-    <Container className="pb-5 d-flex flex-column align-items-center bg-dark text-light rounded shadow-sm mb-5 mt-5 py-2">
+    <Container className="pb-5 d-flex flex-column align-items-center bg-dark text-white rounded shadow-sm mt-5 py-2">
       <motion.h2
-        className="mb-4 text-uppercase bg-danger px-5 mb-5 w-100 text-center rounded fw-bold text-shadow p-2"
+        className="mb-4 text-uppercase bg-danger  mb-5 w-100 text-center rounded fw-bold text-shadow py-2"
         variants={sectionVariants}
       >
         Újdonságok
@@ -70,7 +67,7 @@ export const LatestItemsSection = ({
               opacity: 1,
               transition: {
                 when: "beforeChildren",
-                staggerChildren: 0.1,
+                staggerChildren: 0.6, // Stagger each child card animation
               },
             },
           }}
@@ -79,23 +76,27 @@ export const LatestItemsSection = ({
             <motion.div
               key={item.id}
               className="position-relative"
-              variants={cardVariants}
-              whileHover="hover"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-1px" }}
             >
-              <span
+              <motion.span
                 className="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-6"
                 style={{
                   zIndex: 10,
                   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
                 }}
+                variants={badgeVariants}
+                initial="hidden"
+                animate="visible"
               >
                 Új
-              </span>
+              </motion.span>
               <Card
                 id={Number(item.id)}
                 name={item.name}
                 picture={item.picture}
                 category={item.category}
+                price={item.price}
               />
             </motion.div>
           ))}

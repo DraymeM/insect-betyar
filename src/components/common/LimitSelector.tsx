@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 
 interface LimitSelectorProps {
   value: number;
@@ -28,17 +29,16 @@ const LimitSelector: React.FC<LimitSelectorProps> = ({
 
   return (
     <div className="btn-group">
-      <button type="button" className="btn bg-dark text-white border-secondary">
+      <Button type="button" className="btn bg-dark text-light border-secondary">
         {limitLabel && <span>{limitLabel} </span>}
         <span className="fw-bold">{value}</span>
-      </button>
-      <button
-        type="button"
+      </Button>
+      <Button
         className="btn bg-info text-white dropdown-toggle dropdown-toggle-split"
         onClick={toggleDropdown}
       >
         <span className="visually-hidden">Toggle Dropdown</span>
-      </button>
+      </Button>
 
       {isDropdownOpen && (
         <ul
@@ -53,13 +53,30 @@ const LimitSelector: React.FC<LimitSelectorProps> = ({
         >
           {options.map((option, index) => (
             <li key={index}>
-              <button
-                type="button"
-                className="dropdown-item text-white text-center"
+              <Button
+                className="dropdown-item text-light text-center"
                 onClick={() => handleLimitChange(option)}
+                // Use Bootstrap's built-in hover class here
+                style={{
+                  backgroundColor: "transparent", // Keep it transparent
+                  color: "text-white", // Default text color
+                  textAlign: "center",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.classList.add("text-info");
+                  e.currentTarget.classList.add("bg-secondary");
+                  e.currentTarget.classList.remove("text-light");
+                  e.currentTarget.classList.remove("bg-dark");
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.classList.remove("text-info");
+                  e.currentTarget.classList.remove("bg-secondary");
+                  e.currentTarget.classList.add("text-light");
+                  e.currentTarget.classList.add("bg-dark");
+                }}
               >
                 {option}
-              </button>
+              </Button>
             </li>
           ))}
         </ul>
