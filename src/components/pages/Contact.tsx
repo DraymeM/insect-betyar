@@ -19,7 +19,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="page">
+    <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">
       <Section className="d-flex justify-content-center align-items-center">
         <ContactForm onSubmit={handleSubmit} />
       </Section>

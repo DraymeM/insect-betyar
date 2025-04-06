@@ -109,6 +109,18 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
     }
   };
 
+  // Motion variants for staggered animation
+  const fieldVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
     <Container fluid className="text-light py-5">
       <Row className="justify-content-center">
@@ -126,60 +138,83 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
             {error && <Alert variant="danger">❌ {error}</Alert>}
 
             <Form onSubmit={handleSubmit}>
-              {[
-                {
-                  id: "formName",
-                  label: "Név",
-                  name: "name",
-                  type: "text",
-                  placeholder: "Írd be a neved",
-                },
-                {
-                  id: "formEmail",
-                  label: "Email cím",
-                  name: "email",
-                  type: "email",
-                  placeholder: "Írd be az email címed",
-                },
-                {
-                  id: "formMessage",
-                  label: "Üzenet",
-                  name: "message",
-                  type: "textarea",
-                  placeholder: "Írd be az üzeneted",
-                },
-              ].map((field) => (
-                <Form.Group key={field.id} className="mb-4">
-                  <Form.Label className="fw-bold text-light">
-                    {field.label}
-                  </Form.Label>
-                  {field.type === "textarea" ? (
-                    <Form.Control
-                      as="textarea"
-                      rows={5}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      value={formData[field.name as keyof typeof formData]}
-                      onChange={handleChange}
-                      className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? "is-invalid" : ""}`}
-                    />
-                  ) : (
-                    <Form.Control
-                      type={field.type}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      value={formData[field.name as keyof typeof formData]}
-                      onChange={handleChange}
-                      className={`bg-dark text-light border-secondary shadow-sm ${errors[field.name as keyof typeof errors] ? "is-invalid" : ""}`}
-                    />
-                  )}
-                  {errors[field.name as keyof typeof errors] && (
-                    <div className="text-danger mt-1">
-                      {errors[field.name as keyof typeof errors]}
-                    </div>
-                  )}
-                </Form.Group>
-              ))}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.2, // Control staggered timing
+                    },
+                  },
+                }}
+              >
+                {[
+                  {
+                    id: "formName",
+                    label: "Név",
+                    name: "name",
+                    type: "text",
+                    placeholder: "Írd be a neved",
+                  },
+                  {
+                    id: "formEmail",
+                    label: "Email cím",
+                    name: "email",
+                    type: "email",
+                    placeholder: "Írd be az email címed",
+                  },
+                  {
+                    id: "formMessage",
+                    label: "Üzenet",
+                    name: "message",
+                    type: "textarea",
+                    placeholder: "Írd be az üzeneted",
+                  },
+                ].map((field) => (
+                  <motion.div key={field.id} variants={fieldVariants}>
+                    <Form.Group className="mb-4">
+                      <Form.Label className="fw-bold text-light">
+                        {field.label}
+                      </Form.Label>
+                      {field.type === "textarea" ? (
+                        <Form.Control
+                          as="textarea"
+                          rows={5}
+                          name={field.name}
+                          placeholder={field.placeholder}
+                          value={formData[field.name as keyof typeof formData]}
+                          onChange={handleChange}
+                          className={`bg-dark text-light border-secondary shadow-sm ${
+                            errors[field.name as keyof typeof errors]
+                              ? "is-invalid"
+                              : ""
+                          }`}
+                        />
+                      ) : (
+                        <Form.Control
+                          type={field.type}
+                          name={field.name}
+                          placeholder={field.placeholder}
+                          value={formData[field.name as keyof typeof formData]}
+                          onChange={handleChange}
+                          className={`bg-dark text-light border-secondary shadow-sm ${
+                            errors[field.name as keyof typeof errors]
+                              ? "is-invalid"
+                              : ""
+                          }`}
+                        />
+                      )}
+                      {errors[field.name as keyof typeof errors] && (
+                        <div className="text-danger mt-1">
+                          {errors[field.name as keyof typeof errors]}
+                        </div>
+                      )}
+                    </Form.Group>
+                  </motion.div>
+                ))}
+              </motion.div>
 
               {isSubmitting && (
                 <ProgressBar

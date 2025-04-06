@@ -1,8 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useLocation } from "@tanstack/react-router";
-import { Container, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Spinner,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
+import CartButton from "../common/CartButton";
 
 const placeholderImage =
   "https://www.museumselection.co.uk/images/products/large/28889.jpg";
@@ -12,7 +21,10 @@ const ItemDetail: React.FC = () => {
   const location = useLocation();
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>("");
-  const imageRef = useRef<HTMLImageElement>(null);
+
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || "1";
+  const limit = searchParams.get("limit") || "10";
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -32,17 +44,10 @@ const ItemDetail: React.FC = () => {
   }, [id]);
 
   const renderTooltip = (text: string) => (
-    <Tooltip
-      id={`tooltip-${text.toLowerCase().replace(" ", "-")}`}
-      className="bg-dark text-light"
-    >
+    <Tooltip id={`tooltip-${text}`} className="bg-dark text-light">
       {text}
     </Tooltip>
   );
-
-  const searchParams = new URLSearchParams(location.search);
-  const page = searchParams.get("page") || "1";
-  const limit = searchParams.get("limit") || "10";
 
   if (!item)
     return (
@@ -50,135 +55,102 @@ const ItemDetail: React.FC = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <div className="spinner-border text-info" role="status"></div>
+        <Spinner animation="border" variant="info" />
       </div>
     );
 
   return (
-    <>
-      <Container className="mt-10 py-5">
-        {/* Image and Details Section */}
-
-        <Container
-          className="d-flex flex-column flex-lg-row wrap-md justify-content-center align-items-center mt-5 mb-5"
-          style={{ maxWidth: "62rem" }}
-        >
-          {/* Image Section */}
+    <Container className="py-5">
+      {/* Top: Image + Details */}
+      <Row className="g-4 mb-4 mt-2">
+        <Col lg={6}>
           <motion.div
-            style={{
-              width: "100%",
-              maxWidth: "30rem", // Set the max width to match the description section
-              paddingTop: "30rem", // 1:1 Aspect Ratio
-              position: "relative",
-              marginBottom: "1rem",
-              display: "flex-wrap",
-              margin: "1rem",
-              flexShrink: 0,
-            }}
+            className="rounded shadow overflow-hidden"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+            transition={{ duration: 0.6 }}
           >
-            <img
-              ref={imageRef}
-              src={imgSrc}
-              alt={item.name}
-              onError={() => setImgSrc(placeholderImage)}
-              className="img-fluid shadow-lg rounded"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
+            <div
+              className="d-flex align-items-center justify-content-center bg-white"
+              style={{ height: "30rem" }}
+            >
+              <img
+                src={imgSrc}
+                onError={() => setImgSrc(placeholderImage)}
+                alt={item.name}
+                style={{
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
           </motion.div>
-
-          {/* Content Section */}
+        </Col>
+        <Col lg={6}>
           <motion.div
-            className="bg-dark text-light p-4 rounded-4 text-center"
-            style={{
-              width: "100%",
-              maxWidth: "30rem", // Match the max width of the description section
-              height: "30rem", // Match image height
-              flexShrink: 0,
-              display: "flex wrap",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
+            className="bg-dark text-light p-4 rounded shadow h-100 d-flex flex-column justify-content-between"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Item Name */}
-            <motion.h3
-              className="fw-bold text-light border border-secondary rounded w-100 py-2 mb-3"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              {item.name}
-            </motion.h3>
+            {/* Item Name and Price Left-Aligned */}
+            <div>
+              <h3 className="border-bottom border-secondary pb-2 mb-4">
+                {item.name}
+              </h3>
+              {/* Price left-aligned with larger font size and bold */}
+              <p className="fs-2 fw-bold mb-4">
+                <span>Ár:</span>{" "}
+                <span className=" text-info fs-1">{item.price} Ft</span>
+              </p>
+            </div>
 
-            {/* Price */}
-            <motion.h4
-              className="text-info mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="fs-5 p-2">{item.price} Ft</span>
-            </motion.h4>
-
-            {/* Back Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <OverlayTrigger
-                placement="top"
-                overlay={renderTooltip("Vissza a kategoriához")}
-              >
-                <Link
-                  to={`/about/category/${category}?page=${page}&limit=${limit}`}
-                  className="text-decoration-none"
-                >
-                  <Button variant="outline-light" className="px-4 py-2 mt-20">
-                    <FaArrowLeft className="me-2" /> Vissza
-                  </Button>
-                </Link>
-              </OverlayTrigger>
-            </motion.div>
+            <CartButton />
           </motion.div>
-        </Container>
-        {/* Description Section */}
-        <Container style={{ marginTop: 0, maxWidth: "62rem" }}>
-          {" "}
-          {/* Ensure maxWidth here matches */}
-          <motion.div
-            className="bg-dark text-light p-4 rounded-4 shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+        </Col>
+      </Row>
+
+      {/* Bottom: Description */}
+      <motion.div
+        className="bg-dark p-4 rounded shadow position-relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <h5 className="text-secondary fw-bold border-bottom border-secondary mb-3">
+          Leírás
+        </h5>
+        <p className="text-light mb-0" style={{ whiteSpace: "pre-line" }}>
+          {item.description || "Nincs leírás elérhető ehhez az elemhez."}
+        </p>
+
+        {/* Vissza Button - Positioned bottom-right inside the description box */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "20px",
+            zIndex: 999,
+          }}
+        >
+          <OverlayTrigger
+            placement="top"
+            overlay={renderTooltip("Vissza a kategóriához")}
           >
-            <h1 className="text-left border border-secondary rounded px-1 mb-4">
-              Leírás
-            </h1>
-            <motion.p
-              className="px-3 text-justify border border-secondary py-5 rounded"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
+            <Link
+              to={`/about/category/${category}?page=${page}&limit=${limit}`}
+              className="text-decoration-none"
             >
-              {item.description}
-            </motion.p>
-          </motion.div>
-        </Container>
-      </Container>
-    </>
+              <Button className="btn btn-dark border border-secondary text-light d-inline-flex align-items-center">
+                <FaArrowLeft className="me-2" />
+                Vissza
+              </Button>
+            </Link>
+          </OverlayTrigger>
+        </div>
+      </motion.div>
+    </Container>
   );
 };
 
