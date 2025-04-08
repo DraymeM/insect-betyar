@@ -1,16 +1,16 @@
 :root {
-  --bg-color: #303438;
-  --text-color: #ffffff;
+  --bg-color: #303438 !important;
+  --text-color: #ffffff !important;
 }
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-color: #f3fafb;
-    --text-color: #201f1f;
+    --bg-color: #f3fafb !important;
+    --text-color: #201f1f !important;
   }
   .bg-dark {
     background-color: #e0eef8 !important;
@@ -28,19 +28,45 @@ body {
 }
 
 .carousel-indicators button {
-  min-height: 12px;
+  min-height: 12px !important;
 }
 .carousel-indicators .active {
-  background-color: #41d5f5;
+  background-color: #41d5f5 !important;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-  background-color: rgba(0, 0, 0, 0.2);
-  width: 5rem;
-  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+  width: 5rem !important;
+  height: 100% !important;
 }
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+/* Bootstrap overrides for light mode */
+body.light-theme .bg-dark {
+  background-color: #e0eef8 !important;
+}
+
+body.light-theme .text-light {
+  color: var(--text-color) !important;
+}
+
+body.light-theme .btn-dark {
+  background-color: #e0eef8 !important;
+}
+body.dark-theme {
+  --bg-color: #303438;
+  --text-color: #ffffff;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}
+
+/* Light theme styles */
+body.light-theme {
+  --bg-color: #f3fafb;
+  --text-color: #201f1f;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
 }

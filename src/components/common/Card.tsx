@@ -173,19 +173,6 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
               <FaShoppingCart size={20} />
             </motion.button>
           </div>
-
-          {/* Category */}
-          <div className="text-center mt-2">
-            <motion.span
-              className="text-muted small"
-              whileHover={{ scale: 1.05 }}
-              variants={textVariants}
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-            >
-              {category}
-            </motion.span>
-          </div>
         </div>
       </Link>
     </motion.div>

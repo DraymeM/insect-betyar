@@ -1,0 +1,1 @@
+import{j as e,m as a}from"./index-Cx1FZqZK.js";const n={hidden:{opacity:0,y:20},visible:{opacity:1,y:0,transition:{duration:.8,ease:"easeOut"}}},o=({children:i,className:t=""})=>e.jsx(a.div,{initial:"hidden",whileInView:"visible",viewport:{once:!1,margin:"-100px 0px -100px 0px"},variants:n,className:t,children:i});export{o as S};
