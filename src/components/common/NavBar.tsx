@@ -28,21 +28,6 @@ const NavBar: React.FC = () => {
     width: "0",
   };
 
-  const cartLinkStyle: React.CSSProperties = {
-    ...navLinkStyle,
-    background: "linear-gradient(to right, #2f336e, rgb(58, 212, 255))", // Gradient
-    borderRadius: "30px",
-    color: "white",
-    fontWeight: "bold",
-  };
-
-  const activeLinkStyle: React.CSSProperties = {
-    ...navLinkStyle,
-    color: "#41d5f5", // Info color for text
-    fontWeight: "bold",
-    background: "linear-gradient(to right, #2f336e, rgb(58, 212, 255))", // Active gradient
-  };
-
   return (
     <Navbar
       bg="dark"

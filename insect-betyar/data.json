@@ -4,7 +4,7 @@
     "name": "Item 1",
     "picture": "https://www.museumselection.co.uk/images/products/large/28889.jpg",
     "description": "This is a description for Item 1",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Item 2",
     "picture": "/images/item2.jpg",
     "description": "This is a description for Item 2",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Item 3",
     "picture": "/images/item3.jpg",
     "description": "This is a description for Item 3",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Item 4",
     "picture": "/images/item4.jpg",
     "description": "This is a description for Item 4",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Item 5",
     "picture": "/images/item5.jpg",
     "description": "This is a description for Item 5",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -44,7 +44,7 @@
     "name": "Item 6",
     "picture": "/images/item6.jpg",
     "description": "This is a description for Item 6",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Item 7",
     "picture": "/images/item7.jpg",
     "description": "This is a description for Item 7",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -60,7 +60,7 @@
     "name": "Item 8",
     "picture": "/images/item8.jpg",
     "description": "This is a description for Item 8",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -68,7 +68,7 @@
     "name": "Item 9",
     "picture": "/images/item9.jpg",
     "description": "This is a description for Item 9",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -76,7 +76,7 @@
     "name": "Item 10",
     "picture": "/images/item10.jpg",
     "description": "This is a description for Item 10",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -84,7 +84,7 @@
     "name": "Item 11",
     "picture": "/images/item11.jpg",
     "description": "This is a description for Item 11",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -92,7 +92,7 @@
     "name": "Item 12",
     "picture": "/images/item12.jpg",
     "description": "This is a description for Item 12",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -100,7 +100,7 @@
     "name": "Item 13",
     "picture": "/images/item13.jpg",
     "description": "This is a description for Item 13",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -108,7 +108,7 @@
     "name": "Item 14",
     "picture": "/images/item14.jpg",
     "description": "This is a description for Item 14",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -116,7 +116,7 @@
     "name": "Item 15",
     "picture": "/images/item15.jpg",
     "description": "This is a description for Item 15",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -124,7 +124,7 @@
     "name": "Item 16",
     "picture": "/images/item16.jpg",
     "description": "This is a description for Item 16",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -132,7 +132,7 @@
     "name": "Item 17",
     "picture": "/images/item17.jpg",
     "description": "This is a description for Item 17",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   },
   {
@@ -140,7 +140,7 @@
     "name": "Item 18",
     "picture": "/images/item18.jpg",
     "description": "This is a description for Item 18",
-    "price": "$30",
+    "price": "30",
     "category": "Category A"
   },
   {
@@ -148,7 +148,7 @@
     "name": "Item 19",
     "picture": "/images/item19.jpg",
     "description": "This is a description for Item 19",
-    "price": "$10",
+    "price": "10",
     "category": "Category A"
   },
   {
@@ -156,7 +156,7 @@
     "name": "Item 20",
     "picture": "/images/item20.jpg",
     "description": "This is a description for Item 20",
-    "price": "$20",
+    "price": "20",
     "category": "Category B"
   }
 ]

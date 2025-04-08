@@ -20,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
             className={`page-link mx-1 ${
               currentPage === 1
                 ? "bg-dark border-secondary text-secondary"
-                : "bg-info border-secondary text-light"
+                : "bg-info border-secondary text-white"
             }`}
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
@@ -39,7 +39,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 className={`page-link mx-1 ${
                   page === currentPage
                     ? "bg-info border-info text-white"
-                    : "bg-dark border-secondary text-light"
+                    : "bg-dark border-secondary text-secondary"
                 }`}
                 onClick={() => onPageChange(page)}
               >
