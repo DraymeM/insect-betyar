@@ -5,10 +5,20 @@
     <link rel="icon" href="/insect-betyar/insectbetyarlogo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Insect Betyar</title>
-    <script type="module" crossorigin src="/insect-betyar/assets/index-Cx1FZqZK.js"></script>
-    <link rel="stylesheet" crossorigin href="/insect-betyar/assets/index-DgMg1yWf.css">
+    <script type="module" crossorigin src="/insect-betyar/assets/index-CDuyu8Ry.js"></script>
+    <link rel="stylesheet" crossorigin href="/insect-betyar/assets/index-y6vCXF1I.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        const prefersLight = window.matchMedia(
+          "(prefers-color-scheme: light)"
+        ).matches;
+        document.body.classList.add(
+          prefersLight ? "light-theme" : "dark-theme"
+        );
+      })();
+    </script>
   </body>
 </html>

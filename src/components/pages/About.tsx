@@ -11,8 +11,10 @@ import { Outlet } from "@tanstack/react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Spinner from "../common/Spinner";
 import SearchBar from "../common/SearchBar";
-import { Toast, ToastContainer, Button } from "react-bootstrap";
+import { ToastContainer, Toast, Button } from "react-bootstrap";
 import { IoIosWarning } from "react-icons/io";
+import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+
 const Card = React.lazy(() => import("../common/Card"));
 const CategoryCard = React.lazy(() => import("../common/CategoryCard"));
 const LimitSelector = React.lazy(() => import("../common/LimitSelector"));
@@ -116,6 +118,15 @@ const About: React.FC = () => {
 
   const totalPages = Math.ceil(totalItems / limit);
 
+  // Prevent page scrollbar from appearing when the toast is visible
+  useEffect(() => {
+    if (showToast) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Re-enable scrolling when toast is hidden
+    }
+  }, [showToast]);
+
   if (id) {
     return <Outlet />;
   }
@@ -199,25 +210,35 @@ const About: React.FC = () => {
         )}
       </div>
 
+      {/* ToastContainer with Animation */}
       <ToastContainer position="bottom-end" className="p-3">
-        <Toast
-          bg="info"
-          onClose={() => setShowToast(false)}
-          show={showToast}
-          delay={3000}
-          autohide
-          animation
-          className={`fade ${showToast ? "show slide-in" : "slide-out"}`}
-        >
-          <Toast.Header closeButton>
-            <strong className="me-auto">
-              <IoIosWarning size={25} />
-            </strong>
-          </Toast.Header>
-          <Toast.Body className="text-white">
-            Nincsen ilyen termék a keresési feltételek alapján!
-          </Toast.Body>
-        </Toast>
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }} // Toast enters from the bottom
+              animate={{ opacity: 1, y: 0 }} // Toast settles in position
+              exit={{ opacity: 0, y: -50 }} // Toast exits upwards
+              transition={{ duration: 0.5 }}
+            >
+              <Toast
+                bg="info"
+                onClose={() => setShowToast(false)}
+                delay={3000}
+                autohide
+                animation
+              >
+                <Toast.Header closeButton>
+                  <strong className="me-auto">
+                    <IoIosWarning size={25} />
+                  </strong>
+                </Toast.Header>
+                <Toast.Body className="text-white">
+                  Nincsen ilyen termék a keresési feltételek alapján!
+                </Toast.Body>
+              </Toast>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </ToastContainer>
     </Suspense>
   );

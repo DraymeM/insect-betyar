@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useLocation } from "@tanstack/react-router";
+import { useParams, useLocation, Link } from "@tanstack/react-router";
 import {
   Container,
   Row,
@@ -12,6 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
 import CartButton from "../common/CartButton";
+import { useCart } from "../../context/CartContext";
 
 const placeholderImage =
   "https://www.museumselection.co.uk/images/products/large/28889.jpg";
@@ -20,7 +21,8 @@ const ItemDetail: React.FC = () => {
   const { id, category } = useParams({ strict: false });
   const location = useLocation();
   const [item, setItem] = useState<any>(null);
-  const [imgSrc, setImgSrc] = useState<string>("");
+  const [imgSrc, setImgSrc] = useState<string>(placeholderImage);
+  const { dispatch, setShowToast } = useCart();
 
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page") || "1";
@@ -43,13 +45,20 @@ const ItemDetail: React.FC = () => {
     fetchItem();
   }, [id]);
 
-  const renderTooltip = (text: string) => (
-    <Tooltip id={`tooltip-${text}`} className="bg-dark text-light">
-      {text}
-    </Tooltip>
-  );
+  const handleAddToCart = () => {
+    dispatch({
+      type: "ADD_ITEM",
+      payload: {
+        id: item.id,
+        name: item.name,
+        picture: item.picture,
+        price: item.price,
+      },
+    });
+    setShowToast(true); // Trigger the toast notification
+  };
 
-  if (!item)
+  if (!item) {
     return (
       <div
         className="d-flex justify-content-center align-items-center"
@@ -58,10 +67,10 @@ const ItemDetail: React.FC = () => {
         <Spinner animation="border" variant="info" />
       </div>
     );
+  }
 
   return (
     <Container className="py-5">
-      {/* Top: Image + Details */}
       <Row className="g-4 mb-4 mt-2">
         <Col lg={6}>
           <motion.div
@@ -94,24 +103,21 @@ const ItemDetail: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* Item Name and Price Left-Aligned */}
             <div>
               <h3 className="border-bottom border-secondary pb-2 mb-4">
                 {item.name}
               </h3>
-              {/* Price left-aligned with larger font size and bold */}
               <p className="fs-2 fw-bold mb-4">
                 <span>Ár:</span>{" "}
-                <span className=" text-info fs-1">{item.price} Ft</span>
+                <span className="text-info fs-1">{item.price} Ft</span>
               </p>
             </div>
 
-            <CartButton />
+            <CartButton onClick={handleAddToCart} />
           </motion.div>
         </Col>
       </Row>
 
-      {/* Bottom: Description */}
       <motion.div
         className="bg-dark p-4 rounded shadow position-relative"
         initial={{ opacity: 0, y: 20 }}
@@ -124,8 +130,6 @@ const ItemDetail: React.FC = () => {
         <p className="text-light mb-0" style={{ whiteSpace: "pre-line" }}>
           {item.description || "Nincs leírás elérhető ehhez az elemhez."}
         </p>
-
-        {/* Vissza Button - Positioned bottom-right inside the description box */}
         <div
           style={{
             position: "absolute",
@@ -136,15 +140,14 @@ const ItemDetail: React.FC = () => {
         >
           <OverlayTrigger
             placement="top"
-            overlay={renderTooltip("Vissza a kategóriához")}
+            overlay={<Tooltip id="tooltip-back">Vissza a kategóriához</Tooltip>}
           >
             <Link
               to={`/about/category/${category}?page=${page}&limit=${limit}`}
               className="text-decoration-none"
             >
               <Button className="btn btn-dark border border-secondary text-light d-inline-flex align-items-center">
-                <FaArrowLeft className="me-2" />
-                Vissza
+                <FaArrowLeft className="me-2" /> Vissza
               </Button>
             </Link>
           </OverlayTrigger>
