@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useMatchRoute } from "@tanstack/react-router";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, Badge } from "react-bootstrap";
 import { FaHome, FaBug, FaShoppingCart } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { useCart } from "../../context/CartContext";
 
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute();
+  const { state } = useCart(); // Get the cart state
 
   const navLinkStyle: React.CSSProperties = {
     position: "relative",
@@ -37,6 +39,7 @@ const NavBar: React.FC = () => {
       className="shadow-sm"
       style={{
         transition: "box-shadow 0.3s ease-in-out",
+        zIndex: 1030, // Set the z-index for the navbar to ensure it stays below the badge
       }}
     >
       <Container fluid>
@@ -96,7 +99,7 @@ const NavBar: React.FC = () => {
             <Nav.Link
               as={Link}
               to="/cart"
-              className="px-3 d-flex align-items-center mt-1  md-mt-0 gap-1 position-relative"
+              className="px-3 d-flex align-items-center mt-1 md-mt-0 gap-1 mr-1 position-relative"
               style={{
                 ...navLinkStyle,
                 color: "white",
@@ -108,10 +111,32 @@ const NavBar: React.FC = () => {
                   ? "10px"
                   : "30px",
                 transition: "all 0.4s ease-in-out",
+                position: "relative",
+                marginRight: "1rem",
               }}
             >
               <FaShoppingCart />
               <span>Kosár</span>
+              {state.items.length > 0 && (
+                <Badge
+                  pill
+                  bg="danger"
+                  style={{
+                    position: "absolute",
+                    top: "-5px", // Adjust the top position
+                    right: "-10px", // Adjust the right position
+                    fontSize: "0.75rem",
+                    minWidth: "1.5rem",
+                    height: "1.5rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 1050, // Ensure the badge appears above the navbar
+                  }}
+                >
+                  {state.items.length}
+                </Badge>
+              )}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

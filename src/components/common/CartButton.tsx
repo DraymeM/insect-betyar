@@ -3,7 +3,11 @@ import { FaShoppingCart, FaCheck } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 
-const CartButton: React.FC = () => {
+interface CartButtonProps {
+  onClick: () => void; // Add the onClick prop to handle item adding
+}
+
+const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
@@ -11,6 +15,9 @@ const CartButton: React.FC = () => {
 
     // Reset back to original state after 1 second (for animation)
     setTimeout(() => setIsAdded(false), 1000);
+
+    // Trigger the onClick passed from parent
+    onClick();
   };
 
   return (

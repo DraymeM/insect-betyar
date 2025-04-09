@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FaShoppingCart } from "react-icons/fa"; // Importing shopping cart icon
+import { FaShoppingCart } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
 
 interface CardProps {
   id: number;
@@ -17,27 +18,23 @@ const placeholderImage =
 
 const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
   const [imgSrc, setImgSrc] = useState(picture);
-  const [isInView, setIsInView] = useState(false); // To track visibility
+  const [isInView, setIsInView] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const { dispatch, setShowToast } = useCart(); // Destructure setShowToast from context
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry.isIntersecting) {
-          setIsInView(true); // If card is in view, trigger animation
-        } else {
-          setIsInView(false); // If card is out of view, reset animation
-        }
+        setIsInView(entry.isIntersecting);
       },
-      { threshold: 0 } // Trigger when the card is even slightly visible
+      { threshold: 0 }
     );
 
     if (cardRef.current) {
       observer.observe(cardRef.current);
     }
 
-    // Cleanup observer on unmount
     return () => {
       if (cardRef.current) {
         observer.unobserve(cardRef.current);
@@ -83,13 +80,22 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
     },
   };
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch({
+      type: "ADD_ITEM",
+      payload: { id, name, picture, price },
+    });
+    setShowToast(true); // Trigger toast when item is added to cart
+  };
+
   return (
     <motion.div
-      ref={cardRef} // Adding the ref for IntersectionObserver
+      ref={cardRef}
       className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden position-relative"
       variants={cardVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"} // Trigger visibility when in view
+      animate={isInView ? "visible" : "hidden"}
       whileHover="hover"
       whileTap="tap"
       style={{ cursor: "pointer" }}
@@ -99,7 +105,6 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
         className="text-decoration-none text-white"
       >
         <div className="p-3 pb-0">
-          {/* Image Container */}
           <motion.div
             className="rounded-3 overflow-hidden bg-dark"
             style={{
@@ -129,9 +134,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
           </motion.div>
         </div>
 
-        {/* Card Body */}
         <div className="card-body d-flex flex-column justify-content-between pt-0">
-          {/* Name */}
           <motion.h5
             className="text-center text-light mt-2"
             variants={textVariants}
@@ -141,7 +144,6 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
             {name}
           </motion.h5>
 
-          {/* Price and Shopping Cart Button */}
           <div className="d-flex justify-content-between align-items-center mt-2">
             <motion.h5
               className="text-center underline text-info mb-0"
@@ -169,6 +171,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
                 cursor: "pointer",
                 transition: "background 0.3s ease",
               }}
+              onClick={handleAddToCart}
             >
               <FaShoppingCart size={20} />
             </motion.button>

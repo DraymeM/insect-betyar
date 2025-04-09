@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ContactImport } from './routes/contact'
+import { Route as CartImport } from './routes/cart'
 import { Route as IndexImport } from './routes/index'
 import { Route as AboutIndexImport } from './routes/about/index'
 import { Route as AboutCategoryCategoryImport } from './routes/about/category/$category'
@@ -24,6 +25,12 @@ const ContactRoute = ContactImport.update({
   path: '/contact',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/contact.lazy').then((d) => d.Route))
+
+const CartRoute = CartImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -65,6 +72,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartImport
       parentRoute: typeof rootRoute
     }
     '/contact': {
@@ -115,6 +129,7 @@ const AboutCategoryCategoryRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/about': typeof AboutIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
@@ -123,6 +138,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/about': typeof AboutIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
@@ -132,6 +148,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/about/': typeof AboutIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
@@ -142,6 +159,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cart'
     | '/contact'
     | '/about'
     | '/about/category/$category'
@@ -149,6 +167,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cart'
     | '/contact'
     | '/about'
     | '/about/category/$category'
@@ -156,6 +175,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cart'
     | '/contact'
     | '/about/'
     | '/about/category/$category'
@@ -165,6 +185,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
   AboutIndexRoute: typeof AboutIndexRoute
   AboutCategoryCategoryRoute: typeof AboutCategoryCategoryRouteWithChildren
@@ -172,6 +193,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CartRoute: CartRoute,
   ContactRoute: ContactRoute,
   AboutIndexRoute: AboutIndexRoute,
   AboutCategoryCategoryRoute: AboutCategoryCategoryRouteWithChildren,
@@ -188,6 +210,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/cart",
         "/contact",
         "/about/",
         "/about/category/$category"
@@ -195,6 +218,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/cart": {
+      "filePath": "cart.tsx"
     },
     "/contact": {
       "filePath": "contact.tsx"

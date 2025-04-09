@@ -15,6 +15,9 @@ body {
   .bg-dark {
     background-color: #e0eef8 !important;
   }
+  .table-dark {
+    color: #e0eef8 !important;
+  }
   .text-light {
     color: var(--text-color) !important;
   }
@@ -47,6 +50,10 @@ body {
 /* Bootstrap overrides for light mode */
 body.light-theme .bg-dark {
   background-color: #e0eef8 !important;
+}
+
+body.light-theme .table-dark {
+  color: #e0eef8 !important;
 }
 
 body.light-theme .text-light {
