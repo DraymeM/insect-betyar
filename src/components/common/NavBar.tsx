@@ -102,7 +102,9 @@ const NavBar: React.FC = () => {
               className="px-3 d-flex align-items-center mt-1 md-mt-0 gap-1 mr-1 position-relative"
               style={{
                 ...navLinkStyle,
-                color: "white",
+                color: matchRoute({ to: "/cart", fuzzy: true })
+                  ? "var(--bs-info)"
+                  : "white",
                 fontWeight: "bold",
                 background: matchRoute({ to: "/cart", fuzzy: true })
                   ? "linear-gradient(to right, #2f336e, rgb(58, 212, 255) 300%)"
@@ -115,23 +117,39 @@ const NavBar: React.FC = () => {
                 marginRight: "1rem",
               }}
             >
-              <FaShoppingCart />
-              <span>Kosár</span>
+              <span
+                style={{
+                  color: matchRoute({ to: "/cart", fuzzy: true })
+                    ? "var(--bs-info)"
+                    : "white",
+                }}
+              >
+                <FaShoppingCart />
+              </span>
+              <span
+                style={{
+                  color: matchRoute({ to: "/cart", fuzzy: true })
+                    ? "var(--bs-info)"
+                    : "white",
+                }}
+              >
+                Kosár
+              </span>
               {state.items.length > 0 && (
                 <Badge
                   pill
                   bg="danger"
                   style={{
                     position: "absolute",
-                    top: "-5px", // Adjust the top position
-                    right: "-10px", // Adjust the right position
+                    top: "-5px",
+                    right: "-10px",
                     fontSize: "0.75rem",
                     minWidth: "1.5rem",
                     height: "1.5rem",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    zIndex: 1050, // Ensure the badge appears above the navbar
+                    zIndex: 1050,
                   }}
                 >
                   {state.items.length}
