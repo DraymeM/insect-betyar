@@ -5,12 +5,14 @@ import React, {
   ReactNode,
   useEffect,
   useState,
+  useCallback,
+  useMemo,
 } from "react";
 import { ToastContainer, Toast, Button } from "react-bootstrap";
-import { PiCheckFatFill } from "react-icons/pi";
+import { PiCheckFatFill, PiWarningFill } from "react-icons/pi";
 import { motion, AnimatePresence } from "framer-motion";
 
-type CartItem = {
+export type CartItem = {
   id: number;
   name: string;
   picture: string;
@@ -29,6 +31,8 @@ type CartAction =
   | { type: "SET_CART"; payload: CartItem[] }
   | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } };
 
+const MAX_QUANTITY = 10;
+
 const CartContext = createContext<{
   state: CartState;
   dispatch: React.Dispatch<CartAction>;
@@ -39,42 +43,67 @@ const CartContext = createContext<{
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
-    case "ADD_ITEM":
+    case "ADD_ITEM": {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
       if (existingItem) {
-        return {
-          items: state.items.map((item) =>
-            item.id === action.payload.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          ),
-        };
+        return existingItem.quantity >= MAX_QUANTITY
+          ? state
+          : {
+              items: state.items.map((item) =>
+                item.id === action.payload.id
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item
+              ),
+            };
       }
       return {
         items: [...state.items, { ...action.payload, quantity: 1 }],
       };
+    }
 
-    case "REMOVE_ITEM":
-      return {
-        items: state.items.filter((item) => item.id !== action.payload),
-      };
+    case "REMOVE_ITEM": {
+      const newItems = state.items.filter((item) => item.id !== action.payload);
+
+      // Update localStorage synchronously
+      try {
+        localStorage.setItem("cart", JSON.stringify(newItems));
+      } catch (error) {
+        console.error("Failed to update cart in localStorage", error);
+      }
+
+      return { items: newItems };
+    }
 
     case "CLEAR_CART":
+      const clearStorage = () => {
+        try {
+          localStorage.setItem("cart", JSON.stringify([]));
+        } catch (error) {
+          console.error("Failed to clear cart in localStorage", error);
+        }
+      };
+      if (typeof window !== "undefined" && window.requestIdleCallback) {
+        window.requestIdleCallback(clearStorage);
+      } else {
+        clearStorage();
+      }
       return { items: [] };
 
     case "SET_CART":
       return { items: action.payload };
 
     case "UPDATE_QUANTITY":
-      return {
-        items: state.items.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, quantity: action.payload.quantity }
-            : item
-        ),
-      };
+      return action.payload.quantity > MAX_QUANTITY
+        ? state
+        : {
+            items: state.items.map((item) =>
+              item.id === action.payload.id
+                ? { ...item, quantity: action.payload.quantity }
+                : item
+            ),
+          };
 
     default:
       return state;
@@ -91,28 +120,69 @@ const calculateTotalPrice = (items: CartItem[]) => {
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
   const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState<"success" | "danger">("success");
   const [toastProgress, setToastProgress] = useState(100);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("cart");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          dispatch({ type: "SET_CART", payload: parsed });
+  // Memoized custom dispatch
+  const customDispatch = useCallback(
+    (action: CartAction) => {
+      if (action.type === "ADD_ITEM") {
+        const existingItem = state.items.find(
+          (item) => item.id === action.payload.id
+        );
+        if (existingItem && existingItem.quantity >= MAX_QUANTITY) {
+          setToastType("danger");
+          setShowToast(true);
+          return;
         }
-      } catch (err) {
-        console.error("Failed to parse cart from localStorage", err);
+        setToastType("success");
+        setShowToast(true);
       }
+      dispatch(action);
+    },
+    [state.items]
+  );
+
+  // Initial cart load with requestIdleCallback
+  useEffect(() => {
+    const loadCart = () => {
+      const stored = localStorage.getItem("cart");
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            dispatch({ type: "SET_CART", payload: parsed });
+          }
+        } catch (err) {
+          console.error("Failed to parse cart from localStorage", err);
+        }
+      }
+    };
+
+    if (typeof window !== "undefined" && window.requestIdleCallback) {
+      const idleId = window.requestIdleCallback(loadCart);
+      return () => window.cancelIdleCallback(idleId);
+    } else {
+      loadCart();
     }
   }, []);
 
+  // Save cart to localStorage with debouncing
   useEffect(() => {
-    if (state.items.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(state.items));
-    }
+    if (state.items.length === 0) return;
+
+    const timer = setTimeout(() => {
+      try {
+        localStorage.setItem("cart", JSON.stringify(state.items));
+      } catch (error) {
+        console.error("Failed to save cart to localStorage", error);
+      }
+    }, 300); // Debounce by 300ms
+
+    return () => clearTimeout(timer);
   }, [state.items]);
 
+  // Toast progress animation (unchanged as requested)
   useEffect(() => {
     if (showToast) {
       let progress = 100;
@@ -128,13 +198,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [showToast]);
 
-  const totalPrice = calculateTotalPrice(state.items);
+  // Memoized context value
+  const contextValue = useMemo(
+    () => ({
+      state,
+      dispatch: customDispatch,
+      totalPrice: calculateTotalPrice(state.items),
+      showToast,
+      setShowToast,
+    }),
+    [state, customDispatch, showToast]
+  );
 
   return (
-    <CartContext.Provider
-      value={{ state, dispatch, totalPrice, showToast, setShowToast }}
-    >
+    <CartContext.Provider value={contextValue}>
       {children}
+      {/* Toast container remains exactly as is */}
       <ToastContainer
         className="p-3"
         style={{
@@ -156,13 +235,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 onClose={() => setShowToast(false)}
                 delay={3000}
                 autohide
-                bg="success"
+                bg={toastType}
               >
                 <Toast.Header>
                   <span>
-                    <PiCheckFatFill />
+                    {toastType === "success" ? (
+                      <PiCheckFatFill />
+                    ) : (
+                      <PiWarningFill />
+                    )}
                   </span>
-                  <strong className="mx-1 me-auto"> Hozzáadva</strong>
+                  <strong className="mx-1 me-auto">
+                    {toastType === "success" ? "Hozzáadva" : "Figyelmeztetés"}
+                  </strong>
                   <Button
                     variant="link"
                     className="text-light"
@@ -171,9 +256,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 </Toast.Header>
                 <Toast.Body className="text-white">
                   <span className="text-left">
-                    Termék hozzáadva a kosárhoz!
+                    {toastType === "success"
+                      ? "Termék hozzáadva a kosárhoz!"
+                      : `Maximum ${MAX_QUANTITY} darab vehető egy termékből!`}
                   </span>
-                  {/* Progress bar */}
                   <div
                     className="progress mt-2"
                     style={{ height: "3px", backgroundColor: "#ffffff40" }}
@@ -183,7 +269,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                       role="progressbar"
                       style={{
                         width: `${toastProgress}%`,
-                        backgroundColor: "#28a745",
+                        backgroundColor:
+                          toastType === "success" ? "#28a745" : "#dc3545",
                       }}
                     ></div>
                   </div>

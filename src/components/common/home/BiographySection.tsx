@@ -60,10 +60,10 @@ export const BiographySection = ({
             alt={imageAlt}
             className={`img-fluid rounded shadow w-100 ${imageClassName}`}
             style={{
-              objectFit: "cover", // Makes the image cover the container, cropping and zooming as needed
-              objectPosition: "center", // Centers the image
+              objectFit: "cover",
+              objectPosition: "center",
               maxHeight: "100%",
-              height: "100%", // Ensures the image covers the full height
+              height: "100%",
             }}
             onError={(e) => {
               e.currentTarget.src = placeholderImage;

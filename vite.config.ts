@@ -11,6 +11,15 @@ export default defineConfig({
   base: "/insect-betyar/", // Alapértelmezett URL bázis
   build: {
     outDir: "insect-betyar", // Kimeneti könyvtár
-    assetsDir: "assets", // Az összes statikus fájl a root-ba kerül
+    assetsDir: "assets",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom"],
+          router: ["@tanstack/react-router"],
+          bootstrap: ["bootstrap"],
+        },
+      },
+    },
   },
 });

@@ -28,6 +28,13 @@ body {
   .btn-dark {
     background-color: #e0eef8 !important;
   }
+  .table-dark {
+    --bs-table-bg: #e0eef8 !important; /* Background */
+    --bs-table-color: #201f1f !important; /* Text color */
+    --bs-table-border-color: #dee2e6 !important; /* Borders */
+    --bs-table-hover-bg: #cbe0ee !important;
+    --bs-table-hover-color: #201f1f !important;
+  }
 }
 
 .carousel-indicators button {
@@ -76,4 +83,21 @@ body.light-theme {
   --text-color: #201f1f;
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
+}
+
+/* For explicit theme classes */
+body.light-theme .table-dark {
+  --bs-table-bg: #e0eef8 !important;
+  --bs-table-color: #201f1f !important;
+  --bs-table-border-color: #dee2e6 !important;
+  --bs-table-hover-bg: #cbe0ee !important;
+  --bs-table-hover-color: #201f1f !important;
+  --bs-table-striped-bg: #cfe4f3 !important;
+  --bs-table-striped-color: #201f1f !important;
+}
+
+body.dark-theme .table-primary {
+  --bs-table-bg: #1d2229 !important;
+  --bs-table-color: #ffffff !important;
+  --bs-table-border-color: #4c5b6a !important;
 }

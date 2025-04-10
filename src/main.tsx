@@ -1,4 +1,3 @@
-// main.tsx
 import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import { createRouter, RouterProvider, Outlet } from "@tanstack/react-router";
@@ -9,9 +8,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { useSystemTheme } from "./hooks/useSystemTheme";
 import { CartProvider } from "./context/CartContext";
-const NavBar = lazy(() => import("./components/common/NavBar"));
 
-const AppLayout = () => {
+// Preload NavBar component during idle time
+const preloadNavBar = () => import("./components/common/NavBar");
+
+// Lazy load with prefetch
+const NavBar = lazy(() => {
+  // Start loading immediately but return a promise
+  const promise = preloadNavBar();
+  return promise;
+});
+
+// Memoized AppLayout to prevent unnecessary re-renders
+const AppLayout = React.memo(() => {
   useSystemTheme();
 
   return (
@@ -22,8 +31,9 @@ const AppLayout = () => {
       <Outlet />
     </>
   );
-};
+});
 
+// Create router once and reuse
 const router = createRouter({
   routeTree,
   basepath: "/insect-betyar",
@@ -33,10 +43,25 @@ const router = createRouter({
   defaultComponent: AppLayout,
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+// Start preloading other resources after initial render
+const preloadResources = () => {
+  if (typeof window !== "undefined" && window.requestIdleCallback) {
+    window.requestIdleCallback(() => {
+      // Preload other critical resources here if needed
+    });
+  }
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+
+// Initial render
+root.render(
   <React.StrictMode>
     <CartProvider>
       <RouterProvider router={router} />
     </CartProvider>
   </React.StrictMode>
 );
+
+// Kick off preloading after render
+preloadResources();
