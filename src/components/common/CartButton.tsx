@@ -1,23 +1,18 @@
-import React, { useState } from "react";
-import { FaShoppingCart, FaCheck } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 
 interface CartButtonProps {
   onClick: () => void; // Add the onClick prop to handle item adding
+  pending: boolean; // New prop to handle pending state
 }
 
-const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
-  const [isAdded, setIsAdded] = useState(false);
-
+const CartButton: React.FC<CartButtonProps> = ({ onClick, pending }) => {
   const handleAddToCart = () => {
-    setIsAdded(true);
-
-    // Reset back to original state after 1 second (for animation)
-    setTimeout(() => setIsAdded(false), 1000);
-
-    // Trigger the onClick passed from parent
-    onClick();
+    if (!pending) {
+      // Only trigger action when not pending
+      onClick();
+    }
   };
 
   return (
@@ -40,37 +35,24 @@ const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
           e.currentTarget.style.backgroundSize = "200% 100%"; // Revert gradient size
         }}
         onClick={handleAddToCart}
+        disabled={pending} // Disable button while pending
       >
-        {/* Left side: Cart icon or Checkmark */}
+        {/* Cart Icon */}
         <motion.div
           className="d-flex align-items-center justify-content-center bg-primary rounded text-white px-3"
           style={{ minWidth: "3rem" }}
           initial={{ opacity: 1 }}
           animate={{
-            opacity: isAdded ? 0 : 1,
-            x: isAdded ? "50%" : 0, // Move the icon when clicked
+            opacity: 1, // Always show cart icon
           }}
           transition={{ duration: 0.3 }}
         >
           <FaShoppingCart size={35} />
         </motion.div>
 
-        <motion.div
-          className="d-flex align-items-center justify-content-center bg-primary rounded text-white px-3"
-          style={{ minWidth: "3rem" }}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: isAdded ? 1 : 0,
-            x: isAdded ? "50%" : 0, // Move the checkmark when clicked
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          <FaCheck size={35} />
-        </motion.div>
-
         {/* Right side: Kosárba text */}
         <motion.div
-          className="d-flex align-items-center justify-content-center text-xl text-white fw-bold flex-grow-1"
+          className="d-flex align-items-center justify-content-center text-xl mx-1 text-white fw-bold flex-grow-1"
           style={{
             paddingLeft: "1rem",
             paddingRight: "1rem",
@@ -78,7 +60,7 @@ const CartButton: React.FC<CartButtonProps> = ({ onClick }) => {
           }}
           initial={{ opacity: 1 }}
           animate={{
-            opacity: isAdded ? 0 : 1, // Hide text when item is added
+            opacity: pending ? 0 : 1, // Hide text during pending
           }}
           transition={{ opacity: { duration: 0.3 } }}
         >

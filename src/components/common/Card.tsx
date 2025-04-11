@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaShoppingCart } from "react-icons/fa";
+import { Spinner } from "react-bootstrap";
 import { useCart } from "../../context/CartContext";
 
 interface CardProps {
@@ -19,8 +20,9 @@ const placeholderImage =
 const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
   const [imgSrc, setImgSrc] = useState(picture);
   const [isInView, setIsInView] = useState(false);
+  const [pending, setPending] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const { dispatch, setShowToast } = useCart(); // Destructure setShowToast from context
+  const { dispatch, setShowToast } = useCart();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,11 +84,16 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch({
-      type: "ADD_ITEM",
-      payload: { id, name, picture, price },
-    });
-    setShowToast(true); // Trigger toast when item is added to cart
+    setPending(true);
+
+    setTimeout(() => {
+      dispatch({
+        type: "ADD_ITEM",
+        payload: { id, name, picture, price },
+      });
+      setShowToast(true);
+      setPending(false);
+    }, 800); // simulate async call
   };
 
   return (
@@ -100,6 +107,17 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
       whileTap="tap"
       style={{ cursor: "pointer" }}
     >
+      {/* Overlay Spinner */}
+      {pending && (
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark"
+          style={{
+            zIndex: 10,
+          }}
+        >
+          <Spinner animation="border" variant="info" />
+        </div>
+      )}
       <Link
         to={`/about/category/${category}/item/${id}`}
         className="text-decoration-none text-white"
