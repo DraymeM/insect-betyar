@@ -11,6 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { z } from "zod";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { toast } from "react-toastify";
 
 interface ContactFormProps {
   onSubmit: (formData: {
@@ -100,9 +101,14 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
       setIsSuccess(true);
       setFormData({ name: "", email: "", message: "" });
       setErrors({});
+      toast.success(" Sikeresen elküldted az üzeneted!", {});
     } catch (err) {
       setProgress(0);
       setError("Nem sikerült elküldeni az üzeneted. Kérlek próbáld újra!");
+      toast.error(
+        " Nem sikerült elküldeni az üzenetet. Kérlek próbáld újra!",
+        {}
+      );
     } finally {
       clearInterval(interval);
       setIsSubmitting(false);

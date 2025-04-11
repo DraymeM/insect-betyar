@@ -4,13 +4,10 @@ import React, {
   useReducer,
   ReactNode,
   useEffect,
-  useState,
   useCallback,
   useMemo,
 } from "react";
-import { ToastContainer, Toast, Button } from "react-bootstrap";
-import { PiCheckFatFill, PiWarningFill } from "react-icons/pi";
-import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "react-toastify"; // Import React Toastify
 
 export type CartItem = {
   id: number;
@@ -37,8 +34,6 @@ const CartContext = createContext<{
   state: CartState;
   dispatch: React.Dispatch<CartAction>;
   totalPrice: number;
-  showToast: boolean;
-  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
@@ -101,9 +96,6 @@ const calculateTotalPrice = (items: CartItem[]) => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [] });
-  const [showToast, setShowToast] = useState(false);
-  const [toastType, setToastType] = useState<"success" | "danger">("success");
-  const [toastProgress, setToastProgress] = useState(100);
 
   const customDispatch = useCallback(
     (action: CartAction) => {
@@ -112,12 +104,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           (item) => item.id === action.payload.id
         );
         if (existingItem && existingItem.quantity >= MAX_QUANTITY) {
-          setToastType("danger");
-          setShowToast(true);
+          toast.error(
+            `Maximum ${MAX_QUANTITY} darab vehető egy termékből!`,
+            {}
+          );
           return;
         }
-        setToastType("success");
-        setShowToast(true);
+        toast.success("Termék hozzáadva a kosárhoz!", {});
       }
       dispatch(action);
     },
@@ -156,102 +149,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return () => clearTimeout(timer);
   }, [state.items]);
 
-  useEffect(() => {
-    if (showToast) {
-      let progress = 100;
-      const interval = setInterval(() => {
-        progress -= 2;
-        setToastProgress(progress);
-        if (progress <= 0) {
-          clearInterval(interval);
-          setShowToast(false);
-        }
-      }, 60);
-      return () => clearInterval(interval);
-    }
-  }, [showToast]);
-
   const contextValue = useMemo(
     () => ({
       state,
       dispatch: customDispatch,
       totalPrice: calculateTotalPrice(state.items),
-      showToast,
-      setShowToast,
     }),
-    [state, customDispatch, showToast]
+    [state, customDispatch]
   );
 
   return (
-    <CartContext.Provider value={contextValue}>
-      {children}
-      <ToastContainer
-        className="p-3"
-        style={{
-          position: "fixed",
-          top: "3rem",
-          right: "20px",
-          zIndex: 9999,
-        }}
-      >
-        <AnimatePresence>
-          {showToast && (
-            <motion.div
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Toast
-                onClose={() => setShowToast(false)}
-                delay={3000}
-                autohide
-                bg={toastType}
-              >
-                <Toast.Header>
-                  <span>
-                    {toastType === "success" ? (
-                      <PiCheckFatFill />
-                    ) : (
-                      <PiWarningFill />
-                    )}
-                  </span>
-                  <strong className="mx-1 me-auto">
-                    {toastType === "success" ? "Hozzáadva" : "Figyelmeztetés"}
-                  </strong>
-                  <Button
-                    variant="link"
-                    className="text-light"
-                    onClick={() => setShowToast(false)}
-                  ></Button>
-                </Toast.Header>
-                <Toast.Body className="text-white">
-                  <span className="text-left">
-                    {toastType === "success"
-                      ? "Termék hozzáadva a kosárhoz!"
-                      : `Maximum ${MAX_QUANTITY} darab vehető egy termékből!`}
-                  </span>
-                  <div
-                    className="progress mt-2"
-                    style={{ height: "3px", backgroundColor: "#ffffff40" }}
-                  >
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{
-                        width: `${toastProgress}%`,
-                        backgroundColor:
-                          toastType === "success" ? "#28a745" : "#dc3545",
-                      }}
-                    ></div>
-                  </div>
-                </Toast.Body>
-              </Toast>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </ToastContainer>
-    </CartContext.Provider>
+    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
   );
 };
 

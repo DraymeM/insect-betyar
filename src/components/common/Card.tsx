@@ -22,7 +22,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
   const [isInView, setIsInView] = useState(false);
   const [pending, setPending] = useState(false);
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const { dispatch, setShowToast } = useCart();
+  const { dispatch } = useCart();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -91,11 +91,9 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
         type: "ADD_ITEM",
         payload: { id, name, picture, price },
       });
-      setShowToast(true);
       setPending(false);
     }, 800); // simulate async call
   };
-
   return (
     <motion.div
       ref={cardRef}
@@ -129,8 +127,8 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
               position: "relative",
               paddingBottom: "100%",
               width: "100%",
-              maxWidth: "10rem",
-              minWidth: "10rem",
+              maxWidth: "9rem", // Default width on larger screens
+              minWidth: "8rem", // Default width on larger screens
             }}
             variants={imageVariants}
             initial="hidden"

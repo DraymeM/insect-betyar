@@ -11,9 +11,8 @@ import { Outlet } from "@tanstack/react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Spinner from "../common/Spinner";
 import SearchBar from "../common/SearchBar";
-import { ToastContainer, Toast, Button } from "react-bootstrap";
-import { IoIosWarning } from "react-icons/io";
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+import { Button } from "react-bootstrap";
+import { toast } from "react-toastify"; // Import toast from react-toastify
 
 const Card = React.lazy(() => import("../common/Card"));
 const CategoryCard = React.lazy(() => import("../common/CategoryCard"));
@@ -38,7 +37,6 @@ const About: React.FC = () => {
   const [items, setItems] = useState<any[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [totalItems, setTotalItems] = useState(0);
-  const [showToast, setShowToast] = useState(false); // Toast visibility
 
   const debouncedPageChange = useDebouncedCallback((newPage: number) => {
     if (newPage < 1 || newPage > Math.ceil(totalItems / limit)) return;
@@ -73,15 +71,21 @@ const About: React.FC = () => {
     });
   };
 
+  const [isBackToCategories, setIsBackToCategories] = useState(false);
+
   const handleBackToCategories = () => {
     const updatedParams = new URLSearchParams(location.search);
     updatedParams.delete("category");
     updatedParams.delete("search");
     updatedParams.delete("page");
     updatedParams.delete("limit");
+
+    setIsBackToCategories(true); // Mark that we're navigating back to categories
+
     navigate({ to: `/about?${updatedParams.toString()}` });
   };
 
+  // Update the `useEffect` to check for isBackToCategories
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -106,26 +110,32 @@ const About: React.FC = () => {
           filteredItems.slice((currentPage - 1) * limit, currentPage * limit)
         );
 
-        // Show toast if no items found
-        setShowToast(filteredItems.length === 0);
+        // Only show the toast if it's an empty category and we are not navigating back
+        if (
+          filteredItems.length === 0 &&
+          !shownToast.current &&
+          !isBackToCategories
+        ) {
+          toast.info("Nincsen ilyen termék a keresési feltételek alapján!");
+          shownToast.current = true; // Mark the toast as shown
+        }
       } catch (error) {
         console.error("Error loading the page:", error);
       }
     };
 
     fetchData();
-  }, [limit, category, searchQuery, currentPage]);
+
+    // Reset the toast shown flag and "back to categories" state when navigating back
+    return () => {
+      shownToast.current = false;
+      setIsBackToCategories(false); // Reset the "Back to Categories" flag
+    };
+  }, [limit, category, searchQuery, currentPage, isBackToCategories]);
+  // Create a reference to track if the toast has been shown
+  const shownToast = React.useRef(false);
 
   const totalPages = Math.ceil(totalItems / limit);
-
-  // Prevent page scrollbar from appearing when the toast is visible
-  useEffect(() => {
-    if (showToast) {
-      document.body.style.overflow = "hidden"; // Disable scrolling
-    } else {
-      document.body.style.overflow = "auto"; // Re-enable scrolling when toast is hidden
-    }
-  }, [showToast]);
 
   if (id) {
     return <Outlet />;
@@ -209,37 +219,6 @@ const About: React.FC = () => {
           </>
         )}
       </div>
-
-      {/* ToastContainer with Animation */}
-      <ToastContainer position="bottom-end" className="p-3">
-        <AnimatePresence>
-          {showToast && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }} // Toast enters from the bottom
-              animate={{ opacity: 1, y: 0 }} // Toast settles in position
-              exit={{ opacity: 0, y: -50 }} // Toast exits upwards
-              transition={{ duration: 0.5 }}
-            >
-              <Toast
-                bg="info"
-                onClose={() => setShowToast(false)}
-                delay={3000}
-                autohide
-                animation
-              >
-                <Toast.Header closeButton>
-                  <strong className="me-auto">
-                    <IoIosWarning size={25} />
-                  </strong>
-                </Toast.Header>
-                <Toast.Body className="text-white">
-                  Nincsen ilyen termék a keresési feltételek alapján!
-                </Toast.Body>
-              </Toast>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </ToastContainer>
     </Suspense>
   );
 };

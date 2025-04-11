@@ -46,7 +46,7 @@ export const BiographySection = ({
   const imageCol = (
     <Col lg={4} md={12}>
       <motion.div
-        className="rounded shadow overflow-hidden"
+        className="rounded shadow shadow-sm overflow-hidden"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -77,7 +77,7 @@ export const BiographySection = ({
   const textCol = (
     <Col lg={8} md={12}>
       <motion.div
-        className={`bg-dark text-light p-4 rounded shadow h-100 d-flex flex-column ${textClassName}`}
+        className={`bg-dark text-light p-4 rounded shadow shadow-sm h-100 d-flex flex-column ${textClassName}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
