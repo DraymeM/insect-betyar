@@ -22,7 +22,7 @@ const ItemDetail: React.FC = () => {
   const location = useLocation();
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>(placeholderImage);
-  const { dispatch, setShowToast } = useCart();
+  const { dispatch } = useCart();
   const [pending, setPending] = useState(false); // Pending state for async Add to Cart
   const [isLoading, setIsLoading] = useState(true); // Loading state for item data
 
@@ -64,7 +64,6 @@ const ItemDetail: React.FC = () => {
         price: item.price,
       },
     });
-    setShowToast(true); // Show toast notification after item is added
     setPending(false); // Stop the spinner
   };
 

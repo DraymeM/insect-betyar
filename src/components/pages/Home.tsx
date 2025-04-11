@@ -50,9 +50,9 @@ const Home: React.FC = () => {
         </div>
       }
     >
-      <div className="mt-md-5 mb-md-5 flex-grow-2">
+      <div className="mt-md-5 mb-md-5 w-full flex-grow-2">
         <CarouselSection />
-        <LatestItemsSection /> {/* No need to pass props anymore */}
+        <LatestItemsSection />
         <BiographySection
           imageUrl="/images/about.jpg"
           title="Our Story"

@@ -61,8 +61,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             position: "relative",
             paddingBottom: "100%",
             width: "100%",
-            maxWidth: "12rem",
-            minWidth: "10rem",
+            maxWidth: "9rem",
+            minWidth: "8rem",
           }}
         >
           <motion.img

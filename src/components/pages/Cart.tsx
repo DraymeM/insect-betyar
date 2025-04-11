@@ -11,6 +11,7 @@ const CartTotal = lazy(() => import("../common/cart/CartTotal"));
 const ClearCartModal = lazy(() => import("../common/cart/ClearCartModal"));
 const DeleteItemModal = lazy(() => import("../common/cart/DeleteItemModal"));
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 const columnHelper = createColumnHelper<{
   id: number;
@@ -38,6 +39,7 @@ const Cart: React.FC = () => {
     }
     setShowDeleteModal(false);
     setItemToDelete(null);
+    toast.info("A termék sikeresen törölve.");
   }, [itemToDelete, dispatch]);
 
   const handleClearClick = useCallback(() => setShowClearModal(true), []);
@@ -51,6 +53,7 @@ const Cart: React.FC = () => {
     dispatch({ type: "CLEAR_CART" });
     setIsClearing(false);
     setShowClearModal(false);
+    toast.info("A kosár sikeresen ürítve.");
   }, [dispatch]);
 
   const handleDecreaseQuantity = useCallback(

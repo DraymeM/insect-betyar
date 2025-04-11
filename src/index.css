@@ -101,3 +101,22 @@ body.dark-theme .table-primary {
   --bs-table-color: #ffffff !important;
   --bs-table-border-color: #4c5b6a !important;
 }
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  background-color: #198754 !important;
+  color: white !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  color: black !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  background-color: #ffc107 !important;
+  color: black !important;
+}
