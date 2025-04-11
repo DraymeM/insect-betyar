@@ -65,30 +65,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
     case "REMOVE_ITEM": {
       const newItems = state.items.filter((item) => item.id !== action.payload);
-
-      // Update localStorage synchronously
-      try {
-        localStorage.setItem("cart", JSON.stringify(newItems));
-      } catch (error) {
-        console.error("Failed to update cart in localStorage", error);
-      }
-
+      localStorage.setItem("cart", JSON.stringify(newItems)); // Save to localStorage
       return { items: newItems };
     }
 
     case "CLEAR_CART":
-      const clearStorage = () => {
-        try {
-          localStorage.setItem("cart", JSON.stringify([]));
-        } catch (error) {
-          console.error("Failed to clear cart in localStorage", error);
-        }
-      };
-      if (typeof window !== "undefined" && window.requestIdleCallback) {
-        window.requestIdleCallback(clearStorage);
-      } else {
-        clearStorage();
-      }
+      localStorage.setItem("cart", JSON.stringify([])); // Clear cart in localStorage
       return { items: [] };
 
     case "SET_CART":
@@ -123,7 +105,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [toastType, setToastType] = useState<"success" | "danger">("success");
   const [toastProgress, setToastProgress] = useState(100);
 
-  // Memoized custom dispatch
   const customDispatch = useCallback(
     (action: CartAction) => {
       if (action.type === "ADD_ITEM") {
@@ -143,9 +124,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     [state.items]
   );
 
-  // Initial cart load with requestIdleCallback
   useEffect(() => {
-    const loadCart = () => {
+    const loadCart = async () => {
       const stored = localStorage.getItem("cart");
       if (stored) {
         try {
@@ -159,30 +139,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
     };
 
-    if (typeof window !== "undefined" && window.requestIdleCallback) {
-      const idleId = window.requestIdleCallback(loadCart);
-      return () => window.cancelIdleCallback(idleId);
-    } else {
-      loadCart();
-    }
+    loadCart();
   }, []);
 
-  // Save cart to localStorage with debouncing
   useEffect(() => {
     if (state.items.length === 0) return;
 
-    const timer = setTimeout(() => {
+    const timer = setTimeout(async () => {
       try {
-        localStorage.setItem("cart", JSON.stringify(state.items));
+        await localStorage.setItem("cart", JSON.stringify(state.items)); // Async write to localStorage
       } catch (error) {
         console.error("Failed to save cart to localStorage", error);
       }
-    }, 300); // Debounce by 300ms
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [state.items]);
 
-  // Toast progress animation (unchanged as requested)
   useEffect(() => {
     if (showToast) {
       let progress = 100;
@@ -198,7 +171,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [showToast]);
 
-  // Memoized context value
   const contextValue = useMemo(
     () => ({
       state,
@@ -213,7 +185,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   return (
     <CartContext.Provider value={contextValue}>
       {children}
-      {/* Toast container remains exactly as is */}
       <ToastContainer
         className="p-3"
         style={{

@@ -1,5 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { fetchLatestItems } from "../../api/repo";
+import React, { Suspense } from "react";
 import Spinner from "../common/Spinner";
 const CarouselSection = React.lazy(
   () => import("../common/home/CarouselSection")
@@ -13,8 +12,6 @@ const BiographySection = React.lazy(
 import { TestimonialsSection } from "../common/home/TestimonialsSection";
 
 const Home: React.FC = () => {
-  const [latestItems, setLatestItems] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const testimonials = [
     {
       id: "1",
@@ -44,19 +41,6 @@ const Home: React.FC = () => {
       rating: 5,
     },
   ];
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const lastThreeItems = await fetchLatestItems();
-        setLatestItems(lastThreeItems);
-      } catch (error) {
-        console.error("Error fetching latest items:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   return (
     <Suspense
@@ -68,7 +52,7 @@ const Home: React.FC = () => {
     >
       <div className="mt-md-5 mb-md-5 flex-grow-2">
         <CarouselSection />
-        <LatestItemsSection items={latestItems} isLoading={isLoading} />
+        <LatestItemsSection /> {/* No need to pass props anymore */}
         <BiographySection
           imageUrl="/images/about.jpg"
           title="Our Story"

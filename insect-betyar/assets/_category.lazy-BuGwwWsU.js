@@ -1,0 +1,1 @@
+import{f as o}from"./router-CuCJBdoM.js";import{A as t}from"./About-BLhfWjEE.js";import"./react-DbHEDQBy.js";import"./index-DYXuOJkO.js";import"./index-BuUMi195.js";import"./repo-Dmkhlz7d.js";import"./FormControl-CxN_1Wbw.js";import"./warning-C13o4bTx.js";const f=o("/about/category/$category")({component:t});export{f as Route};

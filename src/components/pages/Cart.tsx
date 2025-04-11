@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, Suspense, lazy } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,10 +6,11 @@ import {
 } from "@tanstack/react-table";
 import { useCart } from "../../context/CartContext";
 import { FaShoppingCart } from "react-icons/fa";
-import CartTable from "../common/cart/CartTable";
-import CartTotal from "../common/cart/CartTotal";
-import ClearCartModal from "../common/cart/ClearCartModal";
-import DeleteItemModal from "../common/cart/DeleteItemModal";
+const CartTable = lazy(() => import("../common/cart/CartTable"));
+const CartTotal = lazy(() => import("../common/cart/CartTotal"));
+const ClearCartModal = lazy(() => import("../common/cart/ClearCartModal"));
+const DeleteItemModal = lazy(() => import("../common/cart/DeleteItemModal"));
+import Spinner from "../common/Spinner";
 
 const columnHelper = createColumnHelper<{
   id: number;
@@ -146,39 +147,41 @@ const Cart: React.FC = () => {
   });
 
   return (
-    <div className="container mt-5 mb-5 pt-5 d-flex flex-column justify-content-center">
-      <h2 className="mb-4 text-left">
-        <FaShoppingCart /> Kosár
-      </h2>
+    <Suspense fallback={<Spinner />}>
+      <div className="container mt-5 mb-5 pt-5 d-flex flex-column justify-content-center">
+        <h2 className="mb-4 text-left">
+          <FaShoppingCart /> Kosár
+        </h2>
 
-      <CartTable
-        table={table}
-        isEmpty={state.items.length === 0}
-        columns={columns}
-        onDecrease={handleDecreaseQuantity}
-        onIncrease={handleIncreaseQuantity}
-        onDelete={handleDeleteClick}
-      />
+        <CartTable
+          table={table}
+          isEmpty={state.items.length === 0}
+          columns={columns}
+          onDecrease={handleDecreaseQuantity}
+          onIncrease={handleIncreaseQuantity}
+          onDelete={handleDeleteClick}
+        />
 
-      <CartTotal
-        totalPrice={totalPrice}
-        isEmpty={state.items.length === 0}
-        onClearCart={handleClearClick}
-      />
+        <CartTotal
+          totalPrice={totalPrice}
+          isEmpty={state.items.length === 0}
+          onClearCart={handleClearClick}
+        />
 
-      <DeleteItemModal
-        show={showDeleteModal}
-        onHide={() => setShowDeleteModal(false)}
-        onConfirm={confirmDelete}
-      />
+        <DeleteItemModal
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+          onConfirm={confirmDelete}
+        />
 
-      <ClearCartModal
-        show={showClearModal}
-        onHide={() => setShowClearModal(false)}
-        onConfirm={confirmClear}
-        isLoading={isClearing}
-      />
-    </div>
+        <ClearCartModal
+          show={showClearModal}
+          onHide={() => setShowClearModal(false)}
+          onConfirm={confirmClear}
+          isLoading={isClearing}
+        />
+      </div>
+    </Suspense>
   );
 };
 

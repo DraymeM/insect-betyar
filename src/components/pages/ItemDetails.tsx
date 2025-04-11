@@ -23,6 +23,8 @@ const ItemDetail: React.FC = () => {
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>(placeholderImage);
   const { dispatch, setShowToast } = useCart();
+  const [pending, setPending] = useState(false); // Pending state for async Add to Cart
+  const [isLoading, setIsLoading] = useState(true); // Loading state for item data
 
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page") || "1";
@@ -38,14 +40,21 @@ const ItemDetail: React.FC = () => {
         );
         setItem(foundItem);
         setImgSrc(foundItem?.picture || placeholderImage);
+        setIsLoading(false); // Stop loading once data is fetched
       } catch (error) {
         console.error("Error fetching item:", error);
+        setIsLoading(false); // Stop loading on error
       }
     };
     fetchItem();
   }, [id]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    setPending(true); // Start the pending state (show spinner)
+
+    // Simulate async delay for adding to cart
+    await new Promise((resolve) => setTimeout(resolve, 800)); // 800ms delay
+
     dispatch({
       type: "ADD_ITEM",
       payload: {
@@ -55,8 +64,20 @@ const ItemDetail: React.FC = () => {
         price: item.price,
       },
     });
-    setShowToast(true); // Trigger the toast notification
+    setShowToast(true); // Show toast notification after item is added
+    setPending(false); // Stop the spinner
   };
+
+  if (isLoading) {
+    return (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  }
 
   if (!item) {
     return (
@@ -64,7 +85,7 @@ const ItemDetail: React.FC = () => {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "100vh" }}
       >
-        <Spinner animation="border" variant="info" />
+        <div>No item found.</div>
       </div>
     );
   }
@@ -81,8 +102,9 @@ const ItemDetail: React.FC = () => {
           >
             <div
               className="d-flex align-items-center justify-content-center bg-white"
-              style={{ height: "30rem" }}
+              style={{ height: "30rem", position: "relative" }}
             >
+              {/* Item Image */}
               <img
                 src={imgSrc}
                 onError={() => setImgSrc(placeholderImage)}
@@ -98,11 +120,24 @@ const ItemDetail: React.FC = () => {
         </Col>
         <Col lg={6}>
           <motion.div
-            className="bg-dark text-light p-4 rounded shadow h-100 d-flex flex-column justify-content-between"
+            className="bg-dark text-light p-4 rounded shadow h-100 d-flex flex-column justify-content-between position-relative"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* Overlay Spinner in Details Section */}
+            {pending && (
+              <div
+                className="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-dark"
+                style={{
+                  zIndex: 10,
+                  opacity: 0.7,
+                }}
+              >
+                <Spinner animation="border" variant="info" />
+              </div>
+            )}
+
             <div>
               <h3 className="border-bottom border-secondary pb-2 mb-4">
                 {item.name}
@@ -113,7 +148,7 @@ const ItemDetail: React.FC = () => {
               </p>
             </div>
 
-            <CartButton onClick={handleAddToCart} />
+            <CartButton onClick={handleAddToCart} pending={pending} />
           </motion.div>
         </Col>
       </Row>
