@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import Card from "../common/Card";
 import LimitSelector from "../common/LimitSelector";
 import Pagination from "../common/Pagination";
-import { Outlet } from "@tanstack/react-router"; // <-- Import Outlet
+import { Outlet } from "@tanstack/react-router";
 
 interface SearchParams {
   page?: number;
@@ -19,7 +19,7 @@ interface SearchParams {
 }
 
 const CategoryItems: React.FC = () => {
-  const { category, id } = useParams({ strict: false }); // Destructure id from params
+  const { category, id } = useParams({ strict: false });
   const search = useSearch({ strict: false });
   const navigate = useNavigate();
 
@@ -29,7 +29,6 @@ const CategoryItems: React.FC = () => {
   const [previousLimit, setPreviousLimit] = useState<number | null>(null);
   const shownToast = React.useRef(false);
 
-  // Get initial values from search params
   const currentPage = search.page || 1;
   const limit = search.limit || 10;
   const searchQuery = search.search || "";
@@ -66,7 +65,10 @@ const CategoryItems: React.FC = () => {
   };
 
   const handleBackToCategories = () => {
-    navigate({ to: "/about" });
+    navigate({
+      to: "/about",
+      search: {},
+    });
   };
 
   useEffect(() => {
@@ -109,12 +111,61 @@ const CategoryItems: React.FC = () => {
   }, [limit, category, searchQuery, currentPage]);
 
   const totalPages = Math.ceil(totalItems / limit);
+  const previousListViewParams = React.useRef<SearchParams>({
+    page: 1,
+    limit: 10,
+    search: "",
+  });
 
-  // If the id exists, render the Outlet for item details
+  // Update ref whenever search params change (but only in list view)
+  useEffect(() => {
+    if (!id) {
+      previousListViewParams.current = {
+        page: search.page || 1,
+        limit: search.limit || 10,
+      };
+    }
+  }, [search, id]);
+
+  // Initialize or restore URL params when component becomes visible
+  useEffect(() => {
+    if (!id) {
+      // Check if we're coming back from item detail (no search params)
+      const shouldRestoreParams =
+        !search.page && !search.limit && !search.search;
+
+      const targetParams = shouldRestoreParams
+        ? previousListViewParams.current
+        : {
+            page: search.page || 1,
+            limit: search.limit || 10,
+          };
+
+      navigate({
+        search: targetParams as any,
+        replace: true,
+      });
+    }
+  }, [id]); // Run whenever we switch between list and detail views
+
+  // ... rest of your existing code ...
+
   if (id) {
+    // Before navigating to item detail, save current list view params
+    const currentParams = {
+      page: search.page || 1,
+      limit: search.limit || 10,
+      search: search.search || "",
+    };
+    previousListViewParams.current = currentParams;
+
+    navigate({
+      to: `/about/category/${category}/item/${id}`,
+      search: undefined, // Ensure no query params
+      replace: true,
+    });
     return <Outlet />;
   }
-
   return (
     <Suspense fallback={<Spinner />}>
       <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">

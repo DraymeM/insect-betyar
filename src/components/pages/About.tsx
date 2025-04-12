@@ -40,7 +40,12 @@ const Categories: React.FC = () => {
       <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">
         <div
           className="d-flex flex-wrap justify-content-center mt-5 w-100 px-0"
-          style={{ gap: "1.5rem", minWidth: "80vw", maxWidth: "100vw" }}
+          style={{
+            gap: "1.5rem",
+            minWidth: "80vw",
+            maxWidth: "100vw",
+            overflow: "hidden", // To prevent any overflow issue
+          }}
         >
           {categories.map((cat) => (
             <CategoryCard

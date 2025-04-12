@@ -3,8 +3,8 @@ import { z } from "zod";
 import CategoryItems from "../../../components/pages/CategorItems";
 
 const searchSchema = z.object({
-  page: z.number().int().positive().catch(1),
-  limit: z.number().int().positive().catch(10),
+  page: z.number().int().positive().catch(1).optional(),
+  limit: z.number().int().positive().catch(10).optional(),
   search: z.string().optional(),
 });
 

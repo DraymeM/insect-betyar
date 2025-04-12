@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation, Link } from "@tanstack/react-router";
+import {
+  useParams,
+  useLocation,
+  Link,
+  useNavigate,
+} from "@tanstack/react-router";
 import {
   Container,
   Row,
@@ -20,15 +25,23 @@ const placeholderImage =
 const ItemDetail: React.FC = () => {
   const { id, category } = useParams({ strict: false });
   const location = useLocation();
+  const navigate = useNavigate();
   const [item, setItem] = useState<any>(null);
   const [imgSrc, setImgSrc] = useState<string>(placeholderImage);
   const { dispatch } = useCart();
-  const [pending, setPending] = useState(false); // Pending state for async Add to Cart
-  const [isLoading, setIsLoading] = useState(true); // Loading state for item data
+  const [pending, setPending] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const searchParams = new URLSearchParams(location.search);
-  const page = searchParams.get("page") || "1";
-  const limit = searchParams.get("limit") || "10";
+  // Clean up URL if it has search params
+  useEffect(() => {
+    if (location.search) {
+      navigate({
+        to: location.pathname,
+        search: {},
+        replace: true,
+      });
+    }
+  }, [location.search, navigate, location.pathname]);
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -40,21 +53,18 @@ const ItemDetail: React.FC = () => {
         );
         setItem(foundItem);
         setImgSrc(foundItem?.picture || placeholderImage);
-        setIsLoading(false); // Stop loading once data is fetched
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching item:", error);
-        setIsLoading(false); // Stop loading on error
+        setIsLoading(false);
       }
     };
     fetchItem();
   }, [id]);
 
   const handleAddToCart = async () => {
-    setPending(true); // Start the pending state (show spinner)
-
-    // Simulate async delay for adding to cart
-    await new Promise((resolve) => setTimeout(resolve, 800)); // 800ms delay
-
+    setPending(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
     dispatch({
       type: "ADD_ITEM",
       payload: {
@@ -64,7 +74,7 @@ const ItemDetail: React.FC = () => {
         price: item.price,
       },
     });
-    setPending(false); // Stop the spinner
+    setPending(false);
   };
 
   if (isLoading) {
@@ -177,7 +187,7 @@ const ItemDetail: React.FC = () => {
             overlay={<Tooltip id="tooltip-back">Vissza a kategóriához</Tooltip>}
           >
             <Link
-              to={`/about/category/${category}?page=${page}&limit=${limit}`}
+              to={`/about/category/${category}`}
               className="text-decoration-none"
             >
               <Button className="btn btn-dark border border-secondary text-light d-inline-flex align-items-center">
