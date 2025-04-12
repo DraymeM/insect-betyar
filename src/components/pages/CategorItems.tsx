@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Card from "../common/Card";
 import LimitSelector from "../common/LimitSelector";
 import Pagination from "../common/Pagination";
+import { Outlet } from "@tanstack/react-router"; // <-- Import Outlet
 
 interface SearchParams {
   page?: number;
@@ -18,7 +19,7 @@ interface SearchParams {
 }
 
 const CategoryItems: React.FC = () => {
-  const { category } = useParams({ strict: false });
+  const { category, id } = useParams({ strict: false }); // Destructure id from params
   const search = useSearch({ strict: false });
   const navigate = useNavigate();
 
@@ -109,6 +110,11 @@ const CategoryItems: React.FC = () => {
 
   const totalPages = Math.ceil(totalItems / limit);
 
+  // If the id exists, render the Outlet for item details
+  if (id) {
+    return <Outlet />;
+  }
+
   return (
     <Suspense fallback={<Spinner />}>
       <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">
@@ -184,6 +190,8 @@ const CategoryItems: React.FC = () => {
             onPageChange={debouncedPageChange}
           />
         )}
+
+        <Outlet />
       </div>
     </Suspense>
   );
