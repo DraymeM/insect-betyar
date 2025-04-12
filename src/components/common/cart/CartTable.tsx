@@ -33,7 +33,7 @@ const TableRow = memo(
             {cell.column.id === "quantity" ? (
               <div className="d-flex justify-content-center align-items-center">
                 <button
-                  className="btn btn-sm btn-danger"
+                  className="btn btn-sm btn-outline-danger"
                   onClick={() => onDecrease(item.id)}
                   disabled={item.quantity <= 1}
                 >
@@ -41,7 +41,7 @@ const TableRow = memo(
                 </button>
                 <span className="mx-2">{item.quantity}</span>
                 <button
-                  className="btn btn-sm btn-success"
+                  className="btn btn-sm btn-outline-success"
                   onClick={() => onIncrease(item.id)}
                   disabled={item.quantity >= 10}
                 >
@@ -50,7 +50,7 @@ const TableRow = memo(
               </div>
             ) : cell.column.id === "actions" ? (
               <button
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm btn-outline-danger"
                 onClick={() => onDelete(item.id)}
               >
                 Törlés <FaTrash />

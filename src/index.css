@@ -1,6 +1,26 @@
 :root {
   --bg-color: #303438 !important;
   --text-color: #ffffff !important;
+  --bs-info: #3498db !important;
+}
+.text-info {
+  color: #3498db !important;
+}
+
+.bg-info {
+  background-color: #3498db !important;
+  color: white !important;
+}
+
+.btn-info {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: white !important;
+}
+
+.btn-info:hover {
+  background-color: #2d80b3 !important; /* slightly darker hover */
+  border-color: #2d80b3 !important;
 }
 body {
   background-color: var(--bg-color) !important;

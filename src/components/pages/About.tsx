@@ -126,13 +126,12 @@ const About: React.FC = () => {
 
     fetchData();
 
-    // Reset the toast shown flag and "back to categories" state when navigating back
     return () => {
       shownToast.current = false;
-      setIsBackToCategories(false); // Reset the "Back to Categories" flag
+      setIsBackToCategories(false);
     };
   }, [limit, category, searchQuery, currentPage, isBackToCategories]);
-  // Create a reference to track if the toast has been shown
+
   const shownToast = React.useRef(false);
 
   const totalPages = Math.ceil(totalItems / limit);

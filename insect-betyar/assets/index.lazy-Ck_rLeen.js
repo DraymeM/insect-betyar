@@ -1,0 +1,1 @@
+import{e as o}from"./router-CAEm-37Z.js";import{H as t}from"./Home-BFvUF-rb.js";import"./react-DbHEDQBy.js";import"./index-nKWK0Wqp.js";import"./Section-C3MmdivL.js";import"./Row-DNGuaIR_.js";const c=o("/")({component:t});export{c as Route};

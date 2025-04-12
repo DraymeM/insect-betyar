@@ -46,8 +46,6 @@ const Cart: React.FC = () => {
 
   const confirmClear = useCallback(async () => {
     setIsClearing(true);
-
-    // Show loading for 2 seconds minimum
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     dispatch({ type: "CLEAR_CART" });
@@ -124,12 +122,12 @@ const Cart: React.FC = () => {
       columnHelper.accessor("quantity", {
         header: "Mennyiség",
         id: "quantity",
-        cell: () => null, // Handled in TableRow component
+        cell: () => null,
       }),
       columnHelper.display({
         id: "actions",
         header: "Actions",
-        cell: () => null, // Handled in TableRow component
+        cell: () => null,
       }),
     ],
     []

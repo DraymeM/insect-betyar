@@ -16,7 +16,7 @@ export const CarouselSection = () => (
       controls={true}
       indicators={true}
       className="w-100 mb-4"
-      style={{ maxHeight: "60vh" }}
+      style={{ maxHeight: "50vh" }}
     >
       {carouselImages.map((image, index) => (
         <Carousel.Item key={index}>
@@ -24,7 +24,7 @@ export const CarouselSection = () => (
             className="d-block w-100"
             src={image}
             alt={`Slide ${index + 1}`}
-            style={{ height: "60vh", objectFit: "cover" }}
+            style={{ height: "50vh", objectFit: "cover" }}
             onError={(e) => {
               e.currentTarget.src = placeholderImage;
             }}
