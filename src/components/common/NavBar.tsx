@@ -4,6 +4,7 @@ import { Navbar, Nav, Container, Badge } from "react-bootstrap";
 import { FaHome, FaBug, FaShoppingCart } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { useCart } from "../../context/CartContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NavBar: React.FC = () => {
   const matchRoute = useMatchRoute();
@@ -25,7 +26,7 @@ const NavBar: React.FC = () => {
     left: "50%",
     transform: "translateX(-50%)",
     height: "2px",
-    backgroundColor: "#41d5f5",
+    backgroundColor: "#3498db",
     transition: "width 0.3s ease-in-out",
     width: "0",
   };
@@ -70,7 +71,7 @@ const NavBar: React.FC = () => {
               { to: "/contact", icon: <MdEmail />, label: "Elérhetőségek" },
             ].map(({ to, icon, label }) => {
               const isActive = matchRoute({ to, fuzzy: true });
-              const color = isActive ? "#41d5f5" : "var(--text-color)";
+              const color = isActive ? "#3498db" : "var(--text-color)";
 
               return (
                 <Nav.Link
@@ -99,42 +100,53 @@ const NavBar: React.FC = () => {
             <Nav.Link
               as={Link}
               to="/cart"
-              className="px-3 d-flex align-items-center mt-1 md-mt-0 gap-1 mr-1 position-relative"
+              className="px-3 d-flex align-items-center mt-1 md-mt-0 gap-1 mr-1 position-relative justify-content-center"
               style={{
                 ...navLinkStyle,
-                color: matchRoute({ to: "/cart", fuzzy: true })
-                  ? "var(--bs-info)"
-                  : "white",
+                color: "white",
                 fontWeight: "bold",
                 background: matchRoute({ to: "/cart", fuzzy: true })
                   ? "linear-gradient(to right, #2f336e, rgb(58, 212, 255) 300%)"
                   : "linear-gradient(to right, #2f336e, rgb(58, 212, 255))",
                 borderRadius: matchRoute({ to: "/cart", fuzzy: true })
-                  ? "10px"
+                  ? "50px"
                   : "30px",
                 transition: "all 0.4s ease-in-out",
                 position: "relative",
                 marginRight: "1rem",
+                minWidth: "60px",
+                height: "40px",
               }}
             >
-              <span
-                style={{
-                  color: matchRoute({ to: "/cart", fuzzy: true })
-                    ? "var(--bs-info)"
-                    : "white",
-                }}
-              >
-                <FaShoppingCart />
-              </span>
-              <span
-                style={{
-                  color: matchRoute({ to: "/cart", fuzzy: true })
-                    ? "var(--bs-info)"
-                    : "white",
-                }}
-              >
-                Kosár
-              </span>
+              <AnimatePresence mode="wait">
+                {matchRoute({ to: "/cart", fuzzy: true }) ? (
+                  <motion.span
+                    key="cart-icon-big"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1.4 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ color: "white" }}
+                  >
+                    <FaShoppingCart size={15} className="mx-4" />
+                  </motion.span>
+                ) : (
+                  <motion.div
+                    key="cart-full"
+                    className="d-flex gap-1 align-items-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <span style={{ color: "white" }}>
+                      <FaShoppingCart />
+                    </span>
+                    <span style={{ color: "white" }}>Kosár</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {state.items.length > 0 && (
                 <Badge
                   pill

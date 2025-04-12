@@ -63,13 +63,13 @@ const LimitSelector: React.FC<LimitSelectorProps> = ({
                   textAlign: "center",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.classList.add("text-info");
+                  e.currentTarget.classList.add("text-light");
                   e.currentTarget.classList.add("bg-secondary");
                   e.currentTarget.classList.remove("text-light");
                   e.currentTarget.classList.remove("bg-dark");
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.classList.remove("text-info");
+                  e.currentTarget.classList.remove("text-light");
                   e.currentTarget.classList.remove("bg-secondary");
                   e.currentTarget.classList.add("text-light");
                   e.currentTarget.classList.add("bg-dark");

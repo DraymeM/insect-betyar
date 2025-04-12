@@ -158,5 +158,245 @@
     "description": "This is a description for Item 20",
     "price": "20",
     "category": "Category B"
+  },
+  {
+    "id": 21,
+    "name": "Item 21",
+    "picture": "/images/item21.jpg",
+    "description": "This is a description for Item 21",
+    "price": "10",
+    "category": "Category A"
+  },
+  {
+    "id": 22,
+    "name": "Item 22",
+    "picture": "/images/item22.jpg",
+    "description": "This is a description for Item 22",
+    "price": "25",
+    "category": "Category B"
+  },
+  {
+    "id": 23,
+    "name": "Item 23",
+    "picture": "/images/item23.jpg",
+    "description": "This is a description for Item 23",
+    "price": "35",
+    "category": "Category C"
+  },
+  {
+    "id": 24,
+    "name": "Item 24",
+    "picture": "/images/item24.jpg",
+    "description": "This is a description for Item 24",
+    "price": "12",
+    "category": "Category D"
+  },
+  {
+    "id": 25,
+    "name": "Item 25",
+    "picture": "/images/item25.jpg",
+    "description": "This is a description for Item 25",
+    "price": "22",
+    "category": "Category E"
+  },
+  {
+    "id": 26,
+    "name": "Item 26",
+    "picture": "/images/item26.jpg",
+    "description": "This is a description for Item 26",
+    "price": "30",
+    "category": "Category F"
+  },
+  {
+    "id": 27,
+    "name": "Item 27",
+    "picture": "/images/item27.jpg",
+    "description": "This is a description for Item 27",
+    "price": "15",
+    "category": "Category A"
+  },
+  {
+    "id": 28,
+    "name": "Item 28",
+    "picture": "/images/item28.jpg",
+    "description": "This is a description for Item 28",
+    "price": "28",
+    "category": "Category B"
+  },
+  {
+    "id": 29,
+    "name": "Item 29",
+    "picture": "/images/item29.jpg",
+    "description": "This is a description for Item 29",
+    "price": "40",
+    "category": "Category C"
+  },
+  {
+    "id": 30,
+    "name": "Item 30",
+    "picture": "/images/item30.jpg",
+    "description": "This is a description for Item 30",
+    "price": "12",
+    "category": "Category D"
+  },
+  {
+    "id": 31,
+    "name": "Item 31",
+    "picture": "/images/item31.jpg",
+    "description": "This is a description for Item 31",
+    "price": "20",
+    "category": "Category E"
+  },
+  {
+    "id": 32,
+    "name": "Item 32",
+    "picture": "/images/item32.jpg",
+    "description": "This is a description for Item 32",
+    "price": "22",
+    "category": "Category F"
+  },
+  {
+    "id": 33,
+    "name": "Item 33",
+    "picture": "/images/item33.jpg",
+    "description": "This is a description for Item 33",
+    "price": "18",
+    "category": "Category A"
+  },
+  {
+    "id": 34,
+    "name": "Item 34",
+    "picture": "/images/item34.jpg",
+    "description": "This is a description for Item 34",
+    "price": "35",
+    "category": "Category B"
+  },
+  {
+    "id": 35,
+    "name": "Item 35",
+    "picture": "/images/item35.jpg",
+    "description": "This is a description for Item 35",
+    "price": "10",
+    "category": "Category C"
+  },
+  {
+    "id": 36,
+    "name": "Item 36",
+    "picture": "/images/item36.jpg",
+    "description": "This is a description for Item 36",
+    "price": "25",
+    "category": "Category D"
+  },
+  {
+    "id": 37,
+    "name": "Item 37",
+    "picture": "/images/item37.jpg",
+    "description": "This is a description for Item 37",
+    "price": "33",
+    "category": "Category E"
+  },
+  {
+    "id": 38,
+    "name": "Item 38",
+    "picture": "/images/item38.jpg",
+    "description": "This is a description for Item 38",
+    "price": "15",
+    "category": "Category F"
+  },
+  {
+    "id": 39,
+    "name": "Item 39",
+    "picture": "/images/item39.jpg",
+    "description": "This is a description for Item 39",
+    "price": "20",
+    "category": "Category A"
+  },
+  {
+    "id": 40,
+    "name": "Item 40",
+    "picture": "/images/item40.jpg",
+    "description": "This is a description for Item 40",
+    "price": "12",
+    "category": "Category B"
+  },
+  {
+    "id": 41,
+    "name": "Item 41",
+    "picture": "/images/item41.jpg",
+    "description": "This is a description for Item 41",
+    "price": "28",
+    "category": "Category C"
+  },
+  {
+    "id": 42,
+    "name": "Item 42",
+    "picture": "/images/item42.jpg",
+    "description": "This is a description for Item 42",
+    "price": "38",
+    "category": "Category D"
+  },
+  {
+    "id": 43,
+    "name": "Item 43",
+    "picture": "/images/item43.jpg",
+    "description": "This is a description for Item 43",
+    "price": "18",
+    "category": "Category E"
+  },
+  {
+    "id": 44,
+    "name": "Item 44",
+    "picture": "/images/item44.jpg",
+    "description": "This is a description for Item 44",
+    "price": "22",
+    "category": "Category F"
+  },
+  {
+    "id": 45,
+    "name": "Item 45",
+    "picture": "/images/item45.jpg",
+    "description": "This is a description for Item 45",
+    "price": "20",
+    "category": "Category A"
+  },
+  {
+    "id": 46,
+    "name": "Item 46",
+    "picture": "/images/item46.jpg",
+    "description": "This is a description for Item 46",
+    "price": "10",
+    "category": "Category B"
+  },
+  {
+    "id": 47,
+    "name": "Item 47",
+    "picture": "/images/item47.jpg",
+    "description": "This is a description for Item 47",
+    "price": "50",
+    "category": "Category C"
+  },
+  {
+    "id": 48,
+    "name": "Item 48",
+    "picture": "/images/item48.jpg",
+    "description": "This is a description for Item 48",
+    "price": "18",
+    "category": "Category D"
+  },
+  {
+    "id": 49,
+    "name": "Item 49",
+    "picture": "/images/item49.jpg",
+    "description": "This is a description for Item 49",
+    "price": "35",
+    "category": "Category E"
+  },
+  {
+    "id": 50,
+    "name": "Item 50",
+    "picture": "/images/item50.jpg",
+    "description": "This is a description for Item 50",
+    "price": "40",
+    "category": "Category F"
   }
 ]

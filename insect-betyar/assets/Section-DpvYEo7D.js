@@ -1,1 +1,0 @@
-import{j as e}from"./router-CuCJBdoM.js";import{m as o}from"./index-DYXuOJkO.js";const a={hidden:{opacity:0,y:20},visible:{opacity:1,y:0,transition:{duration:.8,ease:"easeOut"}}},r=({children:i,className:t=""})=>e.jsx(o.div,{initial:"hidden",whileInView:"visible",viewport:{once:!1,margin:"-100px 0px -100px 0px"},variants:a,className:t,children:i});export{r as S};

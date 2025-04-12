@@ -32,8 +32,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
           variant="outline-secondary"
           onClick={handleSearch}
           style={{
-            backgroundColor: "#41d5f5",
-            borderColor: "#41d5f5",
+            backgroundColor: "#3498db",
+            borderColor: "#3498db",
             color: "#fff",
           }}
         >

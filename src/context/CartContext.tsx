@@ -60,12 +60,12 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
     case "REMOVE_ITEM": {
       const newItems = state.items.filter((item) => item.id !== action.payload);
-      localStorage.setItem("cart", JSON.stringify(newItems)); // Save to localStorage
+      localStorage.setItem("cart", JSON.stringify(newItems));
       return { items: newItems };
     }
 
     case "CLEAR_CART":
-      localStorage.setItem("cart", JSON.stringify([])); // Clear cart in localStorage
+      localStorage.setItem("cart", JSON.stringify([]));
       return { items: [] };
 
     case "SET_CART":
