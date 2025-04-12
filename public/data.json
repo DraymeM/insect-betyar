@@ -4,7 +4,7 @@
     "name": "Item 1",
     "picture": "https://www.museumselection.co.uk/images/products/large/28889.jpg",
     "description": "This is a description for Item 1",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Item 2",
     "picture": "/images/item2.jpg",
     "description": "This is a description for Item 2",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Item 3",
     "picture": "/images/item3.jpg",
     "description": "This is a description for Item 3",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Item 4",
     "picture": "/images/item4.jpg",
     "description": "This is a description for Item 4",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -36,7 +36,7 @@
     "name": "Item 5",
     "picture": "/images/item5.jpg",
     "description": "This is a description for Item 5",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -44,7 +44,7 @@
     "name": "Item 6",
     "picture": "/images/item6.jpg",
     "description": "This is a description for Item 6",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -52,7 +52,7 @@
     "name": "Item 7",
     "picture": "/images/item7.jpg",
     "description": "This is a description for Item 7",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -60,7 +60,7 @@
     "name": "Item 8",
     "picture": "/images/item8.jpg",
     "description": "This is a description for Item 8",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -68,7 +68,7 @@
     "name": "Item 9",
     "picture": "/images/item9.jpg",
     "description": "This is a description for Item 9",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -76,7 +76,7 @@
     "name": "Item 10",
     "picture": "/images/item10.jpg",
     "description": "This is a description for Item 10",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -84,7 +84,7 @@
     "name": "Item 11",
     "picture": "/images/item11.jpg",
     "description": "This is a description for Item 11",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -92,7 +92,7 @@
     "name": "Item 12",
     "picture": "/images/item12.jpg",
     "description": "This is a description for Item 12",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -100,7 +100,7 @@
     "name": "Item 13",
     "picture": "/images/item13.jpg",
     "description": "This is a description for Item 13",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -108,7 +108,7 @@
     "name": "Item 14",
     "picture": "/images/item14.jpg",
     "description": "This is a description for Item 14",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -116,7 +116,7 @@
     "name": "Item 15",
     "picture": "/images/item15.jpg",
     "description": "This is a description for Item 15",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -124,7 +124,7 @@
     "name": "Item 16",
     "picture": "/images/item16.jpg",
     "description": "This is a description for Item 16",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -132,7 +132,7 @@
     "name": "Item 17",
     "picture": "/images/item17.jpg",
     "description": "This is a description for Item 17",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -140,7 +140,7 @@
     "name": "Item 18",
     "picture": "/images/item18.jpg",
     "description": "This is a description for Item 18",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -148,7 +148,7 @@
     "name": "Item 19",
     "picture": "/images/item19.jpg",
     "description": "This is a description for Item 19",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -156,7 +156,7 @@
     "name": "Item 20",
     "picture": "/images/item20.jpg",
     "description": "This is a description for Item 20",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -164,7 +164,7 @@
     "name": "Item 21",
     "picture": "/images/item21.jpg",
     "description": "This is a description for Item 21",
-    "price": "10",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -172,7 +172,7 @@
     "name": "Item 22",
     "picture": "/images/item22.jpg",
     "description": "This is a description for Item 22",
-    "price": "25",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -180,7 +180,7 @@
     "name": "Item 23",
     "picture": "/images/item23.jpg",
     "description": "This is a description for Item 23",
-    "price": "35",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -188,7 +188,7 @@
     "name": "Item 24",
     "picture": "/images/item24.jpg",
     "description": "This is a description for Item 24",
-    "price": "12",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -196,7 +196,7 @@
     "name": "Item 25",
     "picture": "/images/item25.jpg",
     "description": "This is a description for Item 25",
-    "price": "22",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -204,7 +204,7 @@
     "name": "Item 26",
     "picture": "/images/item26.jpg",
     "description": "This is a description for Item 26",
-    "price": "30",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -212,7 +212,7 @@
     "name": "Item 27",
     "picture": "/images/item27.jpg",
     "description": "This is a description for Item 27",
-    "price": "15",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -220,7 +220,7 @@
     "name": "Item 28",
     "picture": "/images/item28.jpg",
     "description": "This is a description for Item 28",
-    "price": "28",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -228,7 +228,7 @@
     "name": "Item 29",
     "picture": "/images/item29.jpg",
     "description": "This is a description for Item 29",
-    "price": "40",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -236,7 +236,7 @@
     "name": "Item 30",
     "picture": "/images/item30.jpg",
     "description": "This is a description for Item 30",
-    "price": "12",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -244,7 +244,7 @@
     "name": "Item 31",
     "picture": "/images/item31.jpg",
     "description": "This is a description for Item 31",
-    "price": "20",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -252,7 +252,7 @@
     "name": "Item 32",
     "picture": "/images/item32.jpg",
     "description": "This is a description for Item 32",
-    "price": "22",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -260,7 +260,7 @@
     "name": "Item 33",
     "picture": "/images/item33.jpg",
     "description": "This is a description for Item 33",
-    "price": "18",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -268,7 +268,7 @@
     "name": "Item 34",
     "picture": "/images/item34.jpg",
     "description": "This is a description for Item 34",
-    "price": "35",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -276,7 +276,7 @@
     "name": "Item 35",
     "picture": "/images/item35.jpg",
     "description": "This is a description for Item 35",
-    "price": "10",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -284,7 +284,7 @@
     "name": "Item 36",
     "picture": "/images/item36.jpg",
     "description": "This is a description for Item 36",
-    "price": "25",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -292,7 +292,7 @@
     "name": "Item 37",
     "picture": "/images/item37.jpg",
     "description": "This is a description for Item 37",
-    "price": "33",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -300,7 +300,7 @@
     "name": "Item 38",
     "picture": "/images/item38.jpg",
     "description": "This is a description for Item 38",
-    "price": "15",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -308,7 +308,7 @@
     "name": "Item 39",
     "picture": "/images/item39.jpg",
     "description": "This is a description for Item 39",
-    "price": "20",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -316,7 +316,7 @@
     "name": "Item 40",
     "picture": "/images/item40.jpg",
     "description": "This is a description for Item 40",
-    "price": "12",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -324,7 +324,7 @@
     "name": "Item 41",
     "picture": "/images/item41.jpg",
     "description": "This is a description for Item 41",
-    "price": "28",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -332,7 +332,7 @@
     "name": "Item 42",
     "picture": "/images/item42.jpg",
     "description": "This is a description for Item 42",
-    "price": "38",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -340,7 +340,7 @@
     "name": "Item 43",
     "picture": "/images/item43.jpg",
     "description": "This is a description for Item 43",
-    "price": "18",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -348,7 +348,7 @@
     "name": "Item 44",
     "picture": "/images/item44.jpg",
     "description": "This is a description for Item 44",
-    "price": "22",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -356,7 +356,7 @@
     "name": "Item 45",
     "picture": "/images/item45.jpg",
     "description": "This is a description for Item 45",
-    "price": "20",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -364,7 +364,7 @@
     "name": "Item 46",
     "picture": "/images/item46.jpg",
     "description": "This is a description for Item 46",
-    "price": "10",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -372,7 +372,7 @@
     "name": "Item 47",
     "picture": "/images/item47.jpg",
     "description": "This is a description for Item 47",
-    "price": "50",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -380,7 +380,7 @@
     "name": "Item 48",
     "picture": "/images/item48.jpg",
     "description": "This is a description for Item 48",
-    "price": "18",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -388,7 +388,7 @@
     "name": "Item 49",
     "picture": "/images/item49.jpg",
     "description": "This is a description for Item 49",
-    "price": "35",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -396,7 +396,7 @@
     "name": "Item 50",
     "picture": "/images/item50.jpg",
     "description": "This is a description for Item 50",
-    "price": "40",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -404,7 +404,7 @@
     "name": "Item 51",
     "picture": "/images/item51.jpg",
     "description": "This is a description for Item 51",
-    "price": "22",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -412,7 +412,7 @@
     "name": "Item 52",
     "picture": "/images/item52.jpg",
     "description": "This is a description for Item 52",
-    "price": "17",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -420,7 +420,7 @@
     "name": "Item 53",
     "picture": "/images/item53.jpg",
     "description": "This is a description for Item 53",
-    "price": "45",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -428,7 +428,7 @@
     "name": "Item 54",
     "picture": "/images/item54.jpg",
     "description": "This is a description for Item 54",
-    "price": "38",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -436,7 +436,7 @@
     "name": "Item 55",
     "picture": "/images/item55.jpg",
     "description": "This is a description for Item 55",
-    "price": "19",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -444,7 +444,7 @@
     "name": "Item 56",
     "picture": "/images/item56.jpg",
     "description": "This is a description for Item 56",
-    "price": "23",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -452,7 +452,7 @@
     "name": "Item 57",
     "picture": "/images/item57.jpg",
     "description": "This is a description for Item 57",
-    "price": "29",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -460,7 +460,7 @@
     "name": "Item 58",
     "picture": "/images/item58.jpg",
     "description": "This is a description for Item 58",
-    "price": "32",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -468,7 +468,7 @@
     "name": "Item 59",
     "picture": "/images/item59.jpg",
     "description": "This is a description for Item 59",
-    "price": "21",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -476,7 +476,7 @@
     "name": "Item 60",
     "picture": "/images/item60.jpg",
     "description": "This is a description for Item 60",
-    "price": "18",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -484,7 +484,7 @@
     "name": "Item 61",
     "picture": "/images/item61.jpg",
     "description": "This is a description for Item 61",
-    "price": "14",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -492,7 +492,7 @@
     "name": "Item 62",
     "picture": "/images/item62.jpg",
     "description": "This is a description for Item 62",
-    "price": "19",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -500,7 +500,7 @@
     "name": "Item 63",
     "picture": "/images/item63.jpg",
     "description": "This is a description for Item 63",
-    "price": "26",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -508,7 +508,7 @@
     "name": "Item 64",
     "picture": "/images/item64.jpg",
     "description": "This is a description for Item 64",
-    "price": "15",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -516,7 +516,7 @@
     "name": "Item 65",
     "picture": "/images/item65.jpg",
     "description": "This is a description for Item 65",
-    "price": "41",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -524,7 +524,7 @@
     "name": "Item 66",
     "picture": "/images/item66.jpg",
     "description": "This is a description for Item 66",
-    "price": "22",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -532,7 +532,7 @@
     "name": "Item 67",
     "picture": "/images/item67.jpg",
     "description": "This is a description for Item 67",
-    "price": "36",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -540,7 +540,7 @@
     "name": "Item 68",
     "picture": "/images/item68.jpg",
     "description": "This is a description for Item 68",
-    "price": "27",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -548,7 +548,7 @@
     "name": "Item 69",
     "picture": "/images/item69.jpg",
     "description": "This is a description for Item 69",
-    "price": "34",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -556,7 +556,7 @@
     "name": "Item 70",
     "picture": "/images/item70.jpg",
     "description": "This is a description for Item 70",
-    "price": "28",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -564,7 +564,7 @@
     "name": "Item 71",
     "picture": "/images/item71.jpg",
     "description": "This is a description for Item 71",
-    "price": "13",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -572,7 +572,7 @@
     "name": "Item 72",
     "picture": "/images/item72.jpg",
     "description": "This is a description for Item 72",
-    "price": "24",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -580,7 +580,7 @@
     "name": "Item 73",
     "picture": "/images/item73.jpg",
     "description": "This is a description for Item 73",
-    "price": "27",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -588,7 +588,7 @@
     "name": "Item 74",
     "picture": "/images/item74.jpg",
     "description": "This is a description for Item 74",
-    "price": "15",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -596,7 +596,7 @@
     "name": "Item 75",
     "picture": "/images/item75.jpg",
     "description": "This is a description for Item 75",
-    "price": "16",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -604,7 +604,7 @@
     "name": "Item 76",
     "picture": "/images/item76.jpg",
     "description": "This is a description for Item 76",
-    "price": "20",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -612,7 +612,7 @@
     "name": "Item 77",
     "picture": "/images/item77.jpg",
     "description": "This is a description for Item 77",
-    "price": "19",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -620,7 +620,7 @@
     "name": "Item 78",
     "picture": "/images/item78.jpg",
     "description": "This is a description for Item 78",
-    "price": "23",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -628,7 +628,7 @@
     "name": "Item 79",
     "picture": "/images/item79.jpg",
     "description": "This is a description for Item 79",
-    "price": "31",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -636,7 +636,7 @@
     "name": "Item 80",
     "picture": "/images/item80.jpg",
     "description": "This is a description for Item 80",
-    "price": "22",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -644,7 +644,7 @@
     "name": "Item 81",
     "picture": "/images/item81.jpg",
     "description": "This is a description for Item 81",
-    "price": "29",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -652,7 +652,7 @@
     "name": "Item 82",
     "picture": "/images/item82.jpg",
     "description": "This is a description for Item 82",
-    "price": "16",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -660,7 +660,7 @@
     "name": "Item 83",
     "picture": "/images/item83.jpg",
     "description": "This is a description for Item 83",
-    "price": "39",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -668,7 +668,7 @@
     "name": "Item 84",
     "picture": "/images/item84.jpg",
     "description": "This is a description for Item 84",
-    "price": "42",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -676,7 +676,7 @@
     "name": "Item 85",
     "picture": "/images/item85.jpg",
     "description": "This is a description for Item 85",
-    "price": "21",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -684,7 +684,7 @@
     "name": "Item 86",
     "picture": "/images/item86.jpg",
     "description": "This is a description for Item 86",
-    "price": "23",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -692,7 +692,7 @@
     "name": "Item 87",
     "picture": "/images/item87.jpg",
     "description": "This is a description for Item 87",
-    "price": "30",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -700,7 +700,7 @@
     "name": "Item 88",
     "picture": "/images/item88.jpg",
     "description": "This is a description for Item 88",
-    "price": "25",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -708,7 +708,7 @@
     "name": "Item 89",
     "picture": "/images/item89.jpg",
     "description": "This is a description for Item 89",
-    "price": "30",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -716,7 +716,7 @@
     "name": "Item 90",
     "picture": "/images/item90.jpg",
     "description": "This is a description for Item 90",
-    "price": "26",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -724,7 +724,7 @@
     "name": "Item 91",
     "picture": "/images/item91.jpg",
     "description": "This is a description for Item 91",
-    "price": "20",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -732,7 +732,7 @@
     "name": "Item 92",
     "picture": "/images/item92.jpg",
     "description": "This is a description for Item 92",
-    "price": "15",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -740,7 +740,7 @@
     "name": "Item 93",
     "picture": "/images/item93.jpg",
     "description": "This is a description for Item 93",
-    "price": "28",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -748,7 +748,7 @@
     "name": "Item 94",
     "picture": "/images/item94.jpg",
     "description": "This is a description for Item 94",
-    "price": "17",
+    "price": "4000",
     "category": "Category B"
   },
   {
@@ -756,7 +756,7 @@
     "name": "Item 95",
     "picture": "/images/item95.jpg",
     "description": "This is a description for Item 95",
-    "price": "33",
+    "price": "4000",
     "category": "Category C"
   },
   {
@@ -764,7 +764,7 @@
     "name": "Item 96",
     "picture": "/images/item96.jpg",
     "description": "This is a description for Item 96",
-    "price": "31",
+    "price": "4000",
     "category": "Category D"
   },
   {
@@ -772,7 +772,7 @@
     "name": "Item 97",
     "picture": "/images/item97.jpg",
     "description": "This is a description for Item 97",
-    "price": "24",
+    "price": "4000",
     "category": "Category E"
   },
   {
@@ -780,7 +780,7 @@
     "name": "Item 98",
     "picture": "/images/item98.jpg",
     "description": "This is a description for Item 98",
-    "price": "14",
+    "price": "4000",
     "category": "Category F"
   },
   {
@@ -788,7 +788,7 @@
     "name": "Item 99",
     "picture": "/images/item99.jpg",
     "description": "This is a description for Item 99",
-    "price": "29",
+    "price": "4000",
     "category": "Category A"
   },
   {
@@ -796,7 +796,7 @@
     "name": "Item 100",
     "picture": "/images/item100.jpg",
     "description": "This is a description for Item 100",
-    "price": "35",
+    "price": "10000",
     "category": "Category B"
   }
 ]

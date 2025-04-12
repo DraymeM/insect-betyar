@@ -5,7 +5,7 @@ interface LimitSelectorProps {
   value: number;
   options: (string | number)[];
   onLimitChange: (value: number) => void;
-  limitLabel?: string | null; // Optional prop, can be null or a string
+  limitLabel?: string | null;
 }
 
 const LimitSelector: React.FC<LimitSelectorProps> = ({
@@ -56,10 +56,9 @@ const LimitSelector: React.FC<LimitSelectorProps> = ({
               <Button
                 className="dropdown-item text-light text-center"
                 onClick={() => handleLimitChange(option)}
-                // Use Bootstrap's built-in hover class here
                 style={{
-                  backgroundColor: "transparent", // Keep it transparent
-                  color: "text-white", // Default text color
+                  backgroundColor: "transparent",
+                  color: "text-white",
                   textAlign: "center",
                 }}
                 onMouseEnter={(e) => {

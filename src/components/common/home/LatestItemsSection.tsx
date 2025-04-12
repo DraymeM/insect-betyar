@@ -51,12 +51,10 @@ const containerVariants = {
   },
 };
 
-// Memoize the component to prevent unnecessary re-renders
 const LatestItemsSection = memo(() => {
   const [latestItems, setLatestItems] = useState<LatestItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch the latest items when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,10 +66,23 @@ const LatestItemsSection = memo(() => {
         setIsLoading(false);
       }
     };
-    fetchData();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        setIsLoading(true); // Show loading state when the page becomes visible again
+        fetchData(); // Re-fetch data when coming back to the page
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    fetchData(); // Initial fetch when the component mounts
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
 
-  // Memoize the rendered items to prevent unnecessary re-renders
   const renderedItems = useMemo(
     () =>
       latestItems.map((item) => (
@@ -79,7 +90,9 @@ const LatestItemsSection = memo(() => {
           key={item.id}
           className="position-relative"
           whileInView="visible"
-          viewport={{ once: true, margin: "-1px" }}
+          initial="hidden"
+          animate="visible"
+          viewport={{ once: false, amount: 0.1 }} // Trigger when 10% of the item is in view
         >
           <motion.span
             className="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-6"
@@ -88,8 +101,6 @@ const LatestItemsSection = memo(() => {
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
             }}
             variants={badgeVariants}
-            initial="hidden"
-            animate="visible"
           >
             Új
           </motion.span>
@@ -107,7 +118,10 @@ const LatestItemsSection = memo(() => {
 
   return (
     <SectionWrapper>
-      <Container className="pb-5 d-flex flex-column align-items-center bg-dark text-white rounded shadow-sm mt-5 py-2">
+      <Container
+        key={isLoading ? "loading" : "loaded"}
+        className="pb-5 d-flex flex-column align-items-center bg-dark text-white rounded shadow-sm mt-5 py-2"
+      >
         <motion.h2
           className="mb-4 text-uppercase bg-danger mb-5 w-100 text-center rounded fw-bold text-shadow py-2"
           variants={sectionVariants}
