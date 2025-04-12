@@ -1,6 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
-import About from "../../../components/pages/About";
+import CategoryItems from "../../../components/pages/CategorItems";
 
 export const Route = createLazyFileRoute("/about/category/$category")({
-  component: About,
+  component: CategoryItems,
 });

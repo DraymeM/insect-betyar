@@ -171,7 +171,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
             </motion.h5>
 
             <motion.button
-              className="btn"
+              className="btn mx-0"
               variants={textVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
@@ -180,7 +180,7 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
                   "linear-gradient(to right, #2f336e, rgb(58, 212, 255))",
                 border: "none",
                 color: "white",
-                padding: "10px 20px",
+                padding: "10px 12px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

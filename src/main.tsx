@@ -8,20 +8,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import { useSystemTheme } from "./hooks/useSystemTheme";
 import { CartProvider } from "./context/CartContext";
-import { ToastContainer } from "react-toastify"; // Import Toastify Container
-import "react-toastify/dist/ReactToastify.css"; // Import Toastify CSS
-
-// Preload NavBar component during idle time
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const preloadNavBar = () => import("./components/common/NavBar");
-
-// Lazy load with prefetch
 const NavBar = lazy(() => {
-  // Start loading immediately but return a promise
   const promise = preloadNavBar();
   return promise;
 });
 
-// Memoized AppLayout to prevent unnecessary re-renders
 const AppLayout = React.memo(() => {
   useSystemTheme();
 
@@ -35,7 +29,6 @@ const AppLayout = React.memo(() => {
   );
 });
 
-// Create router once and reuse
 const router = createRouter({
   routeTree,
   basepath: "/insect-betyar",
@@ -45,39 +38,33 @@ const router = createRouter({
   defaultComponent: AppLayout,
 });
 
-// Start preloading other resources after initial render
 const preloadResources = () => {
   if (typeof window !== "undefined" && window.requestIdleCallback) {
-    window.requestIdleCallback(() => {
-      // Preload other critical resources here if needed
-    });
+    window.requestIdleCallback(() => {});
   }
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
-// Initial render
 root.render(
   <React.StrictMode>
     <CartProvider>
       <RouterProvider router={router} />
-      {/* Wrap your app with ToastContainer to display toasts globally */}
       <ToastContainer
         position="top-right"
-        style={{ marginTop: "3rem" }} // Added marginTop to apply spacing
-        autoClose={3000} // Toast auto-closes after 5 seconds
-        hideProgressBar={false} // Show the progress bar
+        style={{ marginTop: "3rem" }}
+        autoClose={3000}
+        hideProgressBar={false}
         newestOnTop={true}
         closeButton={true}
         rtl={false}
         pauseOnFocusLoss={true}
         draggable={true}
         pauseOnHover={true}
-        theme="colored" // Colored theme (e.g., green for success, red for error)
+        theme="colored"
       />
     </CartProvider>
   </React.StrictMode>
 );
 
-// Kick off preloading after render
 preloadResources();
