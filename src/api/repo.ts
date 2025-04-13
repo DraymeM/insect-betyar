@@ -13,21 +13,32 @@ export const fetchItems = async () => {
 export const fetchLatestItems = async () => {
   const response = await apiClient.get("/data.json");
   const items = response.data;
-  return items.slice(-5);
+  return items.slice(-6);
+};
+
+export const fetchCategoryItems = async (category: string) => {
+  const response = await apiClient.get("/data.json");
+  const items = response.data;
+  const filteredItems = items.filter(
+    (item: { category: string }) => item.category === category
+  );
+  return filteredItems.slice(-6);
 };
 
 export const fetchItemsBySearch = async (searchQuery: string) => {
   const response = await apiClient.get("/data.json");
   const items = response.data;
 
-  // If search query is empty, return all items like no search was made
   if (!searchQuery) {
     return items;
   }
-
-  // Otherwise, filter items based on the search query
   const filteredItems = items.filter((item: { name: string }) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
   return filteredItems;
+};
+export const fetchItemById = async (id: string | number) => {
+  const response = await apiClient.get("/data.json");
+  const items = response.data;
+  return items.find((item: { id: string | number }) => item.id === id);
 };

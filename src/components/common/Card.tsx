@@ -188,6 +188,11 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
                 transition: "background 0.3s ease",
               }}
               onClick={handleAddToCart}
+              whileHover={{
+                background:
+                  "linear-gradient(to right, #2f336e 0%, rgb(58, 212, 255) 100%)",
+                backgroundSize: "200%",
+              }}
             >
               <FaShoppingCart size={20} />
             </motion.button>

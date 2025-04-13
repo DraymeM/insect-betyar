@@ -117,7 +117,6 @@ const CategoryItems: React.FC = () => {
     search: "",
   });
 
-  // Update ref whenever search params change (but only in list view)
   useEffect(() => {
     if (!id) {
       previousListViewParams.current = {
@@ -127,10 +126,8 @@ const CategoryItems: React.FC = () => {
     }
   }, [search, id]);
 
-  // Initialize or restore URL params when component becomes visible
   useEffect(() => {
     if (!id) {
-      // Check if we're coming back from item detail (no search params)
       const shouldRestoreParams =
         !search.page && !search.limit && !search.search;
 
@@ -146,12 +143,9 @@ const CategoryItems: React.FC = () => {
         replace: true,
       });
     }
-  }, [id]); // Run whenever we switch between list and detail views
-
-  // ... rest of your existing code ...
+  }, [id]);
 
   if (id) {
-    // Before navigating to item detail, save current list view params
     const currentParams = {
       page: search.page || 1,
       limit: search.limit || 10,
@@ -161,7 +155,7 @@ const CategoryItems: React.FC = () => {
 
     navigate({
       to: `/about/category/${category}/item/${id}`,
-      search: undefined, // Ensure no query params
+      search: undefined,
       replace: true,
     });
     return <Outlet />;

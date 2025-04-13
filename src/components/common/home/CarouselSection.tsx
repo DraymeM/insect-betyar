@@ -15,7 +15,7 @@ export const CarouselSection = () => (
     <Carousel
       controls={true}
       indicators={true}
-      className="w-100 mb-4"
+      className="w-100 mb-0"
       style={{ maxHeight: "50vh" }}
     >
       {carouselImages.map((image, index) => (

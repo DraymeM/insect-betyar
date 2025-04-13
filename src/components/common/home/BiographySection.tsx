@@ -18,16 +18,10 @@ interface BiographySectionProps {
   goBackLink?: string;
 }
 
-const sectionVariants = {
+const fadeInOut = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      duration: 0.8,
-    },
-  },
+  visible: { opacity: 1, y: 0, transition: { type: "spring", duration: 0.5 } },
+  exit: { opacity: 0, y: 20, transition: { duration: 0.5 } }, // When leaving the viewport
 };
 
 const placeholderImage =
@@ -47,8 +41,11 @@ export const BiographySection = ({
     <Col lg={4} md={12}>
       <motion.div
         className="rounded shadow shadow-sm overflow-hidden"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        whileInView="visible"
+        exit="exit" // Trigger exit animation when leaving the viewport
+        viewport={{ once: false, amount: 0.5 }} // Adjust to control when animation triggers
+        variants={fadeInOut}
         transition={{ duration: 0.6 }}
       >
         <div
@@ -78,14 +75,17 @@ export const BiographySection = ({
     <Col lg={8} md={12}>
       <motion.div
         className={`bg-dark text-light p-4 rounded shadow shadow-sm h-100 d-flex flex-column ${textClassName}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        whileInView="visible"
+        exit="exit"
+        viewport={{ once: false, amount: 0.3 }} // Adjust to control when animation triggers
+        variants={fadeInOut}
         transition={{ duration: 0.6 }}
       >
         <h3 className="border-bottom border-secondary pb-2 mb-4">{title}</h3>
         <div className="flex-grow-1">
           {paragraphs.map((text, index) => (
-            <motion.p key={index} variants={sectionVariants}>
+            <motion.p key={index} variants={fadeInOut}>
               {text}
             </motion.p>
           ))}
@@ -96,26 +96,19 @@ export const BiographySection = ({
 
   return (
     <Container className={`py-2 ${className}`}>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, margin: "-50px" }}
-        variants={sectionVariants}
-      >
-        <Row className="g-4 mt-5">
-          {mode === "default" ? (
-            <>
-              {imageCol}
-              {textCol}
-            </>
-          ) : (
-            <>
-              {textCol}
-              {imageCol}
-            </>
-          )}
-        </Row>
-      </motion.div>
+      <Row className="g-4 mt-5">
+        {mode === "default" ? (
+          <>
+            {imageCol}
+            {textCol}
+          </>
+        ) : (
+          <>
+            {textCol}
+            {imageCol}
+          </>
+        )}
+      </Row>
     </Container>
   );
 };
