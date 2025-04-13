@@ -6,9 +6,16 @@ const CarouselSection = React.lazy(
 const LatestItemsSection = React.lazy(
   () => import("../common/home/LatestItemsSection")
 );
+const CatAItemSection = React.lazy(
+  () => import("../common/home/ChategoryAItemsSection")
+);
 const BiographySection = React.lazy(
   () => import("../common/home/BiographySection")
 );
+const HighlightItemSection = React.lazy(
+  () => import("../common/HighlightItemSection")
+);
+const HeroSection = React.lazy(() => import("../common/home/HeroSection"));
 import { TestimonialsSection } from "../common/home/TestimonialsSection";
 
 const Home: React.FC = () => {
@@ -19,7 +26,8 @@ const Home: React.FC = () => {
       role: "Art Collector",
       comment:
         "The quality of these pieces exceeded my expectations. The shipping was fast and the packaging was secure.",
-      imageUrl: "https://randomuser.me/api/portraits/women/43.jpg",
+      imageUrl:
+        "https://media.istockphoto.com/id/486721100/photo/extreme-sharp-closeup-of-wasp-head.jpg?s=612x612&w=0&k=20&c=bWEwuM2RKHEZfQZ6o8e--T6a0ExIbLGIXBBNyPozbHY=",
       rating: 5,
     },
     {
@@ -28,7 +36,8 @@ const Home: React.FC = () => {
       role: "Museum Curator",
       comment:
         "Impressive collection with authentic pieces. Our visitors loved the exhibition featuring items from this gallery.",
-      imageUrl: "https://randomuser.me/api/portraits/men/32.jpg",
+      imageUrl:
+        "https://images.pexels.com/photos/9927833/pexels-photo-9927833.jpeg",
       rating: 4,
     },
     {
@@ -37,7 +46,8 @@ const Home: React.FC = () => {
       role: "History Teacher",
       comment:
         "Perfect for educational purposes. My students were fascinated by the historical artifacts we acquired.",
-      imageUrl: "https://randomuser.me/api/portraits/women/65.jpg",
+      imageUrl:
+        "https://hips.hearstapps.com/hmg-prod/images/praying-mantis-amazing-insects-1595937972.jpg?crop=0.671xw:1.00xh;0.178xw,0&resize=640:*",
       rating: 5,
     },
   ];
@@ -52,7 +62,56 @@ const Home: React.FC = () => {
     >
       <div className="mt-md-5 mb-md-5 w-full flex-grow-2">
         <CarouselSection />
-        <LatestItemsSection />
+        <HeroSection />
+        <div id="latest-items">
+          <LatestItemsSection />
+        </div>
+        <div className="container mt-5">
+          <div className="row">
+            <HighlightItemSection
+              itemId={1}
+              title="🔝 Legjobb választás"
+              titleBg="primary-outline"
+              buttonLink="/about/category/Category A/item/1"
+            />
+            <HighlightItemSection
+              itemId={2}
+              title="✅ Kedvencem"
+              titleBg="success-outline"
+              buttonLink="/about/category/Category B/item/2"
+            />
+          </div>
+        </div>
+        <CatAItemSection />
+        <div className="container mt-5">
+          <div className="row">
+            <HighlightItemSection
+              itemId={1}
+              title="⭐ Népszerű"
+              titleBg="warning-outline"
+              buttonLink="/about/category/Category A/item/1"
+            />
+            <HighlightItemSection
+              itemId={41}
+              title="🔥 Régóta várt"
+              titleBg="danger-outline"
+              buttonLink="/about/category/Category C/item/41"
+            />
+            <HighlightItemSection
+              itemId={1}
+              title="🌴 Egyenesen Costa-Ricaból"
+              titleBg="success-outline"
+              buttonLink="/about/category/Category A/item/1"
+            />
+            <HighlightItemSection
+              itemId={41}
+              title="🚘 Balkánról"
+              titleBg="info-outline"
+              buttonLink="/about/category/Category C/item/41"
+            />
+          </div>
+        </div>
+
         <BiographySection
           imageUrl="/images/about.jpg"
           title="Our Story"

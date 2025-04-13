@@ -6,6 +6,25 @@
 .text-info {
   color: #3498db !important;
 }
+body .text-info {
+  color: #3498db !important;
+}
+
+body .bg-info {
+  background-color: #3498db !important;
+  color: white !important;
+}
+
+body .btn-info {
+  background-color: #3498db !important;
+  border-color: #3498db !important;
+  color: white !important;
+}
+
+body .btn-info:hover {
+  background-color: #2d80b3 !important;
+  border-color: #2d80b3 !important;
+}
 
 .bg-info {
   background-color: #3498db !important;
@@ -61,7 +80,7 @@ body {
   min-height: 12px !important;
 }
 .carousel-indicators .active {
-  background-color: #41d5f5 !important;
+  background-color: #3498db !important;
 }
 
 .carousel-control-prev,
