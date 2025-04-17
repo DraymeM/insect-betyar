@@ -70,13 +70,13 @@ const Home: React.FC = () => {
           <div className="row">
             <HighlightItemSection
               itemId={1}
-              title="🔝 Legjobb választás"
+              title="Legjobb választás"
               titleBg="primary-outline"
               buttonLink="/about/category/Category A/item/1"
             />
             <HighlightItemSection
               itemId={2}
-              title="✅ Kedvencem"
+              title="Kedvencem"
               titleBg="success-outline"
               buttonLink="/about/category/Category B/item/2"
             />
@@ -87,25 +87,25 @@ const Home: React.FC = () => {
           <div className="row">
             <HighlightItemSection
               itemId={1}
-              title="⭐ Népszerű"
+              title="Népszerű"
               titleBg="warning-outline"
               buttonLink="/about/category/Category A/item/1"
             />
             <HighlightItemSection
               itemId={41}
-              title="🔥 Régóta várt"
+              title="Régóta várt"
               titleBg="danger-outline"
               buttonLink="/about/category/Category C/item/41"
             />
             <HighlightItemSection
               itemId={1}
-              title="🌴 Egyenesen Costa-Ricaból"
+              title="Egyenesen Costa-Ricaból"
               titleBg="success-outline"
               buttonLink="/about/category/Category A/item/1"
             />
             <HighlightItemSection
               itemId={41}
-              title="🚘 Balkánról"
+              title="Balkánról"
               titleBg="info-outline"
               buttonLink="/about/category/Category C/item/41"
             />

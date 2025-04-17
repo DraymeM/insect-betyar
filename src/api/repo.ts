@@ -13,7 +13,7 @@ export const fetchItems = async () => {
 export const fetchLatestItems = async () => {
   const response = await apiClient.get("/data.json");
   const items = response.data;
-  return items.slice(-6);
+  return items.slice(-5);
 };
 
 export const fetchCategoryItems = async (category: string) => {
@@ -22,7 +22,7 @@ export const fetchCategoryItems = async (category: string) => {
   const filteredItems = items.filter(
     (item: { category: string }) => item.category === category
   );
-  return filteredItems.slice(-6);
+  return filteredItems.slice(-5);
 };
 
 export const fetchItemsBySearch = async (searchQuery: string) => {

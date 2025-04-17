@@ -92,12 +92,26 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
         payload: { id, name, picture, price },
       });
       setPending(false);
-    }, 800); // simulate async call
+    }, 800);
   };
+  const [cardMaxWidth, setCardMaxWidth] = useState("8rem");
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const handleResize = (e: MediaQueryListEvent | MediaQueryList) => {
+      setCardMaxWidth(e.matches ? "10rem" : "8rem");
+    };
+
+    handleResize(mediaQuery); // set on mount
+    mediaQuery.addEventListener("change", handleResize);
+
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, []);
   return (
     <motion.div
       ref={cardRef}
-      className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden position-relative"
+      className="card bg-dark  border border-2 border-secondary rounded-3 overflow-hidden position-relative"
       variants={cardVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -122,13 +136,13 @@ const Card: React.FC<CardProps> = ({ id, name, picture, price, category }) => {
       >
         <div className="p-3 pb-0">
           <motion.div
-            className="rounded-3 overflow-hidden bg-dark"
+            className="rounded-2 overflow-hidden bg-dark"
             style={{
               position: "relative",
               paddingBottom: "100%",
               width: "100%",
-              maxWidth: "9rem", // Default width on larger screens
-              minWidth: "8rem", // Default width on larger screens
+              maxWidth: cardMaxWidth,
+              minWidth: cardMaxWidth,
             }}
             variants={imageVariants}
             initial="hidden"
