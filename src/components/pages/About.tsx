@@ -37,15 +37,11 @@ const Categories: React.FC = () => {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center overflow-hidden">
+      {/* removed overflow-hidden here */}
+      <div className="d-flex flex-column justify-content-center align-items-center mt-5 w-100 text-center">
         <div
-          className="d-flex flex-wrap justify-content-center mt-5 w-100 px-0"
-          style={{
-            gap: "1.5rem",
-            minWidth: "80vw",
-            maxWidth: "100vw",
-            overflow: "hidden", // To prevent any overflow issue
-          }}
+          className="d-flex flex-wrap justify-content-center mt-5 w-100 px-3"
+          style={{ gap: "1.5rem" }}
         >
           {categories.map((cat) => (
             <CategoryCard

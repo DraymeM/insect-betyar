@@ -4,8 +4,9 @@ import {
   getCoreRowModel,
   createColumnHelper,
 } from "@tanstack/react-table";
+import { useNavigate } from "@tanstack/react-router";
 import { useCart } from "../../context/CartContext";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaArrowRight } from "react-icons/fa";
 const CartTable = lazy(() => import("../common/cart/CartTable"));
 const CartTotal = lazy(() => import("../common/cart/CartTotal"));
 const ClearCartModal = lazy(() => import("../common/cart/ClearCartModal"));
@@ -147,13 +148,18 @@ const Cart: React.FC = () => {
     getCoreRowModel: getCoreRowModel(),
   });
 
+  const navigate = useNavigate();
+
+  const handleOrderClick = () => {
+    navigate({ to: "/cart/form" });
+  };
+
   return (
     <Suspense fallback={<Spinner />}>
       <div className="container mt-5 mb-5 pt-5 d-flex flex-column justify-content-center">
         <h2 className="mb-4 text-left">
           <FaShoppingCart /> Kosár
         </h2>
-
         <CartTable
           table={table}
           isEmpty={state.items.length === 0}
@@ -181,6 +187,17 @@ const Cart: React.FC = () => {
           onConfirm={confirmClear}
           isLoading={isClearing}
         />
+
+        {state.items.length > 0 && (
+          <div className="mt-1 d-flex justify-content-center">
+            <button
+              className="btn btn-success btn-lg d-flex align-items-center gap-2"
+              onClick={handleOrderClick}
+            >
+              Megrendelés leadása <FaArrowRight />
+            </button>
+          </div>
+        )}
       </div>
     </Suspense>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useDebouncedCallback } from "use-debounce";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -41,10 +41,24 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     },
     tap: { scale: 0.98 },
   };
+  const [cardMaxWidth, setCardMaxWidth] = useState("8rem");
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+
+    const handleResize = (e: MediaQueryListEvent | MediaQueryList) => {
+      setCardMaxWidth(e.matches ? "10rem" : "8rem");
+    };
+
+    handleResize(mediaQuery); // set on mount
+    mediaQuery.addEventListener("change", handleResize);
+
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, []);
 
   return (
     <motion.div
-      className="card bg-dark mt-1 mb-1 border border-2 border-secondary rounded-4 overflow-hidden h-100"
+      className="card bg-dark mt-1  border border-2 border-secondary rounded-3 overflow-hidden h-100"
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -56,13 +70,13 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
       {/* Larger Framed Image Container with 1:1 Aspect Ratio */}
       <div className="p-3 pb-0">
         <div
-          className="border rounded-3 overflow-hidden bg-dark"
+          className="border rounded-2 overflow-hidden bg-dark"
           style={{
             position: "relative",
             paddingBottom: "100%",
             width: "100%",
-            maxWidth: "9rem",
-            minWidth: "8rem",
+            maxWidth: cardMaxWidth,
+            minWidth: cardMaxWidth,
           }}
         >
           <motion.img

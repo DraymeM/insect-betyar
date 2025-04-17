@@ -12,9 +12,10 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ContactImport } from './routes/contact'
-import { Route as CartImport } from './routes/cart'
 import { Route as IndexImport } from './routes/index'
+import { Route as CartIndexImport } from './routes/cart/index'
 import { Route as AboutIndexImport } from './routes/about/index'
+import { Route as CartFormImport } from './routes/cart/form'
 import { Route as AboutCategoryCategoryImport } from './routes/about/category/$category'
 import { Route as AboutCategoryCategoryItemIdImport } from './routes/about/category/$category/item/$id'
 
@@ -26,21 +27,27 @@ const ContactRoute = ContactImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/contact.lazy').then((d) => d.Route))
 
-const CartRoute = CartImport.update({
-  id: '/cart',
-  path: '/cart',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
+const CartIndexRoute = CartIndexImport.update({
+  id: '/cart/',
+  path: '/cart/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AboutIndexRoute = AboutIndexImport.update({
   id: '/about/',
   path: '/about/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CartFormRoute = CartFormImport.update({
+  id: '/cart/form',
+  path: '/cart/form',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,13 +81,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/cart': {
-      id: '/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof CartImport
-      parentRoute: typeof rootRoute
-    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -88,11 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactImport
       parentRoute: typeof rootRoute
     }
+    '/cart/form': {
+      id: '/cart/form'
+      path: '/cart/form'
+      fullPath: '/cart/form'
+      preLoaderRoute: typeof CartFormImport
+      parentRoute: typeof rootRoute
+    }
     '/about/': {
       id: '/about/'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/cart/': {
+      id: '/cart/'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartIndexImport
       parentRoute: typeof rootRoute
     }
     '/about/category/$category': {
@@ -129,18 +143,20 @@ const AboutCategoryCategoryRouteWithChildren =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/cart/form': typeof CartFormRoute
   '/about': typeof AboutIndexRoute
+  '/cart': typeof CartIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
   '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/cart/form': typeof CartFormRoute
   '/about': typeof AboutIndexRoute
+  '/cart': typeof CartIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
   '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
 }
@@ -148,9 +164,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
+  '/cart/form': typeof CartFormRoute
   '/about/': typeof AboutIndexRoute
+  '/cart/': typeof CartIndexRoute
   '/about/category/$category': typeof AboutCategoryCategoryRouteWithChildren
   '/about/category/$category/item/$id': typeof AboutCategoryCategoryItemIdRoute
 }
@@ -159,25 +176,28 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cart'
     | '/contact'
+    | '/cart/form'
     | '/about'
+    | '/cart'
     | '/about/category/$category'
     | '/about/category/$category/item/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/cart'
     | '/contact'
+    | '/cart/form'
     | '/about'
+    | '/cart'
     | '/about/category/$category'
     | '/about/category/$category/item/$id'
   id:
     | '__root__'
     | '/'
-    | '/cart'
     | '/contact'
+    | '/cart/form'
     | '/about/'
+    | '/cart/'
     | '/about/category/$category'
     | '/about/category/$category/item/$id'
   fileRoutesById: FileRoutesById
@@ -185,17 +205,19 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CartRoute: typeof CartRoute
   ContactRoute: typeof ContactRoute
+  CartFormRoute: typeof CartFormRoute
   AboutIndexRoute: typeof AboutIndexRoute
+  CartIndexRoute: typeof CartIndexRoute
   AboutCategoryCategoryRoute: typeof AboutCategoryCategoryRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CartRoute: CartRoute,
   ContactRoute: ContactRoute,
+  CartFormRoute: CartFormRoute,
   AboutIndexRoute: AboutIndexRoute,
+  CartIndexRoute: CartIndexRoute,
   AboutCategoryCategoryRoute: AboutCategoryCategoryRouteWithChildren,
 }
 
@@ -210,23 +232,27 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/cart",
         "/contact",
+        "/cart/form",
         "/about/",
+        "/cart/",
         "/about/category/$category"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/cart": {
-      "filePath": "cart.tsx"
-    },
     "/contact": {
       "filePath": "contact.tsx"
     },
+    "/cart/form": {
+      "filePath": "cart/form.tsx"
+    },
     "/about/": {
       "filePath": "about/index.tsx"
+    },
+    "/cart/": {
+      "filePath": "cart/index.tsx"
     },
     "/about/category/$category": {
       "filePath": "about/category/$category.tsx",
