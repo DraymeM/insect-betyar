@@ -8,7 +8,7 @@ export default defineConfig({
     TanStackRouterVite({ target: "react", autoCodeSplitting: true }),
     react(),
   ],
-  base: "/insect-betyar/", // Alapértelmezett URL bázis
+  base: "/insect-betyar/",
   build: {
     outDir: "insect-betyar", // Kimeneti könyvtár
     assetsDir: "assets",
