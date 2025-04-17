@@ -54,7 +54,7 @@ const InfoDropdown: React.FC = () => {
 
       {showDropdown && (
         <div
-          className="dropdown-menu show bg-dark mt-2"
+          className="dropdown-menu show bg-dark mt-1 border-secondary pb-2"
           style={{
             position: "absolute",
             left: 0,
