@@ -1,6 +1,5 @@
 {
   "name": "insect-betyar",
-  "homepage": "https://DraymeM.github.io/insect-betyar/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.72.2",
