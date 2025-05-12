@@ -1,4 +1,14 @@
-# React + TypeScript + Vite + TanStack + Bootstrap
+# Insect-Betyár 🐛🛒
+
+**Insect-Betyár** is a quirky and functional e-commerce web app dedicated to insect-related products. Users can browse bug-themed items, add them to a cart, and experience a clean shopping flow — all built with a fast, modern frontend stack.
+
+
+## 🌐 Live Demo
+
+Check out the live demo: [Insect-Betyár Live Demo](https://danielmarkus.web.elte.hu/insect-betyar/)
+
+## 🧰 Tech Stack: React + TypeScript + Vite + TanStack + Bootstrap
+
 <table>
   <tr>
     <td align="center">
@@ -16,12 +26,11 @@
     <td align="center">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap Logo" width="100" height="100" />
     </td>
-        <td align="center">
-      <img src="https://cdn.worldvectorlogo.com/logos/framer-motion.svg" alt="Bootstrap Logo" width="100" height="100" />
+    <td align="center">
+      <img src="https://cdn.worldvectorlogo.com/logos/framer-motion.svg" alt="Framer Motion Logo" width="100" height="100" />
     </td>
-    </td>
-        <td align="center">
-      <img src="https://miro.medium.com/v2/resize:fit:1080/1*9l9kbbiuFHWVqcjUJZcdYw.png" alt="Bootstrap Logo" width="100" height="100" />
+    <td align="center">
+      <img src="https://miro.medium.com/v2/resize:fit:1080/1*9l9kbbiuFHWVqcjUJZcdYw.png" alt="Zod Logo" width="100" height="100" />
     </td>
   </tr>
 </table>
